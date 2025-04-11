@@ -6,6 +6,6 @@ import net.minecraft.world.level.block.state.properties.BlockSetType;
 
 public class WoodYouDyeTrapdoorBlock extends TrapDoorBlock {
     public WoodYouDyeTrapdoorBlock(BlockSetType type, BlockBehaviour.Properties settings) {
-        super(type, settings.noOcclusion());
+        super(settings.noOcclusion(), type);
     }
 }

@@ -34,7 +34,5 @@ public abstract class WoodTypeMixin {
         register(WoodYouDyeSignTypes.LIGHT_GRAY_WOOD);
         register(WoodYouDyeSignTypes.GRAY_WOOD);
         register(WoodYouDyeSignTypes.BLACK_WOOD);
-
     }
-
 }

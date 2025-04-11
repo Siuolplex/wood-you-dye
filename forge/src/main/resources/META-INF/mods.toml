@@ -1,0 +1,37 @@
+modLoader = "javafml"
+loaderVersion = "[47,)"
+issueTrackerURL = ""
+license = "LGPL-3.0-only"
+
+[[mods]]
+modId = "wood_you_dye"
+version = "${version}"
+displayName = "Wood You Dye"
+displayURL = ""
+authors = "Siuolplex"
+credits = ''''
+Siuolplex - Mod Author
+Klayzer - Russian Translation
+WoodierTexas - Older Version ArchitecturyExtensions Support
+'''
+description = '''
+A Mod thats all about dyable wooden planks!
+'''
+logoFile = "icon.png"
+
+[[dependencies.wood_you_dye]]
+modId = "forge"
+mandatory = true
+versionRange = "[21,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.wood_you_dye]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.20,1.20.1]"
+ordering = "NONE"
+side = "BOTH"
+
+[[mixins]]
+config="wood_you_dye.mixins.json"

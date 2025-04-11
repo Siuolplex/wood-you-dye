@@ -212,7 +212,7 @@ public class WoodYouDyeItems {
 
     public static Item register(String id, Item item) {
         itemGroupHolder.add(item);
-        return Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath("wood_you_dye", id), item);
+        return Registry.register(BuiltInRegistries.ITEM, new ResourceLocation("wood_you_dye", id), item);
     }
 
     public static void init() {}

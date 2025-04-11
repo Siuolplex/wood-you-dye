@@ -4,12 +4,9 @@ import io.siuolplex.wood_you_dye.block.sign.WoodYouDyeSign;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.SignEditScreen;
 import net.minecraft.client.renderer.Sheets;
-import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
@@ -17,8 +14,6 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 // Found here: https://github.com/TerraformersMC/Terraform/blob/1.19.4/terraform-wood-api-v1/src/main/java/com/terraformersmc/terraform/sign/mixin/MixinSignEditScreen.java
 @Mixin(SignEditScreen.class)
 public class SignEditScreenMixin{
-    @Shadow @Nullable private SignRenderer.SignModel signModel;
-
     @ModifyVariable(method = "renderSignBackground", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/client/renderer/Sheets;getSignMaterial(Lnet/minecraft/world/level/block/state/properties/WoodType;)Lnet/minecraft/client/resources/model/Material;"))
     private Material getSignTextureId(Material material, GuiGraphics context, BlockState state) {
         if (state.getBlock() instanceof WoodYouDyeSign sign) {

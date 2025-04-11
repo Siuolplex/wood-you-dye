@@ -251,7 +251,7 @@ public class WoodYouDyeBlocks {
 
     public static Block register(String id, Block block) {
         blockHolder.add(block);
-        return Registry.register(BuiltInRegistries.BLOCK, ResourceLocation.fromNamespaceAndPath("wood_you_dye", id), block);
+        return Registry.register(BuiltInRegistries.BLOCK, new ResourceLocation("wood_you_dye", id), block);
     }
 
     public static void init() {}

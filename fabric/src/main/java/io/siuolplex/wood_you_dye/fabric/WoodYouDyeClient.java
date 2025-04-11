@@ -11,10 +11,8 @@ public class WoodYouDyeClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         for (DyeColor color : DyeColor.values()) {
-            BlockRenderLayerMap.INSTANCE.putBlock(BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath("wood_you_dye", color.toString().toLowerCase() + "_plank_door")), RenderType.translucent());
-            BlockRenderLayerMap.INSTANCE.putBlock(BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath("wood_you_dye", color.toString().toLowerCase() + "_plank_trapdoor")), RenderType.translucent());
+            BlockRenderLayerMap.INSTANCE.putBlock(BuiltInRegistries.BLOCK.get(ResourceLocation.tryBuild("wood_you_dye", color.toString().toLowerCase() + "_plank_door")), RenderType.translucent());
+            BlockRenderLayerMap.INSTANCE.putBlock(BuiltInRegistries.BLOCK.get(ResourceLocation.tryBuild("wood_you_dye", color.toString().toLowerCase() + "_plank_trapdoor")), RenderType.translucent());
         }
-
-
     }
 }

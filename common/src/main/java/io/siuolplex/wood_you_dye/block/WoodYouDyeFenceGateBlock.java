@@ -5,6 +5,6 @@ import net.minecraft.world.level.block.state.properties.WoodType;
 
 public class WoodYouDyeFenceGateBlock extends FenceGateBlock {
     public WoodYouDyeFenceGateBlock(WoodType type, Properties settings) {
-        super(type, settings);
+        super(settings, type);
     }
 }

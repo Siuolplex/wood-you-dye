@@ -24,7 +24,7 @@ public class HangingSignEditScreenMixin {
     private void woodYouDye$initSignTextureId(SignBlockEntity signBlockEntity, boolean bl, boolean bl2, CallbackInfo ci) {
         if (signBlockEntity.getBlockState().getBlock() instanceof WoodYouDyeHangingSign sign) {
             ResourceLocation guiTexture = sign.getGuiTexture();
-            this.texture = ResourceLocation.fromNamespaceAndPath(guiTexture.getNamespace(), guiTexture.getPath() + ".png");
+            this.texture = new ResourceLocation(guiTexture.getNamespace(), guiTexture.getPath() + ".png");
         }
     }
 }

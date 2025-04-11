@@ -6,6 +6,6 @@ import net.minecraft.world.level.block.state.properties.BlockSetType;
 
 public class WoodYouDyeWoodenButtonBlock extends ButtonBlock {
     public WoodYouDyeWoodenButtonBlock(BlockSetType type, int pressTicks, BlockBehaviour.Properties settings) {
-        super(type, pressTicks, settings.noCollission());
+        super(settings.noCollission(), type, pressTicks, true);
     }
 }

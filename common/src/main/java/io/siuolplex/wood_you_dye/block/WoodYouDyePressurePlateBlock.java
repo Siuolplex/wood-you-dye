@@ -6,6 +6,6 @@ import net.minecraft.world.level.block.state.properties.BlockSetType;
 
 public class WoodYouDyePressurePlateBlock extends PressurePlateBlock {
     public WoodYouDyePressurePlateBlock(BlockSetType type, BlockBehaviour.Properties settings) {
-        super(type, settings.noCollission());
+        super(Sensitivity.EVERYTHING, settings.noCollission(), type);
     }
 }

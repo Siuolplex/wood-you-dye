@@ -27,7 +27,7 @@ public class WoodYouDye implements ModInitializer {
         });
 
         ResourceManagerHelper.registerBuiltinResourcePack(
-                ResourceLocation.fromNamespaceAndPath("wood_you_dye", "programmer_art"),
+                ResourceLocation.tryBuild("wood_you_dye", "programmer_art"),
                 FabricLoader.getInstance().getModContainer("wood_you_dye").get(),
                 Component.literal("Wood you Dye Programmer Art"),
                 ResourcePackActivationType.NORMAL);

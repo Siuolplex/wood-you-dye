@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_cyan_planks": {
+      "conditions": {
+        "items": [
+          {
+            "items": [ "wood_you_dye:cyan_planks" ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "wood_you_dye:cyan_plank_pressure_plate"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_cyan_planks"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "wood_you_dye:cyan_plank_pressure_plate"
+    ]
+  }
+}

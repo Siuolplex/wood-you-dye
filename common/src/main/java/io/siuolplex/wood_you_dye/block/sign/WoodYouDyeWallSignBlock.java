@@ -11,8 +11,8 @@ public class WoodYouDyeWallSignBlock extends WallSignBlock implements WoodYouDye
     private final ResourceLocation texture;
 
     public WoodYouDyeWallSignBlock(WoodType type, BlockBehaviour.Properties settings) {
-        super(type, settings.noOcclusion().noCollission());
-        this.texture = ResourceLocation.fromNamespaceAndPath("wood_you_dye", "entity/signs/" + type.name());;
+        super(settings.noOcclusion().noCollission(), type);
+        this.texture = new ResourceLocation("wood_you_dye", "entity/signs/" + type.name());;
     }
 
     @Override

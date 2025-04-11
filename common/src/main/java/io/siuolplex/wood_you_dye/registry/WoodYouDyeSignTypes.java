@@ -24,7 +24,5 @@ public class WoodYouDyeSignTypes {
     public static WoodType BLACK_WOOD = new WoodType("black", WOOD_YOU_DYE_WOOD);
 
 
-
-
     public static void init() {}
 }

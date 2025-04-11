@@ -12,9 +12,9 @@ public class WoodYouDyeHangingSignBlock extends CeilingHangingSignBlock implemen
     private final ResourceLocation texture;
 
     public WoodYouDyeHangingSignBlock(WoodType type, BlockBehaviour.Properties settings) {
-        super(type, settings);
-        this.texture = ResourceLocation.fromNamespaceAndPath("wood_you_dye", "entity/signs/hanging/" + type.name());
-        this.guiTexture = ResourceLocation.fromNamespaceAndPath("wood_you_dye", "textures/gui/hanging_sign/" + type.name());
+        super(settings, type);
+        this.texture = new ResourceLocation("wood_you_dye", "entity/signs/hanging/" + type.name());
+        this.guiTexture = new ResourceLocation("wood_you_dye", "textures/gui/hanging_sign/" + type.name());
     }
 
     @Override
