@@ -3,17 +3,14 @@ package io.siuolplex.wood_you_dye.registry;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.SignItem;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class WoodYouDyeItems {
     public static Set<Item> itemGroupHolder = new LinkedHashSet<>();
-    public static final Item RED_PLANKS = register("red_planks", new BlockItem(WoodYouDyeBlocks.RED_PLANKS, sharedItemSettings()));
+    /*public static final Item RED_PLANKS = register("red_planks", new BlockItem(WoodYouDyeBlocks.RED_PLANKS, sharedItemSettings()));
     public static final Item RED_PLANK_SLAB = register("red_plank_slab", new BlockItem(WoodYouDyeBlocks.RED_PLANK_SLAB, sharedItemSettings()));
     public static final Item RED_PLANK_STAIRS = register("red_plank_stairs", new BlockItem(WoodYouDyeBlocks.RED_PLANK_STAIRS, sharedItemSettings()));
     public static final Item RED_PLANK_FENCE = register("red_plank_fence", new BlockItem(WoodYouDyeBlocks.RED_PLANK_FENCE, sharedItemSettings()));
@@ -204,8 +201,7 @@ public class WoodYouDyeItems {
     public static final Item BLACK_PLANK_TRAPDOOR = register("black_plank_trapdoor", new BlockItem(WoodYouDyeBlocks.BLACK_PLANK_TRAPDOOR, sharedItemSettings()));
     public static final Item BLACK_PLANK_SIGN = register("black_plank_sign", new SignItem(sharedItemSettings(), WoodYouDyeBlocks.BLACK_PLANK_SIGN, WoodYouDyeBlocks.BLACK_PLANK_WALL_SIGN));
     public static final Item BLACK_PLANK_HANGING_SIGN = register("black_plank_hanging_sign", new HangingSignItem(WoodYouDyeBlocks.BLACK_PLANK_HANGING_SIGN, WoodYouDyeBlocks.BLACK_PLANK_WALL_HANGING_SIGN, sharedItemSettings()));
-
-
+     */
     public static Item.Properties sharedItemSettings() {
         return new Item.Properties();
     }

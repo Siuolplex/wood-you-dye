@@ -1,29 +1,19 @@
 package io.siuolplex.wood_you_dye.registry;
 
-import io.siuolplex.wood_you_dye.block.*;
-import io.siuolplex.wood_you_dye.block.sign.WoodYouDyeHangingSignBlock;
-import io.siuolplex.wood_you_dye.block.sign.WoodYouDyeHangingWallSignBlock;
-import io.siuolplex.wood_you_dye.block.sign.WoodYouDyeSignBlock;
-import io.siuolplex.wood_you_dye.block.sign.WoodYouDyeWallSignBlock;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.FenceBlock;
-import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
-import net.minecraft.world.level.material.MapColor;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import static io.siuolplex.wood_you_dye.registry.WoodYouDyeSignTypes.*;
-
 public class WoodYouDyeBlocks {
     public static Set<Block> blockHolder = new LinkedHashSet<>();
-    public static final Block RED_PLANKS = register("red_planks", new Block(commonSettings().mapColor(MapColor.COLOR_RED)));
+    /*public static final Block RED_PLANKS = register("red_planks", new Block(commonSettings().mapColor(MapColor.COLOR_RED)));
     public static final Block RED_PLANK_SLAB = register("red_plank_slab", new SlabBlock(commonSettings().mapColor(MapColor.COLOR_RED)));
     public static final Block RED_PLANK_STAIRS = register("red_plank_stairs", new WoodYouDyeStairBlock(RED_PLANKS.defaultBlockState(), commonSettings().mapColor(MapColor.COLOR_RED)));
     public static final Block RED_PLANK_FENCE = register("red_plank_fence", new FenceBlock(commonSettings().mapColor(MapColor.COLOR_RED)));
@@ -246,6 +236,8 @@ public class WoodYouDyeBlocks {
     public static final Block BLACK_PLANK_WALL_SIGN = register("black_plank_wall_sign", new WoodYouDyeWallSignBlock(BLACK_WOOD, commonSettings().mapColor(MapColor.COLOR_BLACK)));
     public static final Block BLACK_PLANK_HANGING_SIGN = register("black_plank_hanging_sign", new WoodYouDyeHangingSignBlock(BLACK_WOOD, commonSettings().mapColor(MapColor.COLOR_BLACK)));
     public static final Block BLACK_PLANK_WALL_HANGING_SIGN = register("black_plank_wall_hanging_sign", new WoodYouDyeHangingWallSignBlock(BLACK_WOOD, commonSettings().mapColor(MapColor.COLOR_BLACK)));
+
+     */
 
     public static String dumpedIds = "Dumped IDs:\n";
 

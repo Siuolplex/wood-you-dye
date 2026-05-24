@@ -1,35 +1,14 @@
 package io.siuolplex.wood_you_dye.fabric;
 
-import io.siuolplex.wood_you_dye.registry.WoodYouDyeBlocks;
-import io.siuolplex.wood_you_dye.registry.WoodYouDyeItems;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.data.PackOutput;
-import net.minecraft.data.models.BlockModelGenerators;
-import net.minecraft.data.models.ItemModelGenerators;
-import net.minecraft.data.models.model.ModelTemplates;
-import net.minecraft.data.models.model.TextureMapping;
-import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.data.recipes.ShapelessRecipeBuilder;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.block.*;
-
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
+    @Override
+    public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
+
+    }
+    /*
     private static final List<Item> DYES_LIST = List.of(Items.RED_DYE, Items.ORANGE_DYE, Items.YELLOW_DYE,
             Items.LIME_DYE, Items.GREEN_DYE, Items.BLUE_DYE, Items.CYAN_DYE, Items.LIGHT_BLUE_DYE, Items.PURPLE_DYE,
             Items.PINK_DYE, Items.MAGENTA_DYE, Items.BROWN_DYE, Items.WHITE_DYE, Items.LIGHT_GRAY_DYE, Items.GRAY_DYE, Items.BLACK_DYE);
@@ -107,10 +86,10 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
             WoodYouDyeItems.BROWN_PLANK_HANGING_SIGN, WoodYouDyeItems.WHITE_PLANK_HANGING_SIGN, WoodYouDyeItems.LIGHT_GRAY_PLANK_HANGING_SIGN,
             WoodYouDyeItems.GRAY_PLANK_HANGING_SIGN, WoodYouDyeItems.BLACK_PLANK_HANGING_SIGN);
 
-    private static final List<Block> RED_PLANKS = List.of(WoodYouDyeBlocks.RED_PLANKS, WoodYouDyeBlocks.RED_PLANK_SLAB, 
-            WoodYouDyeBlocks.RED_PLANK_STAIRS, WoodYouDyeBlocks.RED_PLANK_FENCE, WoodYouDyeBlocks.RED_PLANK_FENCE_GATE, 
-            WoodYouDyeBlocks.RED_PLANK_BUTTON, WoodYouDyeBlocks.RED_PLANK_PRESSURE_PLATE, WoodYouDyeBlocks.RED_PLANK_DOOR, 
-            WoodYouDyeBlocks.RED_PLANK_TRAPDOOR, WoodYouDyeBlocks.RED_PLANK_SIGN, WoodYouDyeBlocks.RED_PLANK_WALL_SIGN, 
+    private static final List<Block> RED_PLANKS = List.of(WoodYouDyeBlocks.RED_PLANKS, WoodYouDyeBlocks.RED_PLANK_SLAB,
+            WoodYouDyeBlocks.RED_PLANK_STAIRS, WoodYouDyeBlocks.RED_PLANK_FENCE, WoodYouDyeBlocks.RED_PLANK_FENCE_GATE,
+            WoodYouDyeBlocks.RED_PLANK_BUTTON, WoodYouDyeBlocks.RED_PLANK_PRESSURE_PLATE, WoodYouDyeBlocks.RED_PLANK_DOOR,
+            WoodYouDyeBlocks.RED_PLANK_TRAPDOOR, WoodYouDyeBlocks.RED_PLANK_SIGN, WoodYouDyeBlocks.RED_PLANK_WALL_SIGN,
             WoodYouDyeBlocks.RED_PLANK_HANGING_SIGN, WoodYouDyeBlocks.RED_PLANK_WALL_HANGING_SIGN);
 
     private static final List<Block> YELLOW_PLANKS = List.of(WoodYouDyeBlocks.YELLOW_PLANKS, WoodYouDyeBlocks.YELLOW_PLANK_SLAB,
@@ -206,7 +185,7 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
     private static final List<List<Block>> COLORS_OF_PLANKS = List.of(RED_PLANKS, YELLOW_PLANKS, ORANGE_PLANKS, LIME_PLANKS,
             GREEN_PLANKS, BLUE_PLANKS, CYAN_PLANKS, LIGHT_BLUE_PLANKS, PINK_PLANKS, PURPLE_PLANKS, MAGENTA_PLANKS,
             BROWN_PLANKS, WHITE_PLANKS, LIGHT_GRAY_PLANKS, GRAY_PLANKS, BLACK_PLANKS);
-    
+
     @Override
     public void onInitializeDataGenerator(FabricDataGenerator generator) {
         FabricDataGenerator.Pack pack = generator.createPack();
@@ -531,4 +510,5 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
             return "WoodYouDyeRecipes";
         }
     }
+     */
 }

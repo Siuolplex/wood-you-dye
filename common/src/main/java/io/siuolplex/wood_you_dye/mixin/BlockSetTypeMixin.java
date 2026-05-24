@@ -1,13 +1,13 @@
 package io.siuolplex.wood_you_dye.mixin;
 
-import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
-@Mixin(WoodType.class)
-public interface WoodTypeMixin {
+@Mixin(BlockSetType.class)
+public interface BlockSetTypeMixin {
     @Invoker("register")
-    static WoodType registerWoodType(WoodType type) {
+    static BlockSetType registerBlockSetType(BlockSetType type) {
         throw new AssertionError();
     }
 }
