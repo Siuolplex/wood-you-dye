@@ -1,0 +1,29 @@
+{
+  "sources": [
+    {
+      "type": "minecraft:paletted_permutations",
+      "palette_key": "wood_you_dye:dyed_wood/color_palettes/trim_palette",
+      "permutations": {
+        "red": "wood_you_dye:dyed_wood/color_palettes/standard/red",
+        "orange": "wood_you_dye:dyed_wood/color_palettes/standard/orange",
+        "yellow": "wood_you_dye:dyed_wood/color_palettes/standard/yellow",
+        "lime": "wood_you_dye:dyed_wood/color_palettes/standard/lime",
+        "green": "wood_you_dye:dyed_wood/color_palettes/standard/green",
+        "cyan": "wood_you_dye:dyed_wood/color_palettes/standard/cyan",
+        "blue": "wood_you_dye:dyed_wood/color_palettes/standard/blue",
+        "purple": "wood_you_dye:dyed_wood/color_palettes/standard/purple",
+        "magenta": "wood_you_dye:dyed_wood/color_palettes/standard/magenta",
+        "pink": "wood_you_dye:dyed_wood/color_palettes/standard/pink",
+        "brown": "wood_you_dye:dyed_wood/color_palettes/standard/brown",
+        "light_blue": "wood_you_dye:dyed_wood/color_palettes/standard/light_blue",
+        "white": "wood_you_dye:dyed_wood/color_palettes/standard/white",
+        "light_gray": "wood_you_dye:dyed_wood/color_palettes/standard/light_gray",
+        "gray": "wood_you_dye:dyed_wood/color_palettes/standard/gray",
+        "black": "wood_you_dye:dyed_wood/color_palettes/standard/black"
+      },
+      "textures": [
+        "wood_you_dye:dyed_wood/gui/hanging_sign"
+      ]
+    }
+  ]
+}

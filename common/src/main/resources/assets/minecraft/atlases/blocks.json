@@ -1,0 +1,101 @@
+{
+  "sources": [
+    {
+      "type": "minecraft:paletted_permutations",
+      "palette_key": "wood_you_dye:dyed_wood/color_palettes/standard_palette",
+      "permutations": {
+        "red": "wood_you_dye:dyed_wood/color_palettes/standard/red",
+        "orange": "wood_you_dye:dyed_wood/color_palettes/standard/orange",
+        "yellow": "wood_you_dye:dyed_wood/color_palettes/standard/yellow",
+        "lime": "wood_you_dye:dyed_wood/color_palettes/standard/lime",
+        "green": "wood_you_dye:dyed_wood/color_palettes/standard/green",
+        "cyan": "wood_you_dye:dyed_wood/color_palettes/standard/cyan",
+        "blue": "wood_you_dye:dyed_wood/color_palettes/standard/blue",
+        "purple": "wood_you_dye:dyed_wood/color_palettes/standard/purple",
+        "magenta": "wood_you_dye:dyed_wood/color_palettes/standard/magenta",
+        "pink": "wood_you_dye:dyed_wood/color_palettes/standard/pink",
+        "brown": "wood_you_dye:dyed_wood/color_palettes/standard/brown",
+        "light_blue": "wood_you_dye:dyed_wood/color_palettes/standard/light_blue",
+        "white": "wood_you_dye:dyed_wood/color_palettes/standard/white",
+        "light_gray": "wood_you_dye:dyed_wood/color_palettes/standard/light_gray",
+        "gray": "wood_you_dye:dyed_wood/color_palettes/standard/gray",
+        "black": "wood_you_dye:dyed_wood/color_palettes/standard/black"
+      },
+      "textures": [
+        "wood_you_dye:dyed_wood/block/standard/planks",
+        "wood_you_dye:dyed_wood/block/standard/door_top",
+        "wood_you_dye:dyed_wood/block/standard/door_bottom",
+        "wood_you_dye:dyed_wood/block/standard/trapdoor",
+        "wood_you_dye:dyed_wood/block/standard/log",
+        "wood_you_dye:dyed_wood/block/standard/stripped_log",
+        "wood_you_dye:dyed_wood/block/standard/wood",
+        "wood_you_dye:dyed_wood/block/standard/stripped_wood"
+
+      ]
+    },
+    {
+      "type": "minecraft:paletted_permutations",
+      "palette_key": "wood_you_dye:dyed_wood/color_palettes/nether_palette",
+      "permutations": {
+        "red": "wood_you_dye:dyed_wood/color_palettes/nether/red",
+        "orange": "wood_you_dye:dyed_wood/color_palettes/nether/orange",
+        "yellow": "wood_you_dye:dyed_wood/color_palettes/nether/yellow",
+        "lime": "wood_you_dye:dyed_wood/color_palettes/nether/lime",
+        "green": "wood_you_dye:dyed_wood/color_palettes/nether/green",
+        "cyan": "wood_you_dye:dyed_wood/color_palettes/nether/cyan",
+        "blue": "wood_you_dye:dyed_wood/color_palettes/nether/blue",
+        "purple": "wood_you_dye:dyed_wood/color_palettes/nether/purple",
+        "magenta": "wood_you_dye:dyed_wood/color_palettes/nether/magenta",
+        "pink": "wood_you_dye:dyed_wood/color_palettes/nether/pink",
+        "brown": "wood_you_dye:dyed_wood/color_palettes/nether/brown",
+        "light_blue": "wood_you_dye:dyed_wood/color_palettes/nether/light_blue",
+        "white": "wood_you_dye:dyed_wood/color_palettes/nether/white",
+        "light_gray": "wood_you_dye:dyed_wood/color_palettes/nether/light_gray",
+        "gray": "wood_you_dye:dyed_wood/color_palettes/nether/gray",
+        "black": "wood_you_dye:dyed_wood/color_palettes/nether/black"
+      },
+      "textures": [
+        "wood_you_dye:dyed_wood/block/nether/planks",
+        "wood_you_dye:dyed_wood/block/nether/door_top",
+        "wood_you_dye:dyed_wood/block/nether/door_bottom",
+        "wood_you_dye:dyed_wood/block/nether/trapdoor",
+        "wood_you_dye:dyed_wood/block/nether/log",
+        "wood_you_dye:dyed_wood/block/nether/stripped_log",
+        "wood_you_dye:dyed_wood/block/nether/wood",
+        "wood_you_dye:dyed_wood/block/nether/stripped_wood"
+      ]
+    },
+    {
+      "type": "minecraft:paletted_permutations",
+      "palette_key": "wood_you_dye:dyed_wood/color_palettes/bamboo_palette",
+      "permutations": {
+        "red": "wood_you_dye:dyed_wood/color_palettes/bamboo/red",
+        "orange": "wood_you_dye:dyed_wood/color_palettes/bamboo/orange",
+        "yellow": "wood_you_dye:dyed_wood/color_palettes/bamboo/yellow",
+        "lime": "wood_you_dye:dyed_wood/color_palettes/bamboo/lime",
+        "green": "wood_you_dye:dyed_wood/color_palettes/bamboo/green",
+        "cyan": "wood_you_dye:dyed_wood/color_palettes/bamboo/cyan",
+        "blue": "wood_you_dye:dyed_wood/color_palettes/bamboo/blue",
+        "purple": "wood_you_dye:dyed_wood/color_palettes/bamboo/purple",
+        "magenta": "wood_you_dye:dyed_wood/color_palettes/bamboo/magenta",
+        "pink": "wood_you_dye:dyed_wood/color_palettes/bamboo/pink",
+        "brown": "wood_you_dye:dyed_wood/color_palettes/bamboo/brown",
+        "light_blue": "wood_you_dye:dyed_wood/color_palettes/bamboo/light_blue",
+        "white": "wood_you_dye:dyed_wood/color_palettes/bamboo/white",
+        "light_gray": "wood_you_dye:dyed_wood/color_palettes/bamboo/light_gray",
+        "gray": "wood_you_dye:dyed_wood/color_palettes/bamboo/gray",
+        "black": "wood_you_dye:dyed_wood/color_palettes/bamboo/black"
+      },
+      "textures": [
+        "wood_you_dye:dyed_wood/block/bamboo/planks",
+        "wood_you_dye:dyed_wood/block/bamboo/door_top",
+        "wood_you_dye:dyed_wood/block/bamboo/door_bottom",
+        "wood_you_dye:dyed_wood/block/bamboo/trapdoor",
+        "wood_you_dye:dyed_wood/block/bamboo/log",
+        "wood_you_dye:dyed_wood/block/bamboo/stripped_log",
+        "wood_you_dye:dyed_wood/block/bamboo/wood",
+        "wood_you_dye:dyed_wood/block/bamboo/stripped_wood"
+      ]
+    }
+  ]
+}

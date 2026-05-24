@@ -287,7 +287,9 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
                             blockModelGenerators.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(signBlock, particlesID));
                             blockModelGenerators.skipAutoItemBlock(signBlock);
                         }
-                        default -> blockModelGenerators.createTrivialCube(block);
+                        default -> {
+                            blockModelGenerators.createTrivialCube(block);
+                        }
                     }
                 }
             }
@@ -368,7 +370,6 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
             getOrCreateTagBuilder(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("minecraft", "wooden_doors"))).addTag(DOOR_TAG);
             getOrCreateTagBuilder(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("minecraft", "wooden_fences"))).addTag(FENCE_TAG);
             getOrCreateTagBuilder(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("minecraft", "wooden_pressure_plates"))).addTag(PRESSURE_PLATE_TAG);
-            getOrCreateTagBuilder(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("wood_you_dye", "vanilla_planks"))).add(Items.OAK_PLANKS, Items.SPRUCE_PLANKS, Items.BIRCH_PLANKS, Items.ACACIA_PLANKS, Items.JUNGLE_PLANKS, Items.DARK_OAK_PLANKS, Items.MANGROVE_PLANKS, Items.BAMBOO_PLANKS, Items.CHERRY_PLANKS, Items.WARPED_PLANKS, Items.CRIMSON_PLANKS);
         }
     }
 
