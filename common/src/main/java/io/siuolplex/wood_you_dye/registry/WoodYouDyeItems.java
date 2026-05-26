@@ -1,8 +1,5 @@
 package io.siuolplex.wood_you_dye.registry;
 
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 
 import java.util.LinkedHashSet;
@@ -202,14 +199,6 @@ public class WoodYouDyeItems {
     public static final Item BLACK_PLANK_SIGN = register("black_plank_sign", new SignItem(sharedItemSettings(), WoodYouDyeBlocks.BLACK_PLANK_SIGN, WoodYouDyeBlocks.BLACK_PLANK_WALL_SIGN));
     public static final Item BLACK_PLANK_HANGING_SIGN = register("black_plank_hanging_sign", new HangingSignItem(WoodYouDyeBlocks.BLACK_PLANK_HANGING_SIGN, WoodYouDyeBlocks.BLACK_PLANK_WALL_HANGING_SIGN, sharedItemSettings()));
      */
-    public static Item.Properties sharedItemSettings() {
-        return new Item.Properties();
-    }
-
-    public static Item register(String id, Item item) {
-        itemGroupHolder.add(item);
-        return Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath("wood_you_dye", id), item);
-    }
 
     public static void init() {}
 }

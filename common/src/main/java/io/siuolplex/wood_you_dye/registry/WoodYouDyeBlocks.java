@@ -1,8 +1,5 @@
 package io.siuolplex.wood_you_dye.registry;
 
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -241,10 +238,11 @@ public class WoodYouDyeBlocks {
 
     public static String dumpedIds = "Dumped IDs:\n";
 
-    public static Block register(String id, Block block) {
+    /*public static Block register(String id, Block block) {
         blockHolder.add(block);
-        return Registry.register(BuiltInRegistries.BLOCK, ResourceLocation.fromNamespaceAndPath("wood_you_dye", id), block);
-    }
+        return block;
+        //return Registry.register(BuiltInRegistries.BLOCK, ResourceLocation.fromNamespaceAndPath("wood_you_dye", id), block);
+    }*/
 
     public static void init() {}
 

@@ -21,8 +21,8 @@
   "icon": "logo.png",
   "environment": "*",
   "entrypoints": {
-    "main": [
-      "io.siuolplex.wood_you_dye.fabric.WoodYouDye"
+    "gremlib:common": [
+      "io.siuolplex.wood_you_dye.fabric.WoodYouDyeFabric"
     ],
     "client": [
       "io.siuolplex.wood_you_dye.fabric.WoodYouDyeClient"
@@ -35,8 +35,8 @@
     "wood_you_dye.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.13.3",
-    "fabric": "*",
-    "minecraft": ">=1.21"
+    "fabricloader": ">=0.17.3",
+    "fabric-api": "*",
+    "minecraft": "~${minecraft_version}"
   }
 }

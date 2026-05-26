@@ -1,12 +1,38 @@
 package io.siuolplex.wood_you_dye.fabric;
 
+import io.siuolplex.wood_you_dye.registry.WoodYouDyeWoodSets;
+import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.model.TexturedModel;
+import net.minecraft.client.resources.model.sprite.Material;
+import net.minecraft.resources.Identifier;
+import org.jspecify.annotations.NonNull;
 
 public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
     @Override
-    public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
+    public void onInitializeDataGenerator(FabricDataGenerator generator) {
+        FabricDataGenerator.Pack pack = generator.createPack();
+        pack.addProvider(WYDModelProvider::new);
+    }
 
+    private static class WYDModelProvider extends FabricModelProvider {
+        private WYDModelProvider(FabricPackOutput generator) {
+            super(generator);
+        }
+
+        @Override
+        public void generateBlockStateModels(@NonNull BlockModelGenerators blockModelGenerators) {
+            blockModelGenerators.createTrivialBlock(WoodYouDyeWoodSets.RED_DYED_WOOD., _ -> TexturedModel.createAllSame(new Material(Identifier.fromNamespaceAndPath("wood_you_dye", "dyed_wood/block/standard/planks_red"))));
+        }
+
+        @Override
+        public void generateItemModels(ItemModelGenerators itemModelGenerators) {
+
+        }
     }
     /*
     private static final List<Item> DYES_LIST = List.of(Items.RED_DYE, Items.ORANGE_DYE, Items.YELLOW_DYE,
