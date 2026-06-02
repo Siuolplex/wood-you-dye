@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/door_top_left_open",
-  "textures": {
-    "bottom": "wood_you_dye:block/brown_plank_door_bottom",
-    "top": "wood_you_dye:block/brown_plank_door_top"
-  }
-}

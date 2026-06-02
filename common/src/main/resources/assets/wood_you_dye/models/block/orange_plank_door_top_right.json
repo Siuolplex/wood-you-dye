@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/door_top_right",
-  "textures": {
-    "bottom": "wood_you_dye:block/orange_plank_door_bottom",
-    "top": "wood_you_dye:block/orange_plank_door_top"
-  }
-}

@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "wood_you_dye:item/cyan_plank_hanging_sign"
-  }
-}

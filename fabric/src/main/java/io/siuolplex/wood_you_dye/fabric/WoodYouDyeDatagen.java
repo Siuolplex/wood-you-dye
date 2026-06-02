@@ -1,5 +1,6 @@
 package io.siuolplex.wood_you_dye.fabric;
 
+import io.siuolplex.wood_you_dye.AnotherWoodSet;
 import io.siuolplex.wood_you_dye.registry.WoodYouDyeWoodSets;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
@@ -7,9 +8,14 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.MultiVariant;
+import net.minecraft.client.data.models.model.ModelTemplates;
+import net.minecraft.client.data.models.model.TextureMapping;
+import net.minecraft.client.data.models.model.TextureSlot;
 import net.minecraft.client.data.models.model.TexturedModel;
 import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.level.block.Block;
 import org.jspecify.annotations.NonNull;
 
 public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
@@ -26,12 +32,251 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
 
         @Override
         public void generateBlockStateModels(@NonNull BlockModelGenerators blockModelGenerators) {
-            blockModelGenerators.createTrivialBlock(WoodYouDyeWoodSets.RED_DYED_WOOD., _ -> TexturedModel.createAllSame(new Material(Identifier.fromNamespaceAndPath("wood_you_dye", "dyed_wood/block/standard/planks_red"))));
+            Block planksBlock = WoodYouDyeWoodSets.RED_DYED_WOOD.BLOCKS.PLANKS;
+            TextureMapping planksMapping = createPlanksMapping(WoodYouDyeWoodSets.RED_DYED_WOOD);
+
+            blockModelGenerators.createTrivialBlock(planksBlock, _ -> TexturedModel.createAllSame(createPlanksMaterial(WoodYouDyeWoodSets.RED_DYED_WOOD)));
+
+            generateSlab(blockModelGenerators, WoodYouDyeWoodSets.RED_DYED_WOOD.BLOCKS.PLANK_SLAB, planksMapping, planksBlock);
+            generateStairs(blockModelGenerators, WoodYouDyeWoodSets.RED_DYED_WOOD.BLOCKS.PLANK_STAIRS, planksMapping);
+            generateFence(blockModelGenerators, WoodYouDyeWoodSets.RED_DYED_WOOD.BLOCKS.PLANK_FENCE, planksMapping);
+            generateFenceGate(blockModelGenerators, WoodYouDyeWoodSets.RED_DYED_WOOD.BLOCKS.PLANK_FENCE_GATE, planksMapping);
+            generatePressurePlate(blockModelGenerators, WoodYouDyeWoodSets.RED_DYED_WOOD.BLOCKS.PLANK_PRESSURE_PLATE, planksMapping);
+            generateButton(blockModelGenerators, WoodYouDyeWoodSets.RED_DYED_WOOD.BLOCKS.PLANK_BUTTON, planksMapping);
+            generateSign(blockModelGenerators, WoodYouDyeWoodSets.RED_DYED_WOOD.BLOCKS.PLANK_SIGN, WoodYouDyeWoodSets.RED_DYED_WOOD.BLOCKS.PLANK_WALL_SIGN,  planksBlock);
+            generateSign(blockModelGenerators, WoodYouDyeWoodSets.RED_DYED_WOOD.BLOCKS.PLANK_HANGING_SIGN, WoodYouDyeWoodSets.RED_DYED_WOOD.BLOCKS.PLANK_WALL_HANGING_SIGN,  planksBlock);
+
+            TextureMapping doorMapping = createDoorMapping(WoodYouDyeWoodSets.RED_DYED_WOOD);
+            generateDoor(blockModelGenerators, WoodYouDyeWoodSets.RED_DYED_WOOD.BLOCKS.PLANK_DOOR, doorMapping);
+
+            TextureMapping trapdoorMapping = createTrapdoorMapping(WoodYouDyeWoodSets.RED_DYED_WOOD);
+            generateTrapdoor(blockModelGenerators, WoodYouDyeWoodSets.RED_DYED_WOOD.BLOCKS.PLANK_TRAPDOOR, trapdoorMapping);
+
+            TextureMapping logMapping = createLogMapping(WoodYouDyeWoodSets.RED_DYED_WOOD, false);
+            generateLog(blockModelGenerators, WoodYouDyeWoodSets.RED_DYED_WOOD.BLOCKS.LOG, logMapping);
+            generateLog(blockModelGenerators, WoodYouDyeWoodSets.RED_DYED_WOOD.BLOCKS.WOOD, logMapping);
+
+            TextureMapping strippedLogMappings = createLogMapping(WoodYouDyeWoodSets.RED_DYED_WOOD, true);
+            generateLog(blockModelGenerators, WoodYouDyeWoodSets.RED_DYED_WOOD.BLOCKS.STRIPPED_LOG, strippedLogMappings);
+            generateLog(blockModelGenerators, WoodYouDyeWoodSets.RED_DYED_WOOD.BLOCKS.STRIPPED_WOOD, strippedLogMappings);
         }
 
         @Override
         public void generateItemModels(ItemModelGenerators itemModelGenerators) {
 
+        }
+
+        public void generateSlab(BlockModelGenerators generator, Block slab, TextureMapping mapping, Block sourceBlock) {
+            Identifier bottom = ModelTemplates.SLAB_BOTTOM.create(slab, mapping, generator.modelOutput);
+            Identifier top = ModelTemplates.SLAB_TOP.create(slab, mapping, generator.modelOutput);
+            MultiVariant source = BlockModelGenerators.plainVariant(ModelTemplates.CUBE.getDefaultModelLocation(sourceBlock));
+            generator.blockStateOutput.accept(BlockModelGenerators.createSlab(slab, BlockModelGenerators.plainVariant(bottom), BlockModelGenerators.plainVariant(top), source));
+            generator.registerSimpleItemModel(slab, bottom);
+        }
+
+        public void generateStairs(BlockModelGenerators generator, Block stairs, TextureMapping mapping) {
+            MultiVariant inner = BlockModelGenerators.plainVariant(ModelTemplates.STAIRS_INNER.create(stairs, mapping, generator.modelOutput));
+            Identifier straight = ModelTemplates.STAIRS_STRAIGHT.create(stairs, mapping, generator.modelOutput);
+            MultiVariant outer = BlockModelGenerators.plainVariant(ModelTemplates.STAIRS_OUTER.create(stairs, mapping, generator.modelOutput));
+            generator.blockStateOutput.accept(BlockModelGenerators.createStairs(stairs, inner, BlockModelGenerators.plainVariant(straight), outer));
+            generator.registerSimpleItemModel(stairs, straight);
+        }
+
+        public void generateFence(BlockModelGenerators generator, Block fence, TextureMapping mapping) {
+            MultiVariant post = BlockModelGenerators.plainVariant(ModelTemplates.FENCE_POST.create(fence, mapping, generator.modelOutput));
+            MultiVariant side = BlockModelGenerators.plainVariant(ModelTemplates.FENCE_SIDE.create(fence, mapping, generator.modelOutput));
+            generator.blockStateOutput.accept(BlockModelGenerators.createFence(fence, post, side));
+            Identifier inventory = ModelTemplates.FENCE_INVENTORY.create(fence, mapping, generator.modelOutput);
+            generator.registerSimpleItemModel(fence, inventory);
+        }
+
+        public void generateFenceGate(BlockModelGenerators generator, Block fenceGate, TextureMapping mapping) {
+            MultiVariant open = BlockModelGenerators.plainVariant(ModelTemplates.FENCE_GATE_OPEN.create(fenceGate, mapping, generator.modelOutput));
+            MultiVariant closed = BlockModelGenerators.plainVariant(ModelTemplates.FENCE_GATE_CLOSED.create(fenceGate, mapping, generator.modelOutput));
+            MultiVariant openWall = BlockModelGenerators.plainVariant(ModelTemplates.FENCE_GATE_WALL_OPEN.create(fenceGate, mapping, generator.modelOutput));
+            MultiVariant closedWall = BlockModelGenerators.plainVariant(ModelTemplates.FENCE_GATE_WALL_CLOSED.create(fenceGate, mapping, generator.modelOutput));
+            generator.blockStateOutput.accept(BlockModelGenerators.createFenceGate(fenceGate, open, closed, openWall, closedWall, true));
+        }
+        
+        public void generatePressurePlate(BlockModelGenerators generator, Block pressurePlate, TextureMapping mapping) {
+            MultiVariant off = BlockModelGenerators.plainVariant(ModelTemplates.PRESSURE_PLATE_UP.create(pressurePlate, mapping, generator.modelOutput));
+            MultiVariant on = BlockModelGenerators.plainVariant(ModelTemplates.PRESSURE_PLATE_DOWN.create(pressurePlate, mapping, generator.modelOutput));
+            generator.blockStateOutput.accept(BlockModelGenerators.createPressurePlate(pressurePlate, off, on));
+        }
+
+        public void generateButton(BlockModelGenerators generator, Block button, TextureMapping mapping) {
+            MultiVariant normal = BlockModelGenerators.plainVariant(ModelTemplates.BUTTON.create(button, mapping, generator.modelOutput));
+            MultiVariant pressed = BlockModelGenerators.plainVariant(ModelTemplates.BUTTON_PRESSED.create(button, mapping, generator.modelOutput));
+            generator.blockStateOutput.accept(BlockModelGenerators.createButton(button, normal, pressed));
+            generator.registerSimpleItemModel(button, ModelTemplates.BUTTON_INVENTORY.create(button, mapping, generator.modelOutput));
+        }
+
+        // Holy fuck thats a lot of models
+        public void generateDoor(BlockModelGenerators generator, Block door, TextureMapping mapping) {
+            MultiVariant doorBottomLeft = BlockModelGenerators.plainVariant(ModelTemplates.DOOR_BOTTOM_LEFT.create(door, mapping, generator.modelOutput));
+            MultiVariant doorBottomLeftOpen = BlockModelGenerators.plainVariant(ModelTemplates.DOOR_BOTTOM_LEFT_OPEN.create(door, mapping, generator.modelOutput));
+            MultiVariant doorBottomRight = BlockModelGenerators.plainVariant(ModelTemplates.DOOR_BOTTOM_RIGHT.create(door, mapping, generator.modelOutput));
+            MultiVariant doorBottomRightOpen = BlockModelGenerators.plainVariant(ModelTemplates.DOOR_BOTTOM_RIGHT_OPEN.create(door, mapping, generator.modelOutput));
+            MultiVariant doorTopLeft = BlockModelGenerators.plainVariant(ModelTemplates.DOOR_TOP_LEFT.create(door, mapping, generator.modelOutput));
+            MultiVariant doorTopLeftOpen = BlockModelGenerators.plainVariant(ModelTemplates.DOOR_TOP_LEFT_OPEN.create(door, mapping, generator.modelOutput));
+            MultiVariant doorTopRight = BlockModelGenerators.plainVariant(ModelTemplates.DOOR_TOP_RIGHT.create(door, mapping, generator.modelOutput));
+            MultiVariant doorTopRightOpen = BlockModelGenerators.plainVariant(ModelTemplates.DOOR_TOP_RIGHT_OPEN.create(door, mapping, generator.modelOutput));
+            //generator.registerSimpleFlatItemModel(door.asItem());
+            generator.blockStateOutput.accept(BlockModelGenerators.createDoor(door, doorBottomLeft, doorBottomLeftOpen, doorBottomRight, doorBottomRightOpen, doorTopLeft, doorTopLeftOpen, doorTopRight, doorTopRightOpen));
+        }
+
+        // Orientable, does it REALLY matter if we use orientable or not?
+        public void generateTrapdoor(BlockModelGenerators generator, Block trapdoor, TextureMapping mapping) {
+            MultiVariant top = BlockModelGenerators.plainVariant(ModelTemplates.ORIENTABLE_TRAPDOOR_TOP.create(trapdoor, mapping, generator.modelOutput));
+            Identifier bottom = ModelTemplates.ORIENTABLE_TRAPDOOR_BOTTOM.create(trapdoor, mapping, generator.modelOutput);
+            MultiVariant open = BlockModelGenerators.plainVariant(ModelTemplates.ORIENTABLE_TRAPDOOR_OPEN.create(trapdoor, mapping, generator.modelOutput));
+            generator.blockStateOutput.accept(BlockModelGenerators.createOrientableTrapdoor(trapdoor, top, BlockModelGenerators.plainVariant(bottom), open));
+            //generator.registerSimpleItemModel(trapdoor, bottom);
+        }
+
+        public void generateSign(BlockModelGenerators generator, Block sign, Block wallSign, Block sourceBlock) {
+            MultiVariant model = generator.createParticleOnlyBlockModel(sign, sourceBlock);
+            generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(sign, model));
+            generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(wallSign, model));
+            //generator.registerSimpleFlatItemModel(sign.asItem());
+        }
+
+        public void generateLog(BlockModelGenerators generator, Block log, TextureMapping mapping) {
+            Identifier model = ModelTemplates.CUBE_COLUMN.create(log, mapping, generator.modelOutput);
+            generator.blockStateOutput.accept(BlockModelGenerators.createAxisAlignedPillarBlock(log, BlockModelGenerators.plainVariant(model)));
+            generator.registerSimpleItemModel(log, model);
+        }
+
+        public void generateWood(BlockModelGenerators generator, Block log, TextureMapping mapping) {
+            TextureMapping woodMapping = mapping.copyAndUpdate(TextureSlot.END, mapping.get(TextureSlot.SIDE));
+            Identifier model = ModelTemplates.CUBE_COLUMN.create(log, woodMapping, generator.modelOutput);
+            generator.blockStateOutput.accept(BlockModelGenerators.createAxisAlignedPillarBlock(log, BlockModelGenerators.plainVariant(model)));
+            generator.registerSimpleItemModel(log, model);
+        }
+
+        public TextureMapping createPlanksMapping(AnotherWoodSet woodSet) {
+            return TextureMapping.cube(createPlanksMaterial(woodSet));
+        }
+
+        public TextureMapping createDoorMapping(AnotherWoodSet woodSet) {
+            String variantName = woodSet.getVariantName();
+            String permutationName = woodSet.getPermutationName();
+            if (!variantName.isEmpty()) {
+                variantName = "/" + variantName;
+            }
+            Identifier doorTopID = Identifier.fromNamespaceAndPath("wood_you_dye", "dyed_wood/block" + variantName + "/door_top_" + permutationName);
+            Identifier doorBottomID = Identifier.fromNamespaceAndPath("wood_you_dye", "dyed_wood/block" + variantName + "/door_bottom_" + permutationName);
+            return TextureMapping.door(new Material(doorTopID), new Material(doorBottomID));
+        }
+
+        public TextureMapping createLogMapping(AnotherWoodSet woodSet, boolean isStripped) {
+            String variantName = woodSet.getVariantName();
+            String permutationName = woodSet.getPermutationName();
+            if (!variantName.isEmpty()) {
+                variantName = "/" + variantName;
+            }
+
+            String stripped = (isStripped) ? "stripped_" : "";
+
+            Identifier logID = Identifier.fromNamespaceAndPath("wood_you_dye", "dyed_wood/block" + variantName + "/" + stripped + "log_" + permutationName);
+            Identifier logTopID = Identifier.fromNamespaceAndPath("wood_you_dye", "dyed_wood/block" + variantName + "/" + stripped + "log_top_" + permutationName);
+            return new TextureMapping()
+                    .put(TextureSlot.SIDE, new Material(logID))
+                    .put(TextureSlot.END, new Material(logTopID))
+                    .put(TextureSlot.PARTICLE, new Material(logID));
+        }
+
+        public TextureMapping createTrapdoorMapping(AnotherWoodSet woodSet) {
+            String variantName = woodSet.getVariantName();
+            String permutationName = woodSet.getPermutationName();
+            if (!variantName.isEmpty()) {
+                variantName = "/" + variantName;
+            }
+            Identifier trapdoorId = Identifier.fromNamespaceAndPath("wood_you_dye", "dyed_wood/block" + variantName + "/trapdoor_" + permutationName);
+            return TextureMapping.defaultTexture(new Material(trapdoorId));
+        }
+
+        public Material createPlanksMaterial(AnotherWoodSet woodSet) {
+            String variantName = woodSet.getVariantName();
+            String permutationName = woodSet.getPermutationName();
+            if (!variantName.isEmpty()) {
+                variantName = "/" + variantName;
+            }
+            Identifier id = Identifier.fromNamespaceAndPath("wood_you_dye", "dyed_wood/block" + variantName + "/planks_" + permutationName);
+            return new Material(id);
+        }
+        
+        
+        public void generateModel(BlockModelGenerators blockModelGenerators) {
+            /*switch (block) {
+                case SlabBlock slabBlock -> {
+                    Block planks = color.getFirst();
+                    TextureMapping textureMapping = TextureMapping.cube(planks);
+                    Identifier bottomSlabID = ModelTemplates.SLAB_BOTTOM.create(slabBlock, textureMapping, blockModelGenerators.modelOutput);
+                    Identifier topSlabID = ModelTemplates.SLAB_TOP.create(slabBlock, textureMapping, blockModelGenerators.modelOutput);
+                    Identifier sourceBlockID = ModelTemplates.CUBE.getDefaultModelLocation(planks);
+                    blockModelGenerators.blockStateOutput.accept(BlockModelGenerators.createSlab(slabBlock, bottomSlabID, topSlabID, sourceBlockID));
+                }
+                case StairBlock stairBlock -> {
+                    Block planks = color.getFirst();
+                    TextureMapping textureMapping = TextureMapping.cube(planks);
+                    Identifier innerStairsID = ModelTemplates.STAIRS_INNER.create(stairBlock, textureMapping, blockModelGenerators.modelOutput);
+                    Identifier straightStairsID = ModelTemplates.STAIRS_STRAIGHT.create(stairBlock, textureMapping, blockModelGenerators.modelOutput);
+                    Identifier outerStairsID = ModelTemplates.STAIRS_OUTER.create(stairBlock, textureMapping, blockModelGenerators.modelOutput);
+                    blockModelGenerators.blockStateOutput.accept(BlockModelGenerators.createStairs(stairBlock, innerStairsID, straightStairsID, outerStairsID));
+                }
+                case FenceBlock fenceBlock -> {
+                    Block planks = color.getFirst();
+                    TextureMapping textureMapping = TextureMapping.cube(planks);
+                    Identifier postifiedFenceID = ModelTemplates.FENCE_POST.create(fenceBlock, textureMapping, blockModelGenerators.modelOutput);
+                    Identifier sidifiedFenceID = ModelTemplates.FENCE_SIDE.create(fenceBlock, textureMapping, blockModelGenerators.modelOutput);
+                    Identifier itemizedFenceID = ModelTemplates.FENCE_INVENTORY.create(fenceBlock, textureMapping, blockModelGenerators.modelOutput);
+                    blockModelGenerators.blockStateOutput.accept(BlockModelGenerators.createFence(fenceBlock, postifiedFenceID, sidifiedFenceID));
+                    blockModelGenerators.delegateItemModel(fenceBlock, itemizedFenceID);
+                }
+                case FenceGateBlock fenceGateBlock -> {
+                    Block planks = color.getFirst();
+                    TextureMapping textureMapping = TextureMapping.cube(planks);
+                    Identifier openGateID = ModelTemplates.FENCE_GATE_OPEN.create(fenceGateBlock, textureMapping, blockModelGenerators.modelOutput);
+                    Identifier closedGateID = ModelTemplates.FENCE_GATE_CLOSED.create(fenceGateBlock, textureMapping, blockModelGenerators.modelOutput);
+                    Identifier openWallGateID = ModelTemplates.FENCE_GATE_WALL_OPEN.create(fenceGateBlock, textureMapping, blockModelGenerators.modelOutput);
+                    Identifier closedWallGateID = ModelTemplates.FENCE_GATE_WALL_CLOSED.create(fenceGateBlock, textureMapping, blockModelGenerators.modelOutput);
+                    blockModelGenerators.blockStateOutput.accept(BlockModelGenerators.createFenceGate(fenceGateBlock, openGateID, closedGateID, openWallGateID, closedWallGateID, true));
+                }
+                case ButtonBlock buttonBlock -> {
+                    Block planks = color.getFirst();
+                    TextureMapping textureMapping = TextureMapping.cube(planks);
+                    Identifier buttonID = ModelTemplates.BUTTON.create(buttonBlock, textureMapping, blockModelGenerators.modelOutput);
+                    Identifier pressedButtonID = ModelTemplates.BUTTON_PRESSED.create(buttonBlock, textureMapping, blockModelGenerators.modelOutput);
+                    Identifier buttonNightAtTheInventoryID = ModelTemplates.BUTTON_INVENTORY.create(buttonBlock, textureMapping, blockModelGenerators.modelOutput);
+                    blockModelGenerators.blockStateOutput.accept(BlockModelGenerators.createButton(buttonBlock, buttonID, pressedButtonID));
+                    blockModelGenerators.delegateItemModel(buttonBlock, buttonNightAtTheInventoryID);
+                }
+                case PressurePlateBlock pressurePlateBlock -> {
+                    Block planks = color.getFirst();
+                    TextureMapping textureMapping = TextureMapping.cube(planks);
+                    Identifier pressurePlateID = ModelTemplates.PRESSURE_PLATE_UP.create(pressurePlateBlock, textureMapping, blockModelGenerators.modelOutput);
+                    Identifier pressedPressurePlateID = ModelTemplates.PRESSURE_PLATE_DOWN.create(pressurePlateBlock, textureMapping, blockModelGenerators.modelOutput);
+                    blockModelGenerators.blockStateOutput.accept(BlockModelGenerators.createPressurePlate(pressurePlateBlock, pressurePlateID, pressedPressurePlateID));
+                }
+                case DoorBlock doorBlock -> blockModelGenerators.createDoor(doorBlock);
+                case TrapDoorBlock trapDoorBlock -> blockModelGenerators.createTrapdoor(trapDoorBlock);
+                case SignBlock signBlock -> {
+                    Block planks = color.getFirst();
+                    TextureMapping textureMapping = TextureMapping.cube(planks);
+                    Identifier particlesID = ModelTemplates.PARTICLE_ONLY.create(signBlock, textureMapping, blockModelGenerators.modelOutput);
+                    blockModelGenerators.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(signBlock, particlesID));
+                    blockModelGenerators.skipAutoItemBlock(signBlock);
+                }
+                default -> {
+                    blockModelGenerators.createTrivialCube(block);
+                }
+            }*/
+        }
+        
+        
+        public Material generateMaterial(AnotherWoodSet woodSet) {
+            return new Material(Identifier.fromNamespaceAndPath("wood_you_dye", "dyed_wood/block/" + woodSet.getPermutationName() + "/planks_" + woodSet.getSetName().replace("dyed_", "")));
         }
     }
     /*

@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/inner_stairs",
-  "textures": {
-    "bottom": "wood_you_dye:block/orange_planks",
-    "side": "wood_you_dye:block/orange_planks",
-    "top": "wood_you_dye:block/orange_planks"
-  }
-}

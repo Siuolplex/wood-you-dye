@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/template_fence_gate",
-  "textures": {
-    "texture": "wood_you_dye:block/light_gray_planks"
-  }
-}

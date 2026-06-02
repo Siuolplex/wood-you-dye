@@ -1,5 +1,6 @@
 package io.siuolplex.wood_you_dye.forge;
 
+import io.siuolplex.gremlib.neoforge.initializers.GremModInitalizationEvent;
 import io.siuolplex.wood_you_dye.WoodYouDye;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -16,11 +17,12 @@ import net.neoforged.neoforge.event.AddPackFindersEvent;
 public class WoodYouDyeNeoforge {
     public static final String ID = "wood_you_dye";
 
+    WoodYouDye woodYouDye;
+
     final ModLoadingContext modLoadingContext = ModLoadingContext.get();
     final IEventBus modEventBus = modLoadingContext.getActiveContainer().getEventBus();
 
     public WoodYouDyeNeoforge() {
-        new WoodYouDye();
         modEventBus.register(this);
     }
 
@@ -34,5 +36,11 @@ public class WoodYouDyeNeoforge {
                 false,
                 Pack.Position.TOP);
 
+    }
+
+
+    @SubscribeEvent
+    public void onGremModInitalization(GremModInitalizationEvent event) {
+        woodYouDye = new WoodYouDye();
     }
 }

@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/template_trapdoor_top",
-  "textures": {
-    "texture": "wood_you_dye:block/green_plank_trapdoor"
-  }
-}

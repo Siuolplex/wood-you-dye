@@ -28,8 +28,8 @@
         "wood_you_dye:dyed_wood/block/standard/trapdoor",
         "wood_you_dye:dyed_wood/block/standard/log",
         "wood_you_dye:dyed_wood/block/standard/stripped_log",
-        "wood_you_dye:dyed_wood/block/standard/wood",
-        "wood_you_dye:dyed_wood/block/standard/stripped_wood"
+        "wood_you_dye:dyed_wood/block/standard/log_top",
+        "wood_you_dye:dyed_wood/block/standard/stripped_log_top"
 
       ]
     },
