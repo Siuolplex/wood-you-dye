@@ -14,6 +14,7 @@ val gremlib_version : String by project
 
 dependencies  {
     implementation ("io.siuolplex:gremlib:${gremlib_version}+neoforge-${minecraft_version}")
+    interfaceInjectionData("io.siuolplex:gremlib:${gremlib_version}+neoforge-${minecraft_version}")
 }
 
 neoForge {

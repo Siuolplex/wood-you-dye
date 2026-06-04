@@ -19,7 +19,13 @@ neoForge {
         accessTransformers.from(at.absolutePath)
     }
 
-    val interfaceInjection = file("src/main/resources")
+    val intInject = file("interfaces.json")
+    if (intInject.exists()) {
+        interfaceInjectionData {
+            from(intInject.absolutePath)
+            publish(intInject)
+        }
+    }
 }
 
 dependencies {
@@ -30,6 +36,7 @@ dependencies {
     annotationProcessor("io.github.llamalad7:mixinextras-common:${mixin_extras_version}")
 
     implementation("io.siuolplex:gremlib:${gremlib_version}+common-${minecraft_version}")
+    interfaceInjectionData("io.siuolplex:gremlib:${gremlib_version}+common-${minecraft_version}")
 }
 
 

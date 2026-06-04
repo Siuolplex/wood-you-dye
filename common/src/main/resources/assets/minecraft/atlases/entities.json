@@ -24,7 +24,7 @@
       "textures": [
         "wood_you_dye:dyed_wood/block/sign",
         "wood_you_dye:dyed_wood/block/hanging_sign",
-        "wood_you_dye:dyed_wood/entities/boat"
+        "wood_you_dye:dyed_wood/entity/boat"
       ]
     }
   ]

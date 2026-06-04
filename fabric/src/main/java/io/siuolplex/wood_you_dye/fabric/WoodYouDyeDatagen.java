@@ -1,5 +1,6 @@
 package io.siuolplex.wood_you_dye.fabric;
 
+import io.siuolplex.gremlib.util.WoodSetInfo;
 import io.siuolplex.wood_you_dye.AnotherWoodSet;
 import io.siuolplex.wood_you_dye.registry.WoodYouDyeWoodSets;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
@@ -32,33 +33,51 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
 
         @Override
         public void generateBlockStateModels(@NonNull BlockModelGenerators blockModelGenerators) {
-            Block planksBlock = WoodYouDyeWoodSets.RED_DYED_WOOD.BLOCKS.PLANKS;
-            TextureMapping planksMapping = createPlanksMapping(WoodYouDyeWoodSets.RED_DYED_WOOD);
+            for (AnotherWoodSet set : WoodYouDyeWoodSets.WOODSETS) {
+                WoodSetInfo setInfo = set.getDetail();
+                if (setInfo.getLogInfo().getFirst()) {
+                    TextureMapping logMapping = createLogMapping(set, false);
+                    TextureMapping strippedLogMappings = createLogMapping(set, true);
+                    
+                    generateLog(blockModelGenerators, set.BLOCKS.LOG, logMapping);
+                    generateLog(blockModelGenerators, set.BLOCKS.STRIPPED_LOG, strippedLogMappings);
 
-            blockModelGenerators.createTrivialBlock(planksBlock, _ -> TexturedModel.createAllSame(createPlanksMaterial(WoodYouDyeWoodSets.RED_DYED_WOOD)));
+                    if (setInfo.getWoodInfo().getFirst()) {
+                        generateWood(blockModelGenerators, set.BLOCKS.WOOD, logMapping);
+                        generateWood(blockModelGenerators, set.BLOCKS.STRIPPED_WOOD, strippedLogMappings);
+                    }
+                }
+                
+                Block planksBlock = set.BLOCKS.PLANKS;
+                TextureMapping planksMapping = createPlanksMapping(set);
 
-            generateSlab(blockModelGenerators, WoodYouDyeWoodSets.RED_DYED_WOOD.BLOCKS.PLANK_SLAB, planksMapping, planksBlock);
-            generateStairs(blockModelGenerators, WoodYouDyeWoodSets.RED_DYED_WOOD.BLOCKS.PLANK_STAIRS, planksMapping);
-            generateFence(blockModelGenerators, WoodYouDyeWoodSets.RED_DYED_WOOD.BLOCKS.PLANK_FENCE, planksMapping);
-            generateFenceGate(blockModelGenerators, WoodYouDyeWoodSets.RED_DYED_WOOD.BLOCKS.PLANK_FENCE_GATE, planksMapping);
-            generatePressurePlate(blockModelGenerators, WoodYouDyeWoodSets.RED_DYED_WOOD.BLOCKS.PLANK_PRESSURE_PLATE, planksMapping);
-            generateButton(blockModelGenerators, WoodYouDyeWoodSets.RED_DYED_WOOD.BLOCKS.PLANK_BUTTON, planksMapping);
-            generateSign(blockModelGenerators, WoodYouDyeWoodSets.RED_DYED_WOOD.BLOCKS.PLANK_SIGN, WoodYouDyeWoodSets.RED_DYED_WOOD.BLOCKS.PLANK_WALL_SIGN,  planksBlock);
-            generateSign(blockModelGenerators, WoodYouDyeWoodSets.RED_DYED_WOOD.BLOCKS.PLANK_HANGING_SIGN, WoodYouDyeWoodSets.RED_DYED_WOOD.BLOCKS.PLANK_WALL_HANGING_SIGN,  planksBlock);
+                blockModelGenerators.createTrivialBlock(planksBlock, _ -> TexturedModel.createAllSame(createPlanksMaterial(set)));
 
-            TextureMapping doorMapping = createDoorMapping(WoodYouDyeWoodSets.RED_DYED_WOOD);
-            generateDoor(blockModelGenerators, WoodYouDyeWoodSets.RED_DYED_WOOD.BLOCKS.PLANK_DOOR, doorMapping);
+                generateSlab(blockModelGenerators, set.BLOCKS.PLANK_SLAB, planksMapping, planksBlock);
+                generateStairs(blockModelGenerators, set.BLOCKS.PLANK_STAIRS, planksMapping);
+                generateFence(blockModelGenerators, set.BLOCKS.PLANK_FENCE, planksMapping);
+                generateFenceGate(blockModelGenerators, set.BLOCKS.PLANK_FENCE_GATE, planksMapping);
+                generatePressurePlate(blockModelGenerators, set.BLOCKS.PLANK_PRESSURE_PLATE, planksMapping);
+                generateButton(blockModelGenerators, set.BLOCKS.PLANK_BUTTON, planksMapping);
+                generateSign(blockModelGenerators, set.BLOCKS.PLANK_SIGN, set.BLOCKS.PLANK_WALL_SIGN, planksBlock);
+                generateSign(blockModelGenerators, set.BLOCKS.PLANK_HANGING_SIGN, set.BLOCKS.PLANK_WALL_HANGING_SIGN, planksBlock);
 
-            TextureMapping trapdoorMapping = createTrapdoorMapping(WoodYouDyeWoodSets.RED_DYED_WOOD);
-            generateTrapdoor(blockModelGenerators, WoodYouDyeWoodSets.RED_DYED_WOOD.BLOCKS.PLANK_TRAPDOOR, trapdoorMapping);
+                TextureMapping doorMapping = createDoorMapping(set);
+                generateDoor(blockModelGenerators, set.BLOCKS.PLANK_DOOR, doorMapping);
 
-            TextureMapping logMapping = createLogMapping(WoodYouDyeWoodSets.RED_DYED_WOOD, false);
-            generateLog(blockModelGenerators, WoodYouDyeWoodSets.RED_DYED_WOOD.BLOCKS.LOG, logMapping);
-            generateLog(blockModelGenerators, WoodYouDyeWoodSets.RED_DYED_WOOD.BLOCKS.WOOD, logMapping);
+                TextureMapping trapdoorMapping = createTrapdoorMapping(set);
+                generateTrapdoor(blockModelGenerators, set.BLOCKS.PLANK_TRAPDOOR, trapdoorMapping);
+                
+                if (setInfo.canDoMosaic()) {
+                    TextureMapping mosaicMapping = createPlanksMapping(set);
 
-            TextureMapping strippedLogMappings = createLogMapping(WoodYouDyeWoodSets.RED_DYED_WOOD, true);
-            generateLog(blockModelGenerators, WoodYouDyeWoodSets.RED_DYED_WOOD.BLOCKS.STRIPPED_LOG, strippedLogMappings);
-            generateLog(blockModelGenerators, WoodYouDyeWoodSets.RED_DYED_WOOD.BLOCKS.STRIPPED_WOOD, strippedLogMappings);
+                    blockModelGenerators.createTrivialBlock(planksBlock, _ -> TexturedModel.createAllSame(createMosaicMaterial(set)));
+
+                    generateSlab(blockModelGenerators, set.BLOCKS.MOSAIC_SLAB,  mosaicMapping, set.BLOCKS.MOSAIC);
+                    generateStairs(blockModelGenerators, set.BLOCKS.MOSAIC_STAIRS, mosaicMapping);
+
+                }
+            }
         }
 
         @Override
@@ -158,6 +177,10 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
             return TextureMapping.cube(createPlanksMaterial(woodSet));
         }
 
+        public TextureMapping createMosaicMapping(AnotherWoodSet woodSet) {
+            return TextureMapping.cube(createPlanksMaterial(woodSet));
+        }
+
         public TextureMapping createDoorMapping(AnotherWoodSet woodSet) {
             String variantName = woodSet.getVariantName();
             String permutationName = woodSet.getPermutationName();
@@ -205,7 +228,16 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
             Identifier id = Identifier.fromNamespaceAndPath("wood_you_dye", "dyed_wood/block" + variantName + "/planks_" + permutationName);
             return new Material(id);
         }
-        
+
+        public Material createMosaicMaterial(AnotherWoodSet woodSet) {
+            String variantName = woodSet.getVariantName();
+            String permutationName = woodSet.getPermutationName();
+            if (!variantName.isEmpty()) {
+                variantName = "/" + variantName;
+            }
+            Identifier id = Identifier.fromNamespaceAndPath("wood_you_dye", "dyed_wood/block" + variantName + "/mosaic_" + permutationName);
+            return new Material(id);
+        }
         
         public void generateModel(BlockModelGenerators blockModelGenerators) {
             /*switch (block) {

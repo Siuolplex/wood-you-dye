@@ -1,12 +1,14 @@
 package io.siuolplex.wood_you_dye;
 
 import com.mojang.datafixers.util.Pair;
+import io.siuolplex.gremlib.Gremlib;
 import io.siuolplex.gremlib.block.*;
 import io.siuolplex.gremlib.block.sign.GremCeilingHangingSignBlock;
 import io.siuolplex.gremlib.block.sign.GremSignBlock;
 import io.siuolplex.gremlib.block.sign.GremWallHangingSignBlock;
 import io.siuolplex.gremlib.block.sign.GremWallSignBlock;
 import io.siuolplex.gremlib.util.WoodSetInfo;
+import io.siuolplex.wood_you_dye.client.ClientWoodSet;
 import io.siuolplex.wood_you_dye.registry.WoodYouDyeItems;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -28,8 +30,8 @@ import java.util.function.Supplier;
 public class AnotherWoodSet {
     String setName;
     
-    String permutationName; // Used for dyed datagen to get specific permutations
-    String variantName; // Used for dyed datagen to get what palette type it should be
+    String permutationName; // What color am I?
+    String variantName; // What category am I?
 
     WoodSetInfo detail;
 
@@ -39,6 +41,8 @@ public class AnotherWoodSet {
 
     WoodType woodType;
     BlockSetType blockSetType;
+
+    ClientWoodSet clientSet;
 
     private AnotherWoodSet(String setName, String permutationName, String variantName, Supplier<BlockBehaviour.Properties> logProperties, Supplier<BlockBehaviour.Properties> plankProperties, Supplier<Item.Properties> itemProps, WoodType woodType, BlockSetType blockSetType) {
         if (logProperties == null) {
@@ -59,6 +63,10 @@ public class AnotherWoodSet {
         this.woodType = woodType;
         this.blockSetType = blockSetType;
         this.variantName = variantName;
+
+       if (Gremlib.LOADER.isClient()) {
+           this.clientSet = new ClientWoodSet(this);
+       }
     }
 
     public AnotherWoodSet.Blocks BLOCKS = new Blocks();
@@ -210,7 +218,7 @@ public class AnotherWoodSet {
             PLANK_DOOR = register(setName + "_plank_door", prop -> new GremDoorBlock(blockSetType, prop), plankProperties.get());
             PLANK_TRAPDOOR = register(setName + "_plank_trapdoor", prop -> new GremTrapdoorBlock(blockSetType, prop), plankProperties.get());
             PLANK_SIGN = register(setName + "_plank_sign", prop -> new GremSignBlock(woodType, prop), plankProperties.get());
-            PLANK_WALL_SIGN = register(setName + "_plank_wall_sign", prop -> new GremWallSignBlock(woodType, prop), plankProperties.get());
+            PLANK_WALL_SIGN = register(setName + "_plank_wall_sign", prop -> new GremWallSignBlock(woodType, null, prop), plankProperties.get());
             PLANK_HANGING_SIGN = register(setName + "_plank_hanging_sign", prop -> new GremCeilingHangingSignBlock(woodType, prop), plankProperties.get());
             PLANK_WALL_HANGING_SIGN = register(setName + "_plank_wall_hanging_sign", prop -> new GremWallHangingSignBlock(woodType, prop), plankProperties.get());
 
@@ -259,7 +267,7 @@ public class AnotherWoodSet {
                 STRIPPED_LOG = register("stripped_" + setName + "_" + detail.getLogInfo().getSecond(), prop -> new BlockItem(BLOCKS.STRIPPED_LOG, prop), itemProps.get());
                 if (detail.getWoodInfo().getFirst()) {
                     WOOD = register(setName + "_" + detail.getWoodInfo().getSecond(), prop -> new BlockItem(BLOCKS.WOOD, prop), itemProps.get());
-                    STRIPPED_WOOD = register("stripped_" + "_" + detail.getWoodInfo().getSecond(), prop -> new BlockItem(BLOCKS.STRIPPED_WOOD, prop), itemProps.get());
+                    STRIPPED_WOOD = register("stripped_" + setName + "_" + detail.getWoodInfo().getSecond(), prop -> new BlockItem(BLOCKS.STRIPPED_WOOD, prop), itemProps.get());
                 }
             }
 
@@ -307,6 +315,10 @@ public class AnotherWoodSet {
                     PLANK_BOAT = register(setName + "_" + boatType.name, EntityType.Builder.<Raft>of((entityType, level) -> boatType.raftFactory.apply(() -> ITEMS.PLANK_BOAT, entityType, level), MobCategory.MISC).noLootTable().sized(1.375F, 0.5625F).eyeHeight(0.5625F).clientTrackingRange(10));
                     PLANK_CHEST_BOAT = register(setName + "_chest_" + boatType.name, EntityType.Builder.<ChestRaft>of((entityType, level) -> boatType.chestRaftFactory.apply(() -> ITEMS.PLANK_BOAT, entityType, level), MobCategory.MISC).noLootTable().sized(1.375F, 0.5625F).eyeHeight(0.5625F).clientTrackingRange(10));
                 }
+            }
+
+            if (Gremlib.LOADER.isClient()) {
+                clientSet.registerRenderers();
             }
         }
     }
