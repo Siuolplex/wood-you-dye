@@ -48,21 +48,6 @@ public abstract class AbstractBoatRendererMixin extends EntityRenderer<AbstractB
             AtlasManager manager = entityRenderDispatcher.gremlib$getAtlasManager();
 
             instance.submitModel(this.model(), (BoatRenderState) state, poseStack, lightCoords, overlayCoords, -1, new SpriteId(Identifier.fromNamespaceAndPath("minecraft", "textures/atlas/blocks.png"), texture), manager, outlineColor, crumblingOverlay);
-            //submitModel(this.model(), state, poseStack, this.texture, state.lightCoords, OverlayTexture.NO_OVERLAY, state.outlineColor, null);
-            //submitModel((EntityModel<BoatRenderState>) model, (BoatRenderState) state, poseStack, texture, lightCoords, overlayCoords, Sheets.BLOCKS_MAPPER.apply(texture), manager, outlineColor, crumblingOverlay);
-            //Model<S> model,
-            //        S state,
-            //        PoseStack poseStack,
-            //        int lightCoords,
-            //        int overlayCoords,
-            //        int tintedColor,
-            //        SpriteId sprite,
-            //        SpriteGetter sprites,
-            //        int outlineColor,
-            //        ModelFeatureRenderer.@Nullable CrumblingOverlay crumblingOverlay
-
-
-
         }
     }
 }

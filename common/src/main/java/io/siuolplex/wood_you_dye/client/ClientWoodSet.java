@@ -36,11 +36,11 @@ public class ClientWoodSet {
     public void registerRenderers() {
         if (woodSet.getDetail().getBoatInfo().getFirst()) {
             if (woodSet.getDetail().getBoatInfo().getSecond().equals(WoodSetInfo.BoatType.BOAT)) {
-                EntityRenderersInvoker.invokeRegister(woodSet.ENTITIES.PLANK_BOAT, context -> new DyedBoatRenderer(context, boatLayer, woodSet));
-                EntityRenderersInvoker.invokeRegister(woodSet.ENTITIES.PLANK_CHEST_BOAT, context -> new DyedBoatRenderer(context, chestBoatLayer, woodSet));
+                EntityRenderersInvoker.invokeRegister(woodSet.ENTITIES.PLANK_BOAT, context -> new DyedBoatRenderer(context, boatLayer, woodSet, false));
+                EntityRenderersInvoker.invokeRegister(woodSet.ENTITIES.PLANK_CHEST_BOAT, context -> new DyedBoatRenderer(context, chestBoatLayer, woodSet, true));
             } else {
-                EntityRenderersInvoker.invokeRegister(woodSet.ENTITIES.PLANK_BOAT, context -> new DyedRaftRenderer(context, boatLayer, woodSet));
-                EntityRenderersInvoker.invokeRegister(woodSet.ENTITIES.PLANK_CHEST_BOAT, context -> new DyedRaftRenderer(context, chestBoatLayer, woodSet));
+                EntityRenderersInvoker.invokeRegister(woodSet.ENTITIES.PLANK_BOAT, context -> new DyedRaftRenderer(context, boatLayer, woodSet, false));
+                EntityRenderersInvoker.invokeRegister(woodSet.ENTITIES.PLANK_CHEST_BOAT, context -> new DyedRaftRenderer(context, chestBoatLayer, woodSet, true));
             }
         }
     }

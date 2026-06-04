@@ -32,7 +32,8 @@
         "wood_you_dye:dyed_wood/block/standard/stripped_log_top",
         "wood_you_dye:dyed_wood/block/standard/sign",
         "wood_you_dye:dyed_wood/block/standard/hanging_sign",
-        "wood_you_dye:dyed_wood/entity/standard/boat"
+        "wood_you_dye:dyed_wood/entity/standard/boat",
+        "wood_you_dye:dyed_wood/entity/standard/chest_boat"
       ]
     },
     {

@@ -10,9 +10,9 @@ import net.minecraft.client.renderer.entity.RaftRenderer;
 public class DyedRaftRenderer extends RaftRenderer implements DyedVessel {
     AnotherWoodSet set;
 
-    public DyedRaftRenderer(EntityRendererProvider.Context context, ModelLayerLocation modelId, AnotherWoodSet set) {
+    public DyedRaftRenderer(EntityRendererProvider.Context context, ModelLayerLocation modelId, AnotherWoodSet set, boolean chest) {
         super(context, modelId);
         this.set = set;
-        ((AbstractBoatRendererAccessor)this).wyd$setTexture(WoodYouDye.INSTANCE.createId("textures/dyed_wood/entity/" + set.getVariantName() + "/boat_" + set.getPermutationName()));
+        ((AbstractBoatRendererAccessor)this).wyd$setTexture(WoodYouDye.INSTANCE.createId("textures/dyed_wood/entity/" + set.getVariantName() + "/" + ((chest) ? "chest_" : "") + "boat_" + set.getPermutationName()));
     }
 }
