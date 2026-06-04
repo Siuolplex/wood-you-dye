@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "wood_you_dye:block/stripped_light_blue_dyed_log",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "wood_you_dye:block/stripped_light_blue_dyed_log"
+    },
+    "axis=z": {
+      "model": "wood_you_dye:block/stripped_light_blue_dyed_log",
+      "x": 90
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom_right_open",
+  "textures": {
+    "bottom": "wood_you_dye:dyed_wood/block/standard/door_bottom_cyan",
+    "top": "wood_you_dye:dyed_wood/block/standard/door_top_cyan"
+  }
+}

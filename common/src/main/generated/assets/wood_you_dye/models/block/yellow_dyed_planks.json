@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "wood_you_dye:dyed_wood/block/standard/planks_yellow"
+  }
+}

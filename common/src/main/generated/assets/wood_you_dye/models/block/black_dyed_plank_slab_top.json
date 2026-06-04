@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "wood_you_dye:dyed_wood/block/standard/planks_black",
+    "side": "wood_you_dye:dyed_wood/block/standard/planks_black",
+    "top": "wood_you_dye:dyed_wood/block/standard/planks_black"
+  }
+}

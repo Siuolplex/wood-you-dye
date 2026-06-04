@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/pressure_plate_down",
+  "textures": {
+    "texture": "wood_you_dye:dyed_wood/block/standard/planks_black"
+  }
+}

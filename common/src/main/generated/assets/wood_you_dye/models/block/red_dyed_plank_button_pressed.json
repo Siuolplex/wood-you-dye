@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button_pressed",
+  "textures": {
+    "texture": "wood_you_dye:dyed_wood/block/standard/planks_red"
+  }
+}

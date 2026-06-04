@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "wood_you_dye:dyed_wood/block/standard/stripped_log_top_light_gray",
+    "side": "wood_you_dye:dyed_wood/block/standard/stripped_log_light_gray"
+  }
+}
