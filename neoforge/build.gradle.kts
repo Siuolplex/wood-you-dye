@@ -59,5 +59,5 @@ neoForge {
 }
 
 sourceSets.main.get().resources {
-    srcDir ("src/generated/resources")
+    srcDir (project(":common").file("src/main/generated"))
 }

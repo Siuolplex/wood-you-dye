@@ -2,7 +2,7 @@
   "sources": [
     {
       "type": "minecraft:paletted_permutations",
-      "palette_key": "wood_you_dye:dyed_wood/color_palettes/trim_palette",
+      "palette_key": "wood_you_dye:dyed_wood/color_palettes/standard_palette",
       "permutations": {
         "red": "wood_you_dye:dyed_wood/color_palettes/standard/red",
         "orange": "wood_you_dye:dyed_wood/color_palettes/standard/orange",
@@ -22,7 +22,7 @@
         "black": "wood_you_dye:dyed_wood/color_palettes/standard/black"
       },
       "textures": [
-        "wood_you_dye:dyed_wood/gui/hanging_sign"
+        "wood_you_dye:dyed_wood/gui/standard/hanging_sign"
       ]
     }
   ]

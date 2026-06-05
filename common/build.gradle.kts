@@ -40,8 +40,6 @@ dependencies {
 }
 
 
-
-
 val commonJava by configurations.creating {
     isCanBeResolved = false
     isCanBeConsumed = true

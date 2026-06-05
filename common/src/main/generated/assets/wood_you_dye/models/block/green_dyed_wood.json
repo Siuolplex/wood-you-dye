@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/cube_column",
   "textures": {
-    "end": "wood_you_dye:dyed_wood/block/standard/log_top_green",
+    "end": "wood_you_dye:dyed_wood/block/standard/log_green",
     "side": "wood_you_dye:dyed_wood/block/standard/log_green"
   }
 }

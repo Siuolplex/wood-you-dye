@@ -43,6 +43,7 @@ public class WoodYouDye extends GremMod implements HasRegistration {
             registryMap.put(Registries.BLOCK, WoodYouDyeWoodSets::register);
             registryMap.put(Registries.ENTITY_TYPE, WoodYouDyeWoodSets::register);
             registryMap.put(Registries.ITEM, WoodYouDyeWoodSets::register);
+            registryMap.put(Registries.BLOCK_ENTITY_TYPE, WoodYouDyeWoodSets::register);
         }
 
         return registryMap;

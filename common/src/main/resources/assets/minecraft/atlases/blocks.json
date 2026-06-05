@@ -30,8 +30,7 @@
         "wood_you_dye:dyed_wood/block/standard/stripped_log",
         "wood_you_dye:dyed_wood/block/standard/log_top",
         "wood_you_dye:dyed_wood/block/standard/stripped_log_top",
-        "wood_you_dye:dyed_wood/block/standard/sign",
-        "wood_you_dye:dyed_wood/block/standard/hanging_sign",
+        "wood_you_dye:dyed_wood/block/standard/shelf",
         "wood_you_dye:dyed_wood/entity/standard/boat",
         "wood_you_dye:dyed_wood/entity/standard/chest_boat"
       ]
@@ -64,8 +63,9 @@
         "wood_you_dye:dyed_wood/block/nether/trapdoor",
         "wood_you_dye:dyed_wood/block/nether/log",
         "wood_you_dye:dyed_wood/block/nether/stripped_log",
-        "wood_you_dye:dyed_wood/block/nether/wood",
-        "wood_you_dye:dyed_wood/block/nether/stripped_wood"
+        "wood_you_dye:dyed_wood/block/nether/log_top",
+        "wood_you_dye:dyed_wood/block/nether/stripped_log_top",
+        "wood_you_dye:dyed_wood/block/nether/shelf"
       ]
     },
     {

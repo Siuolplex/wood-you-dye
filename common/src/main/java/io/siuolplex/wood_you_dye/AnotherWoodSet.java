@@ -3,11 +3,11 @@ package io.siuolplex.wood_you_dye;
 import com.mojang.datafixers.util.Pair;
 import io.siuolplex.gremlib.Gremlib;
 import io.siuolplex.gremlib.block.*;
-import io.siuolplex.gremlib.block.sign.GremCeilingHangingSignBlock;
-import io.siuolplex.gremlib.block.sign.GremSignBlock;
-import io.siuolplex.gremlib.block.sign.GremWallHangingSignBlock;
-import io.siuolplex.gremlib.block.sign.GremWallSignBlock;
 import io.siuolplex.gremlib.util.WoodSetInfo;
+import io.siuolplex.wood_you_dye.block.DyedCeilingHangingSignBlock;
+import io.siuolplex.wood_you_dye.block.DyedSignBlock;
+import io.siuolplex.wood_you_dye.block.DyedWallHangingSignBlock;
+import io.siuolplex.wood_you_dye.block.DyedWallSignBlock;
 import io.siuolplex.wood_you_dye.client.ClientWoodSet;
 import io.siuolplex.wood_you_dye.registry.WoodYouDyeItems;
 import net.minecraft.core.Registry;
@@ -20,6 +20,7 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.vehicle.boat.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
@@ -72,6 +73,7 @@ public class AnotherWoodSet {
     public AnotherWoodSet.Blocks BLOCKS = new Blocks();
     public AnotherWoodSet.Items ITEMS = new Items();
     public AnotherWoodSet.Entities ENTITIES = new Entities();
+    public AnotherWoodSet.BlockEntities BLOCK_ENTITIES = new BlockEntities();
 
     public String getSetName() {
         return setName;
@@ -87,6 +89,14 @@ public class AnotherWoodSet {
 
     public WoodSetInfo getDetail() {
         return detail;
+    }
+
+    public WoodType getWoodType() {
+        return woodType;
+    }
+
+    public BlockSetType getBlockSetType() {
+        return blockSetType;
     }
 
     public static class Builder {
@@ -123,18 +133,18 @@ public class AnotherWoodSet {
             return this;
         }
 
-        public Builder setLogProperties(BlockBehaviour.Properties props) {
-            this.logProperties = () -> props;
+        public Builder setLogProperties(Supplier<BlockBehaviour.Properties> props) {
+            this.logProperties = props;
             return this;
         }
 
-        public Builder setPlankProperties(BlockBehaviour.Properties props) {
-            this.plankProperties = () -> props;
+        public Builder setPlankProperties(Supplier<BlockBehaviour.Properties> props) {
+            this.plankProperties = props;
             return this;
         }
 
-        public Builder setItemProperties(Item.Properties props) {
-            this.itemProps = () -> props;
+        public Builder setItemProperties(Supplier<Item.Properties> props) {
+            this.itemProps = props;
             return this;
         }
 
@@ -188,6 +198,7 @@ public class AnotherWoodSet {
         public Block PLANK_WALL_SIGN;
         public Block PLANK_HANGING_SIGN;
         public Block PLANK_WALL_HANGING_SIGN;
+        public Block PLANK_SHELF;
 
         public Block MOSAIC;
         public Block MOSAIC_SLAB;
@@ -217,15 +228,24 @@ public class AnotherWoodSet {
             PLANK_BUTTON = register(setName + "_plank_button", prop -> new GremButtonBlock(blockSetType, 40, prop), plankProperties.get());
             PLANK_DOOR = register(setName + "_plank_door", prop -> new GremDoorBlock(blockSetType, prop), plankProperties.get());
             PLANK_TRAPDOOR = register(setName + "_plank_trapdoor", prop -> new GremTrapdoorBlock(blockSetType, prop), plankProperties.get());
-            PLANK_SIGN = register(setName + "_plank_sign", prop -> new GremSignBlock(woodType, prop), plankProperties.get());
-            PLANK_WALL_SIGN = register(setName + "_plank_wall_sign", prop -> new GremWallSignBlock(woodType, null, prop), plankProperties.get());
-            PLANK_HANGING_SIGN = register(setName + "_plank_hanging_sign", prop -> new GremCeilingHangingSignBlock(woodType, prop), plankProperties.get());
-            PLANK_WALL_HANGING_SIGN = register(setName + "_plank_wall_hanging_sign", prop -> new GremWallHangingSignBlock(woodType, prop), plankProperties.get());
+            PLANK_SIGN = register(setName + "_plank_sign", prop -> new DyedSignBlock(woodType, prop, WoodYouDye.INSTANCE.createId("dyed_wood/entity/" + AnotherWoodSet.this.getVariantName() + "/sign_" + AnotherWoodSet.this.getPermutationName())), plankProperties.get());
+            PLANK_WALL_SIGN = register(setName + "_plank_wall_sign", prop -> new DyedWallSignBlock(woodType, prop, WoodYouDye.INSTANCE.createId("dyed_wood/entity/" + AnotherWoodSet.this.getVariantName() + "/sign_" + AnotherWoodSet.this.getPermutationName())), plankProperties.get());
+            PLANK_HANGING_SIGN = register(setName + "_plank_hanging_sign", prop -> new DyedCeilingHangingSignBlock(woodType, prop, WoodYouDye.INSTANCE.createId("dyed_wood/entity/" + AnotherWoodSet.this.getVariantName() + "/hanging_sign_" + AnotherWoodSet.this.getPermutationName()), WoodYouDye.INSTANCE.createId("dyed_wood/gui/" + AnotherWoodSet.this.getVariantName() + "/hanging_sign_" + AnotherWoodSet.this.getPermutationName())), plankProperties.get());
+            PLANK_WALL_HANGING_SIGN = register(setName + "_plank_wall_hanging_sign", prop -> new DyedWallHangingSignBlock(woodType, prop, WoodYouDye.INSTANCE.createId("dyed_wood/entity/" + AnotherWoodSet.this.getVariantName() + "/hanging_sign_" + AnotherWoodSet.this.getPermutationName()), WoodYouDye.INSTANCE.createId("dyed_wood/gui/" + AnotherWoodSet.this.getVariantName() + "/hanging_sign_" + AnotherWoodSet.this.getPermutationName())), plankProperties.get());
+            PLANK_SHELF = register(setName + "_plank_shelf", ShelfBlock::new, plankProperties.get());
+
 
             if (detail.canDoMosaic()) {
                 MOSAIC = register(setName + "_mosaic", Block::new, plankProperties.get());
                 MOSAIC_SLAB = register(setName + "_mosaic_slab", SlabBlock::new, plankProperties.get());
                 MOSAIC_STAIRS = register(setName + "_mosaic_stairs", (prop) -> new GremStairBlock(MOSAIC.defaultBlockState(), prop), plankProperties.get());
+            }
+
+            if (detail.getLogInfo().getFirst()) {
+                Gremlib.LOADER.blocks().addToStrippables(BLOCKS.LOG, BLOCKS.STRIPPED_LOG);
+                if (detail.getWoodInfo().getFirst()) {
+                    Gremlib.LOADER.blocks().addToStrippables(BLOCKS.WOOD, BLOCKS.STRIPPED_WOOD);
+                }
             }
         }
     }
@@ -249,6 +269,7 @@ public class AnotherWoodSet {
         public Item PLANK_HANGING_SIGN;
         public Item PLANK_BOAT;
         public Item PLANK_CHEST_BOAT;
+        public Item PLANK_SHELF;
 
         public Item MOSAIC;
         public Item MOSAIC_SLAB;
@@ -282,6 +303,7 @@ public class AnotherWoodSet {
             PLANK_TRAPDOOR = register(setName + "_plank_trapdoor", prop -> new BlockItem(BLOCKS.PLANK_TRAPDOOR, prop), itemProps.get());
             PLANK_SIGN = register(setName + "_plank_sign", prop -> new SignItem(BLOCKS.PLANK_SIGN, BLOCKS.PLANK_WALL_SIGN, prop), itemProps.get());
             PLANK_HANGING_SIGN = register(setName + "_plank_hanging_sign", prop -> new HangingSignItem(BLOCKS.PLANK_HANGING_SIGN, BLOCKS.PLANK_WALL_HANGING_SIGN, prop), itemProps.get());
+            PLANK_SHELF = register(setName + "_plank_shelf", prop -> new BlockItem(BLOCKS.PLANK_SHELF, prop), itemProps.get());
 
             if (detail.canDoMosaic()) {
                 MOSAIC = register(setName + "_mosaic", prop -> new BlockItem(BLOCKS.MOSAIC, prop), itemProps.get());
@@ -320,6 +342,15 @@ public class AnotherWoodSet {
             if (Gremlib.LOADER.isClient()) {
                 clientSet.registerRenderers();
             }
+        }
+    }
+
+    public class BlockEntities {
+        // Really this is just post register stuff for the most part.
+        public void setRegister() {
+            Gremlib.LOADER.blocks().addBlocksToBE(BlockEntityType.SIGN, AnotherWoodSet.this.BLOCKS.PLANK_SIGN, AnotherWoodSet.this.BLOCKS.PLANK_WALL_SIGN);
+            Gremlib.LOADER.blocks().addBlocksToBE(BlockEntityType.HANGING_SIGN, AnotherWoodSet.this.BLOCKS.PLANK_HANGING_SIGN, AnotherWoodSet.this.BLOCKS.PLANK_WALL_HANGING_SIGN);
+            Gremlib.LOADER.blocks().addBlockToBE(BlockEntityType.SHELF, AnotherWoodSet.this.BLOCKS.PLANK_SHELF);
         }
     }
 }

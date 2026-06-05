@@ -2,7 +2,7 @@
   "sources": [
     {
       "type": "minecraft:paletted_permutations",
-      "palette_key": "wood_you_dye:dyed_wood/color_palettes/trim_palette",
+      "palette_key": "wood_you_dye:dyed_wood/color_palettes/standard_palette",
       "permutations": {
         "red": "wood_you_dye:dyed_wood/color_palettes/standard/red",
         "orange": "wood_you_dye:dyed_wood/color_palettes/standard/orange",
@@ -24,7 +24,9 @@
       "textures": [
         "wood_you_dye:dyed_wood/item/standard/sign",
         "wood_you_dye:dyed_wood/item/standard/hanging_sign",
-        "wood_you_dye:dyed_wood/item/standard/door"
+        "wood_you_dye:dyed_wood/item/standard/door",
+        "wood_you_dye:dyed_wood/item/standard/boat",
+        "wood_you_dye:dyed_wood/item/standard/chest_boat"
       ]
     }
   ]

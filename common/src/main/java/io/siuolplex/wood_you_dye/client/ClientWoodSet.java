@@ -1,5 +1,6 @@
 package io.siuolplex.wood_you_dye.client;
 
+import io.siuolplex.gremlib.block.sign.GremSign;
 import io.siuolplex.gremlib.client.util.LayerDefinitionRegistry;
 import io.siuolplex.gremlib.client.util.ModelLayersUtil;
 import io.siuolplex.gremlib.mixin.client.EntityRenderersInvoker;
@@ -9,6 +10,7 @@ import io.siuolplex.wood_you_dye.WoodYouDye;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.object.boat.BoatModel;
 import net.minecraft.client.model.object.boat.RaftModel;
+import net.minecraft.client.renderer.Sheets;
 
 public class ClientWoodSet {
     AnotherWoodSet woodSet;
@@ -43,6 +45,12 @@ public class ClientWoodSet {
                 EntityRenderersInvoker.invokeRegister(woodSet.ENTITIES.PLANK_CHEST_BOAT, context -> new DyedRaftRenderer(context, chestBoatLayer, woodSet, true));
             }
         }
+
+        //Todo: Move to later
+        Sheets.SIGN_SPRITES.replace(woodSet.getWoodType(), ((GremSign)woodSet.BLOCKS.PLANK_SIGN).getTexture());
+        //Sheets.SIGN_SPRITES.put(woodSet.getWoodType(), ((GremSign)woodSet.BLOCKS.PLANK_WALL_SIGN).getTexture());
+        Sheets.HANGING_SIGN_SPRITES.replace(woodSet.getWoodType(), ((GremSign)woodSet.BLOCKS.PLANK_HANGING_SIGN).getTexture());
+
     }
 
 }

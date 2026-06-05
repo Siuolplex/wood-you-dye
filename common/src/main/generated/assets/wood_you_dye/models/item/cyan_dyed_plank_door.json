@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "wood_you_dye:dyed_wood/item/standard/door_cyan"
+  }
+}

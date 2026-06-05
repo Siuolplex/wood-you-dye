@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_shelf_center",
+  "textures": {
+    "all": "wood_you_dye:dyed_wood/block/standard/shelf_light_gray",
+    "particle": "wood_you_dye:dyed_wood/block/standard/planks_light_gray"
+  }
+}

@@ -31,6 +31,8 @@ public class WoodYouDyeFabric implements GremModInitializer {
                 FabricLoader.getInstance().getModContainer("wood_you_dye").get(),
                 Component.literal("Wood you Dye Programmer Art"),
                 PackActivationType.NORMAL);
+
+
     }
 }
 

@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "wood_you_dye:block/light_gray_dyed_plank_trapdoor"
+    "model": "wood_you_dye:block/light_gray_dyed_plank_trapdoor_bottom"
   }
 }
