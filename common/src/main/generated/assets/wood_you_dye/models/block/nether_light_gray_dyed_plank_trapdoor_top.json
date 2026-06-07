@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_orientable_trapdoor_top",
+  "textures": {
+    "texture": "wood_you_dye:dyed_wood/block/nether/trapdoor_light_gray"
+  }
+}

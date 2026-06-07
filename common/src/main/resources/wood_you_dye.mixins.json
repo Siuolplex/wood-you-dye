@@ -9,6 +9,7 @@
     "defaultRequire": 1
   },
   "client": [
+
   ],
   "refmap": "wood_you_dye.refmap.json",
   "mixinextras": {

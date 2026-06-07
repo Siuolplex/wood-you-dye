@@ -166,6 +166,19 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
             generator.blockStateOutput.accept(BlockModelGenerators.createDoor(door, doorBottomLeft, doorBottomLeftOpen, doorBottomRight, doorBottomRightOpen, doorTopLeft, doorTopLeftOpen, doorTopRight, doorTopRightOpen));
         }
 
+        public void generateDoorBadApple(BlockModelGenerators generator, Block door, TextureMapping mapping) {
+            MultiVariant doorBottomLeft = BlockModelGenerators.plainVariant(ModelTemplates.DOOR_BOTTOM_LEFT.create(door, mapping, generator.modelOutput));
+            MultiVariant doorBottomLeftOpen = BlockModelGenerators.plainVariant(ModelTemplates.DOOR_BOTTOM_LEFT_OPEN.create(door, mapping, generator.modelOutput));
+            MultiVariant doorBottomRight = BlockModelGenerators.plainVariant(ModelTemplates.DOOR_BOTTOM_RIGHT.create(door, mapping, generator.modelOutput));
+            MultiVariant doorBottomRightOpen = BlockModelGenerators.plainVariant(ModelTemplates.DOOR_BOTTOM_RIGHT_OPEN.create(door, mapping, generator.modelOutput));
+            MultiVariant doorTopLeft = BlockModelGenerators.plainVariant(ModelTemplates.DOOR_TOP_LEFT.create(door, mapping, generator.modelOutput));
+            MultiVariant doorTopLeftOpen = BlockModelGenerators.plainVariant(ModelTemplates.DOOR_TOP_LEFT_OPEN.create(door, mapping, generator.modelOutput));
+            MultiVariant doorTopRight = BlockModelGenerators.plainVariant(ModelTemplates.DOOR_TOP_RIGHT.create(door, mapping, generator.modelOutput));
+            MultiVariant doorTopRightOpen = BlockModelGenerators.plainVariant(ModelTemplates.DOOR_TOP_RIGHT_OPEN.create(door, mapping, generator.modelOutput));
+            //generator.registerSimpleFlatItemModel(door.asItem());
+            generator.blockStateOutput.accept(BlockModelGenerators.createDoor(door, doorBottomLeft, doorBottomLeftOpen, doorBottomRight, doorBottomRightOpen, doorTopLeft, doorTopLeftOpen, doorTopRight, doorTopRightOpen));
+        }
+
         // Orientable, does it REALLY matter if we use orientable or not?
         public void generateTrapdoor(BlockModelGenerators generator, Block trapdoor, TextureMapping mapping) {
             MultiVariant top = BlockModelGenerators.plainVariant(ModelTemplates.ORIENTABLE_TRAPDOOR_TOP.create(trapdoor, mapping, generator.modelOutput));

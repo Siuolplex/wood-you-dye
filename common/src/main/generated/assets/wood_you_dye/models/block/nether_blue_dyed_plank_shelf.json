@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_shelf_body",
+  "textures": {
+    "all": "wood_you_dye:dyed_wood/block/nether/shelf_blue",
+    "particle": "wood_you_dye:dyed_wood/block/nether/planks_blue"
+  }
+}

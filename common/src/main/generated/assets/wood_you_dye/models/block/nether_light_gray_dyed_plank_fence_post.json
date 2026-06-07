@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/fence_post",
+  "textures": {
+    "texture": "wood_you_dye:dyed_wood/block/nether/planks_light_gray"
+  }
+}

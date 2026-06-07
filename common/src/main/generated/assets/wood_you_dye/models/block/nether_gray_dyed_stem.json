@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "wood_you_dye:dyed_wood/block/nether/log_top_gray",
+    "side": "wood_you_dye:dyed_wood/block/nether/log_gray"
+  }
+}

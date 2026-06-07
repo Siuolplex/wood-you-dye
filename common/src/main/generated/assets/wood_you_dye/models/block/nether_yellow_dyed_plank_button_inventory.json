@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button_inventory",
+  "textures": {
+    "texture": "wood_you_dye:dyed_wood/block/nether/planks_yellow"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "wood_you_dye:dyed_wood/block/nether/planks_purple",
+    "side": "wood_you_dye:dyed_wood/block/nether/planks_purple",
+    "top": "wood_you_dye:dyed_wood/block/nether/planks_purple"
+  }
+}

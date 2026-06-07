@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "wood_you_dye:block/nether_magenta_dyed_plank_slab"
+    },
+    "type=double": {
+      "model": "wood_you_dye:block/nether_magenta_dyed_planks"
+    },
+    "type=top": {
+      "model": "wood_you_dye:block/nether_magenta_dyed_plank_slab_top"
+    }
+  }
+}

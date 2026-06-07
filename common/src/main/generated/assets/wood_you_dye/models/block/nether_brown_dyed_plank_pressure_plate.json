@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/pressure_plate_up",
+  "textures": {
+    "texture": "wood_you_dye:dyed_wood/block/nether/planks_brown"
+  }
+}

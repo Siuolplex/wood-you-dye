@@ -45,14 +45,14 @@ public class AnotherWoodSet {
 
     ClientWoodSet clientSet;
 
-    private AnotherWoodSet(String setName, String permutationName, String variantName, Supplier<BlockBehaviour.Properties> logProperties, Supplier<BlockBehaviour.Properties> plankProperties, Supplier<Item.Properties> itemProps, WoodType woodType, BlockSetType blockSetType) {
+    private AnotherWoodSet(String setName, String permutationName, String variantName, Supplier<BlockBehaviour.Properties> logProperties, Supplier<BlockBehaviour.Properties> plankProperties, Supplier<Item.Properties> itemProps, WoodType woodType, BlockSetType blockSetType, WoodSetInfo setInfo) {
         if (logProperties == null) {
             logProperties = plankProperties;
         }
         if (blockSetType == null) {
             blockSetType = woodType.setType();
         }
-        if (detail == null) {
+        if (setInfo == null) {
             detail = new WoodSetInfo(Pair.of(true, "log"), Pair.of(true, "wood"), Pair.of(true, WoodSetInfo.BoatType.BOAT), false);
         }
 
@@ -64,6 +64,7 @@ public class AnotherWoodSet {
         this.woodType = woodType;
         this.blockSetType = blockSetType;
         this.variantName = variantName;
+        this.detail = setInfo;
 
        if (Gremlib.LOADER.isClient()) {
            this.clientSet = new ClientWoodSet(this);
@@ -167,7 +168,7 @@ public class AnotherWoodSet {
                 throw new IncompleteBuilderError("No item properties found");
             }
 
-            return new AnotherWoodSet(setName, permutationName, variantName, logProperties, plankProperties, itemProps, woodType, blockSetType);
+            return new AnotherWoodSet(setName, permutationName, variantName, logProperties, plankProperties, itemProps, woodType, blockSetType, detail);
         }
 
         public static class IncompleteBuilderError extends Error {
