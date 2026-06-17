@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "#gremlib:wood/standard/planks",
+    "#gremlib:wood/standard/planks",
+    "#gremlib:wood/standard/planks",
+    "#gremlib:wood/standard/planks",
+    "#gremlib:wood/standard/planks",
+    "#gremlib:wood/standard/planks",
+    "#gremlib:wood/standard/planks",
+    "#gremlib:wood/standard/planks",
+    "minecraft:black_dye"
+  ],
+  "result": {
+    "id": "wood_you_dye:blue_dyed_planks"
+  }
+}

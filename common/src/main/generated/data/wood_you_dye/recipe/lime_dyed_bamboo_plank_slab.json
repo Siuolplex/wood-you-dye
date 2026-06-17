@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": "wood_you_dye:lime_dyed_bamboo_planks"
+  },
+  "pattern": [
+    "###"
+  ],
+  "result": {
+    "count": 6,
+    "id": "wood_you_dye:lime_dyed_bamboo_plank_slab"
+  }
+}

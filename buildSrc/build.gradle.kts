@@ -15,7 +15,6 @@ publishing {
     publications {
         register<MavenPublication>("mavenJava") {
             groupId = group as String?
-
         }
     }
 }

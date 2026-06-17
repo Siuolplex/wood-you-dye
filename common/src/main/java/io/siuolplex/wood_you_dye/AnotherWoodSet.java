@@ -1,9 +1,8 @@
 package io.siuolplex.wood_you_dye;
 
-import com.mojang.datafixers.util.Pair;
-import io.siuolplex.gremlib.Gremlib;
-import io.siuolplex.gremlib.block.*;
-import io.siuolplex.gremlib.util.WoodSetInfo;
+import io.gremstudio.gremlib.Gremlib;
+import io.gremstudio.gremlib.block.*;
+import io.gremstudio.gremlib.util.WoodSetInfo;
 import io.siuolplex.wood_you_dye.block.DyedCeilingHangingSignBlock;
 import io.siuolplex.wood_you_dye.block.DyedSignBlock;
 import io.siuolplex.wood_you_dye.block.DyedWallHangingSignBlock;
@@ -25,6 +24,8 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -53,7 +54,7 @@ public class AnotherWoodSet {
             blockSetType = woodType.setType();
         }
         if (setInfo == null) {
-            detail = new WoodSetInfo(Pair.of(true, "log"), Pair.of(true, "wood"), Pair.of(true, WoodSetInfo.BoatType.BOAT), false);
+            detail = WoodSetInfo.OVERWORLD;
         }
 
         this.setName = setName;
@@ -181,6 +182,8 @@ public class AnotherWoodSet {
 
     //I've done loops and a bunch of other shit.
     public class Blocks {
+        public static List<Block> listOfBlocksIUseForDatagen = new ArrayList<>();
+
         public Block LOG;
         public Block STRIPPED_LOG;
         public Block WOOD;
@@ -207,16 +210,18 @@ public class AnotherWoodSet {
 
         public static Block register(String id, Function<BlockBehaviour.Properties, Block> func, BlockBehaviour.Properties properties) {
             ResourceKey<Block> key = ResourceKey.create(Registries.BLOCK, WoodYouDye.INSTANCE.createId(id));
-            return Registry.register(BuiltInRegistries.BLOCK, key, func.apply(properties.setId(key)));
+            Block block = Registry.register(BuiltInRegistries.BLOCK, key, func.apply(properties.setId(key)));
+            listOfBlocksIUseForDatagen.add(block);
+            return block;
         }
 
         public void setRegister() {
-            if (detail.getLogInfo().getFirst()) {
-                LOG = register(setName + "_" + detail.getLogInfo().getSecond(), RotatedPillarBlock::new, logProperties.get());
-                STRIPPED_LOG = register("stripped_" + setName + "_" + detail.getLogInfo().getSecond(), RotatedPillarBlock::new, logProperties.get());
-                if (detail.getWoodInfo().getFirst()) {
-                    WOOD = register(setName + "_" + detail.getWoodInfo().getSecond(), RotatedPillarBlock::new, logProperties.get());
-                    STRIPPED_WOOD = register("stripped_" + setName + "_" + detail.getWoodInfo().getSecond(), RotatedPillarBlock::new, logProperties.get());
+            if (detail.hasLogs()) {
+                LOG = register(setName + "_" + detail.getLogs(), RotatedPillarBlock::new, logProperties.get());
+                STRIPPED_LOG = register("stripped_" + setName + "_" + detail.getLogs(), RotatedPillarBlock::new, logProperties.get());
+                if (detail.hasWoods()) {
+                    WOOD = register(setName + "_" + detail.getWoods(), RotatedPillarBlock::new, logProperties.get());
+                    STRIPPED_WOOD = register("stripped_" + setName + "_" + detail.getWoods(), RotatedPillarBlock::new, logProperties.get());
                 }
             }
             
@@ -242,9 +247,9 @@ public class AnotherWoodSet {
                 MOSAIC_STAIRS = register(setName + "_mosaic_stairs", (prop) -> new GremStairBlock(MOSAIC.defaultBlockState(), prop), plankProperties.get());
             }
 
-            if (detail.getLogInfo().getFirst()) {
+            if (detail.hasLogs()) {
                 Gremlib.LOADER.blocks().addToStrippables(BLOCKS.LOG, BLOCKS.STRIPPED_LOG);
-                if (detail.getWoodInfo().getFirst()) {
+                if (detail.hasWoods()) {
                     Gremlib.LOADER.blocks().addToStrippables(BLOCKS.WOOD, BLOCKS.STRIPPED_WOOD);
                 }
             }
@@ -284,12 +289,12 @@ public class AnotherWoodSet {
         }
 
         public void setRegister() {
-            if (detail.getLogInfo().getFirst()) {
-                LOG = register(setName + "_" + detail.getLogInfo().getSecond(), prop -> new BlockItem(BLOCKS.LOG, prop), itemProps.get());
-                STRIPPED_LOG = register("stripped_" + setName + "_" + detail.getLogInfo().getSecond(), prop -> new BlockItem(BLOCKS.STRIPPED_LOG, prop), itemProps.get());
-                if (detail.getWoodInfo().getFirst()) {
-                    WOOD = register(setName + "_" + detail.getWoodInfo().getSecond(), prop -> new BlockItem(BLOCKS.WOOD, prop), itemProps.get());
-                    STRIPPED_WOOD = register("stripped_" + setName + "_" + detail.getWoodInfo().getSecond(), prop -> new BlockItem(BLOCKS.STRIPPED_WOOD, prop), itemProps.get());
+            if (detail.hasLogs()) {
+                LOG = register(setName + "_" + detail.getLogs(), prop -> new BlockItem(BLOCKS.LOG, prop), itemProps.get());
+                STRIPPED_LOG = register("stripped_" + setName + "_" + detail.getLogs(), prop -> new BlockItem(BLOCKS.STRIPPED_LOG, prop), itemProps.get());
+                if (detail.hasWoods()) {
+                    WOOD = register(setName + "_" + detail.getWoods(), prop -> new BlockItem(BLOCKS.WOOD, prop), itemProps.get());
+                    STRIPPED_WOOD = register("stripped_" + setName + "_" + detail.getWoods(), prop -> new BlockItem(BLOCKS.STRIPPED_WOOD, prop), itemProps.get());
                 }
             }
 
@@ -312,9 +317,9 @@ public class AnotherWoodSet {
                 MOSAIC_STAIRS = register(setName + "_mosaic_stairs", prop -> new BlockItem(BLOCKS.MOSAIC_STAIRS, prop), itemProps.get());
             }
 
-            if (detail.getBoatInfo().getFirst()) {
-                PLANK_BOAT = register(setName + "_" + detail.getBoatInfo().getSecond().name, prop -> new BoatItem(ENTITIES.PLANK_BOAT, prop), itemProps.get().stacksTo(1));
-                PLANK_CHEST_BOAT = register(setName + "_chest_" + detail.getBoatInfo().getSecond().name, prop -> new BoatItem(ENTITIES.PLANK_CHEST_BOAT, prop), itemProps.get().stacksTo(1));
+            if (detail.hasBoat()) {
+                PLANK_BOAT = register(setName + "_" + detail.getBoat().name, prop -> new BoatItem(ENTITIES.PLANK_BOAT, prop), itemProps.get().stacksTo(1));
+                PLANK_CHEST_BOAT = register(setName + "_chest_" + detail.getBoat().name, prop -> new BoatItem(ENTITIES.PLANK_CHEST_BOAT, prop), itemProps.get().stacksTo(1));
             }
         }
     }
@@ -329,8 +334,8 @@ public class AnotherWoodSet {
         }
 
         public void setRegister() {
-            if (detail.getBoatInfo().getFirst()) {
-                WoodSetInfo.BoatType boatType = detail.getBoatInfo().getSecond();
+            if (detail.hasBoat()) {
+                WoodSetInfo.BoatType boatType = detail.getBoat();
                 if (boatType.equals(WoodSetInfo.BoatType.BOAT)) {
                     PLANK_BOAT = register(setName + "_" + boatType.name, EntityType.Builder.<Boat>of((entityType, level) -> boatType.boatFactory.apply(() -> ITEMS.PLANK_BOAT, entityType, level), MobCategory.MISC).noLootTable().sized(1.375F, 0.5625F).eyeHeight(0.5625F).clientTrackingRange(10));
                     PLANK_CHEST_BOAT = register(setName + "_chest_" + boatType.name, EntityType.Builder.<ChestBoat>of((entityType, level) -> boatType.chestBoatFactory.apply(() -> ITEMS.PLANK_BOAT, entityType, level), MobCategory.MISC).noLootTable().sized(1.375F, 0.5625F).eyeHeight(0.5625F).clientTrackingRange(10));

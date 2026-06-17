@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": "wood_you_dye:light_gray_dyed_bamboo_plank_slab"
+  },
+  "pattern": [
+    "#",
+    "#"
+  ],
+  "result": {
+    "id": "wood_you_dye:light_gray_dyed_bamboo_mosaic"
+  }
+}

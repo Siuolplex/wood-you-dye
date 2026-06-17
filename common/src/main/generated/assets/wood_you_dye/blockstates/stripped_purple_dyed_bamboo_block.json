@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "wood_you_dye:block/stripped_purple_dyed_bamboo_block",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "wood_you_dye:block/stripped_purple_dyed_bamboo_block"
+    },
+    "axis=z": {
+      "model": "wood_you_dye:block/stripped_purple_dyed_bamboo_block",
+      "x": 90
+    }
+  }
+}

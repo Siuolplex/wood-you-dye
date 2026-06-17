@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_blue_dyed_nether_planks": {
+      "conditions": {
+        "items": [
+          {
+            "items": "wood_you_dye:blue_dyed_nether_planks"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "wood_you_dye:blue_dyed_nether_plank_pressure_plate"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_blue_dyed_nether_planks"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "wood_you_dye:blue_dyed_nether_plank_pressure_plate"
+    ]
+  }
+}

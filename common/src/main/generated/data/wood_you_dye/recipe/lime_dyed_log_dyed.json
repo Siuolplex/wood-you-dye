@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "#gremlib:wood/standard/log",
+    "#gremlib:wood/standard/log",
+    "#gremlib:wood/standard/log",
+    "#gremlib:wood/standard/log",
+    "#gremlib:wood/standard/log",
+    "#gremlib:wood/standard/log",
+    "#gremlib:wood/standard/log",
+    "#gremlib:wood/standard/log",
+    "minecraft:black_dye"
+  ],
+  "result": {
+    "id": "wood_you_dye:lime_dyed_log"
+  }
+}

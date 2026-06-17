@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "#": "wood_you_dye:red_dyed_bamboo_planks"
+  },
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "result": {
+    "count": 2,
+    "id": "wood_you_dye:red_dyed_bamboo_plank_trapdoor"
+  }
+}

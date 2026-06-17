@@ -9,7 +9,7 @@
     "defaultRequire": 1
   },
   "client": [
-
+    "client.StitcherMixin"
   ],
   "refmap": "wood_you_dye.refmap.json",
   "mixinextras": {

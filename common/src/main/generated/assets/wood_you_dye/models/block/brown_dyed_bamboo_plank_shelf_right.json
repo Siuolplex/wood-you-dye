@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_shelf_right",
+  "textures": {
+    "all": "wood_you_dye:dyed_wood/block/bamboo/shelf_brown",
+    "particle": "wood_you_dye:dyed_wood/block/bamboo/planks_brown"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "wood_you_dye:block/black_dyed_bamboo_plank_pressure_plate"
+    },
+    "powered=true": {
+      "model": "wood_you_dye:block/black_dyed_bamboo_plank_pressure_plate_down"
+    }
+  }
+}

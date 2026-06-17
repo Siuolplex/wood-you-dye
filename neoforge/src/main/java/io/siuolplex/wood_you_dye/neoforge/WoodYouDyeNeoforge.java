@@ -1,6 +1,6 @@
 package io.siuolplex.wood_you_dye.neoforge;
 
-import io.siuolplex.gremlib.neoforge.initializers.GremModInitalizationEvent;
+import io.gremstudio.gremlib.neoforge.initializers.GremModInitalizationEvent;
 import io.siuolplex.wood_you_dye.WoodYouDye;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -24,6 +24,7 @@ public class WoodYouDyeNeoforge {
 
     public WoodYouDyeNeoforge() {
         modEventBus.register(this);
+
     }
 
     @SubscribeEvent

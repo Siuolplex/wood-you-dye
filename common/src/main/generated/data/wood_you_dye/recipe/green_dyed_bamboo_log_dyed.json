@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "#gremlib:wood/bamboo/log",
+    "#gremlib:wood/bamboo/log",
+    "#gremlib:wood/bamboo/log",
+    "#gremlib:wood/bamboo/log",
+    "#gremlib:wood/bamboo/log",
+    "#gremlib:wood/bamboo/log",
+    "#gremlib:wood/bamboo/log",
+    "#gremlib:wood/bamboo/log",
+    "minecraft:black_dye"
+  ],
+  "result": {
+    "id": "wood_you_dye:green_dyed_bamboo_block"
+  }
+}

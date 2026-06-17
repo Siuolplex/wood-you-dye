@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "wood_you_dye:white_dyed_nether_plank_pressure_plate"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

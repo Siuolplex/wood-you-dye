@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": "wood_you_dye:black_dyed_bamboo_mosaic"
+  },
+  "pattern": [
+    "###"
+  ],
+  "result": {
+    "count": 6,
+    "id": "wood_you_dye:black_dyed_bamboo_mosaic_slab"
+  }
+}

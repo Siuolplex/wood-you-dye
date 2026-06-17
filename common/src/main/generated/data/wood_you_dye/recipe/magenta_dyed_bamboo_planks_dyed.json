@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "#gremlib:wood/bamboo/planks",
+    "#gremlib:wood/bamboo/planks",
+    "#gremlib:wood/bamboo/planks",
+    "#gremlib:wood/bamboo/planks",
+    "#gremlib:wood/bamboo/planks",
+    "#gremlib:wood/bamboo/planks",
+    "#gremlib:wood/bamboo/planks",
+    "#gremlib:wood/bamboo/planks",
+    "minecraft:black_dye"
+  ],
+  "result": {
+    "id": "wood_you_dye:magenta_dyed_bamboo_planks"
+  }
+}

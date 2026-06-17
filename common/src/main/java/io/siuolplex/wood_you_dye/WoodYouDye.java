@@ -1,7 +1,7 @@
 package io.siuolplex.wood_you_dye;
 
-import io.siuolplex.gremlib.mod.GremMod;
-import io.siuolplex.gremlib.mod.HasRegistration;
+import io.gremstudio.gremlib.mod.GremMod;
+import io.gremstudio.gremlib.mod.HasRegistration;
 import io.siuolplex.wood_you_dye.registry.WoodYouDyeWoodSets;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
@@ -15,7 +15,7 @@ import java.util.function.Consumer;
 
 public class WoodYouDye extends GremMod implements HasRegistration {
     public static WoodYouDye INSTANCE = null;
-    private final Logger LOGGER = LoggerFactory.getLogger("Flipside");
+    private final Logger LOGGER = LoggerFactory.getLogger("Wood you Dye");
     Map<ResourceKey<?>, Consumer<Registry<?>>> registryMap = new HashMap<>();
 
     public WoodYouDye() {

@@ -6,15 +6,14 @@ plugins {
 val minecraft_version : String by project
 
 val mod_id: String by project
-val version: String by project
 val mod_name: String by project
 
 val neoforge_version : String by project
 val gremlib_version : String by project
 
 dependencies  {
-    implementation ("io.siuolplex:gremlib:${gremlib_version}+neoforge-${minecraft_version}")
-    interfaceInjectionData("io.siuolplex:gremlib:${gremlib_version}+neoforge-${minecraft_version}")
+    implementation ("io.gremstudio:gremlib:${gremlib_version}+neoforge-${minecraft_version}-SNAPSHOT")
+    interfaceInjectionData("io.gremstudio:gremlib:${gremlib_version}+neoforge-${minecraft_version}-SNAPSHOT")
 }
 
 neoForge {
@@ -23,11 +22,18 @@ neoForge {
     var at = project(":common").file("src/main/resources/META-INF/accesstransformer.cfg")
     if (at.exists()) {
         accessTransformers.from(at.absolutePath)
+        accessTransformers {
+            from(at.absolutePath)
+            publish(at)
+        }
     }
 
     val intInject = project(":common").file("interfaces.json")
     if (intInject.exists()) {
-        interfaceInjectionData.from(intInject.absolutePath)
+        interfaceInjectionData {
+            from(intInject.absolutePath)
+            publish(intInject)
+        }
     }
 
     runs {

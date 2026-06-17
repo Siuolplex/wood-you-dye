@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "wood_you_dye:block/blue_dyed_bamboo_mosaic_slab"
+    },
+    "type=double": {
+      "model": "wood_you_dye:block/blue_dyed_bamboo_mosaic"
+    },
+    "type=top": {
+      "model": "wood_you_dye:block/blue_dyed_bamboo_mosaic_slab_top"
+    }
+  }
+}

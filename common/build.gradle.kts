@@ -17,6 +17,10 @@ neoForge {
     val at = file("src/main/resources/META-INF/accesstransformer.cfg")
     if (at.exists()) {
         accessTransformers.from(at.absolutePath)
+        accessTransformers {
+            from(at.absolutePath)
+            publish(at)
+        }
     }
 
     val intInject = file("interfaces.json")
@@ -35,8 +39,8 @@ dependencies {
     compileOnly("io.github.llamalad7:mixinextras-common:${mixin_extras_version}")
     annotationProcessor("io.github.llamalad7:mixinextras-common:${mixin_extras_version}")
 
-    implementation("io.siuolplex:gremlib:${gremlib_version}+common-${minecraft_version}")
-    interfaceInjectionData("io.siuolplex:gremlib:${gremlib_version}+common-${minecraft_version}")
+    implementation("io.gremstudio:gremlib:${gremlib_version}+common-${minecraft_version}-SNAPSHOT")
+    interfaceInjectionData("io.gremstudio:gremlib:${gremlib_version}+common-${minecraft_version}-SNAPSHOT")
 }
 
 

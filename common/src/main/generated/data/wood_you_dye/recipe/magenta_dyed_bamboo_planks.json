@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "planks",
+  "ingredients": [
+    "#gremlib:bamboo_magenta_blocks"
+  ],
+  "result": {
+    "count": 2,
+    "id": "wood_you_dye:magenta_dyed_bamboo_planks"
+  }
+}

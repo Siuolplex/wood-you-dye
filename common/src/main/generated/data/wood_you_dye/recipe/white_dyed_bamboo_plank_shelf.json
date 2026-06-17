@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "shelf",
+  "key": {
+    "#": "wood_you_dye:stripped_white_dyed_bamboo_block"
+  },
+  "pattern": [
+    "###",
+    "   ",
+    "###"
+  ],
+  "result": {
+    "count": 6,
+    "id": "wood_you_dye:white_dyed_bamboo_plank_shelf"
+  }
+}

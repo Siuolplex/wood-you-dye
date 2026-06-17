@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "planks",
+  "ingredients": [
+    "#gremlib:nether_light_blue_stems"
+  ],
+  "result": {
+    "count": 4,
+    "id": "wood_you_dye:light_blue_dyed_nether_planks"
+  }
+}

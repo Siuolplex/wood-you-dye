@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "wood_you_dye:block/light_blue_dyed_nether_hyphae",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "wood_you_dye:block/light_blue_dyed_nether_hyphae"
+    },
+    "axis=z": {
+      "model": "wood_you_dye:block/light_blue_dyed_nether_hyphae",
+      "x": 90
+    }
+  }
+}

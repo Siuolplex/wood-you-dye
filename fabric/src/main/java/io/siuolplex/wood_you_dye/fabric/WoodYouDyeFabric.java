@@ -1,6 +1,6 @@
 package io.siuolplex.wood_you_dye.fabric;
 
-import io.siuolplex.gremlib.fabric.initializers.GremModInitializer;
+import io.gremstudio.gremlib.fabric.initializers.GremModInitializer;
 import io.siuolplex.wood_you_dye.WoodYouDye;
 import io.siuolplex.wood_you_dye.registry.WoodYouDyeItems;
 import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;

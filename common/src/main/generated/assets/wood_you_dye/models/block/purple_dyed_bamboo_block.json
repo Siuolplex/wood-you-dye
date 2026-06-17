@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "wood_you_dye:dyed_wood/block/bamboo/log_top_purple",
+    "side": "wood_you_dye:dyed_wood/block/bamboo/log_purple"
+  }
+}

@@ -30,9 +30,7 @@
         "wood_you_dye:dyed_wood/block/standard/stripped_log",
         "wood_you_dye:dyed_wood/block/standard/log_top",
         "wood_you_dye:dyed_wood/block/standard/stripped_log_top",
-        "wood_you_dye:dyed_wood/block/standard/shelf",
-        "wood_you_dye:dyed_wood/entity/standard/boat",
-        "wood_you_dye:dyed_wood/entity/standard/chest_boat"
+        "wood_you_dye:dyed_wood/block/standard/shelf"
       ]
     },
     {
@@ -96,8 +94,10 @@
         "wood_you_dye:dyed_wood/block/bamboo/trapdoor",
         "wood_you_dye:dyed_wood/block/bamboo/log",
         "wood_you_dye:dyed_wood/block/bamboo/stripped_log",
-        "wood_you_dye:dyed_wood/block/bamboo/wood",
-        "wood_you_dye:dyed_wood/block/bamboo/stripped_wood"
+        "wood_you_dye:dyed_wood/block/bamboo/log_top",
+        "wood_you_dye:dyed_wood/block/bamboo/stripped_log_top",
+        "wood_you_dye:dyed_wood/block/bamboo/shelf",
+        "wood_you_dye:dyed_wood/block/bamboo/mosaic"
       ]
     }
   ]

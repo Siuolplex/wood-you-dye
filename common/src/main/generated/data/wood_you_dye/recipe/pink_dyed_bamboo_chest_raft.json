@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "chest_boat",
+  "ingredients": [
+    "minecraft:chest",
+    "wood_you_dye:pink_dyed_bamboo_raft"
+  ],
+  "result": {
+    "id": "wood_you_dye:pink_dyed_bamboo_chest_raft"
+  }
+}

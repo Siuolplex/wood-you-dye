@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "#gremlib:wood/nether/log",
+    "#gremlib:wood/nether/log",
+    "#gremlib:wood/nether/log",
+    "#gremlib:wood/nether/log",
+    "#gremlib:wood/nether/log",
+    "#gremlib:wood/nether/log",
+    "#gremlib:wood/nether/log",
+    "#gremlib:wood/nether/log",
+    "minecraft:black_dye"
+  ],
+  "result": {
+    "id": "wood_you_dye:blue_dyed_nether_stem"
+  }
+}

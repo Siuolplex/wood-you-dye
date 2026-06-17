@@ -6,12 +6,18 @@ plugins {
 val java_version: String by project
 val minecraft_version: String by project
 val mod_id: String by project
-val version: String by project
+val mod_version: String by project
 val mod_name: String by project
 val mod_author: String by project
+var release: Boolean = false
 
 base {
-    archivesName = "${mod_id}-${version}+${project.name}"
+    version = "${mod_version}+${project.name}-${minecraft_version}" + if (release) "" else "-SNAPSHOT"
+    archivesName = "${mod_id}"
+}
+
+if (System.getenv().get("RELEASE_MODE") == "true") {
+    release = true
 }
 
 java {
@@ -39,12 +45,17 @@ repositories {
         name = "BlameJared"
         url = uri("https://maven.blamejared.com")
     }
+
+    maven {
+        name = "DevOS Snapshots"
+        url = uri("https://mvn.devos.one/snapshots/")
+    }
 }
 
 dependencies {
     /*if (!(project.hasProperty("gremdle.include-gremlib") && project.property("gremdle.include-gremlib")?.equals("false") == true)) {
         var gremlib_version : String = project.property("gremlib_version") as String
-        implementation("io.siuolplex:gremlib:${gremlib_version}+${project.name}")
+        implementation("io.gremstudio:gremlib:${gremlib_version}+${project.name}")
     }*/
 }
 
@@ -52,9 +63,9 @@ dependencies {
 // Read more about capabilities here: https://docs.gradle.org/current/userguide/component_capabilities.html#sec:declaring-additional-capabilities-for-a-local-component
 arrayOf("apiElements", "runtimeElements", "sourcesElements", "javadocElements").forEach { variant ->
     configurations.get(variant).outgoing {
-        capability("${group}:${mod_id}:${version}")
-        capability("${group}:${mod_id}:${version}+${project.name}")
-        capability("${group}:${mod_id}:${version}+${project.name}-${minecraft_version}")
+        capability("${group}:${mod_id}:${mod_version}")
+        capability("${group}:${mod_id}:${mod_version}+${project.name}")
+        capability("${group}:${mod_id}:${mod_version}+${project.name}-${minecraft_version}")
     }
 
     publishing.publications.configureEach {
@@ -90,10 +101,18 @@ tasks {
         }
     }
 
+    getByName<Javadoc>("javadoc") {
+        if (options is CoreJavadocOptions) {
+            (options as CoreJavadocOptions).also {
+                it.addStringOption("Xdoclint:-missing", "-quiet")
+            }
+        }
+    }
+
 
    getByName<ProcessResources>("processResources") {
         var expandProps = mutableMapOf(
-            "version" to version,
+            "version" to mod_version,
             //"group" to project.group, //Else we target the task's group.
             "minecraft_version" to minecraft_version
         )
@@ -119,20 +138,23 @@ tasks {
 }
 
 publishing {
+    var rel : String = "Snapshots"
+    if (release) rel = "Release"
+
     publications {
         register<MavenPublication>("mavenJava") {
             artifactId = mod_id
-            version = version + "+" + project.name + "-" + minecraft_version
             from(components.getByName("java"))
         }
     }
 
     repositories {
-		listOf("Releases", "Snapshots").forEach {
-			maven("https://mvn.devos.one/${it.lowercase()}") {
-				name = "devOS$it"
-				credentials(PasswordCredentials::class)
-			}
-		}
+        maven("https://mvn.devos.one/${rel.lowercase()}") {
+            name = "devOS"
+            credentials {
+                username = providers.environmentVariable("DEVOS_USERNAME").orNull ?: project.findProperty("devOSUsername")?.toString()
+                password = providers.environmentVariable("DEVOS_PASSWORD").orNull ?: project.findProperty("devOSPassword")?.toString()
+            }
+        }
 	}
 }

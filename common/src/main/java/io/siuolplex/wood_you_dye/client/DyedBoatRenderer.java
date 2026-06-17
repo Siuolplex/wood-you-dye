@@ -1,7 +1,7 @@
 package io.siuolplex.wood_you_dye.client;
 
-import io.siuolplex.gremlib.client.UsesPalettes;
-import io.siuolplex.gremlib.mixin.client.AbstractBoatRendererAccessor;
+import io.gremstudio.gremlib.client.UsesPalettes;
+import io.gremstudio.gremlib.mixin.client.AbstractBoatRendererAccessor;
 import io.siuolplex.wood_you_dye.AnotherWoodSet;
 import io.siuolplex.wood_you_dye.WoodYouDye;
 import net.minecraft.client.model.geom.ModelLayerLocation;

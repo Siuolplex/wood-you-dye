@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button",
+  "textures": {
+    "texture": "wood_you_dye:dyed_wood/block/bamboo/planks_blue"
+  }
+}
