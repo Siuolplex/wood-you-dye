@@ -10,9 +10,10 @@
     "#gremlib:wood/nether/planks",
     "#gremlib:wood/nether/planks",
     "#gremlib:wood/nether/planks",
-    "minecraft:black_dye"
+    "minecraft:orange_dye"
   ],
   "result": {
+    "count": 8,
     "id": "wood_you_dye:orange_dyed_nether_planks"
   }
 }

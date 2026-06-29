@@ -3,7 +3,7 @@
   "category": "building",
   "group": "planks",
   "ingredients": [
-    "#gremlib:standard_orange_logs"
+    "#wood_you_dye:standard_orange_logs"
   ],
   "result": {
     "count": 4,

@@ -10,9 +10,10 @@
     "#gremlib:wood/bamboo/planks",
     "#gremlib:wood/bamboo/planks",
     "#gremlib:wood/bamboo/planks",
-    "minecraft:black_dye"
+    "minecraft:pink_dye"
   ],
   "result": {
+    "count": 8,
     "id": "wood_you_dye:pink_dyed_bamboo_planks"
   }
 }

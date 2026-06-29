@@ -10,9 +10,10 @@
     "#gremlib:wood/nether/log",
     "#gremlib:wood/nether/log",
     "#gremlib:wood/nether/log",
-    "minecraft:black_dye"
+    "minecraft:cyan_dye"
   ],
   "result": {
+    "count": 8,
     "id": "wood_you_dye:cyan_dyed_nether_stem"
   }
 }

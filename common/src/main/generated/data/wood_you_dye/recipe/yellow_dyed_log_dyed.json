@@ -10,9 +10,10 @@
     "#gremlib:wood/standard/log",
     "#gremlib:wood/standard/log",
     "#gremlib:wood/standard/log",
-    "minecraft:black_dye"
+    "minecraft:yellow_dye"
   ],
   "result": {
+    "count": 8,
     "id": "wood_you_dye:yellow_dyed_log"
   }
 }

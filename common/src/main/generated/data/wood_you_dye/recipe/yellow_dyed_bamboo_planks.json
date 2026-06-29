@@ -3,7 +3,7 @@
   "category": "building",
   "group": "planks",
   "ingredients": [
-    "#gremlib:bamboo_yellow_blocks"
+    "#wood_you_dye:bamboo_yellow_blocks"
   ],
   "result": {
     "count": 2,

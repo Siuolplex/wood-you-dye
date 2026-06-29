@@ -3,7 +3,7 @@
   "category": "building",
   "group": "planks",
   "ingredients": [
-    "#gremlib:nether_pink_stems"
+    "#wood_you_dye:nether_pink_stems"
   ],
   "result": {
     "count": 4,

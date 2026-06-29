@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/fence_post",
+  "parent": "minecraft:block/custom_fence_post",
   "textures": {
-    "texture": "wood_you_dye:dyed_wood/block/bamboo/planks_purple"
+    "particle": "wood_you_dye:dyed_wood/block/bamboo/plank_fence_particle_purple",
+    "texture": "wood_you_dye:dyed_wood/block/bamboo/plank_fence_purple"
   }
 }

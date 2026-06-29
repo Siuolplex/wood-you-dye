@@ -9,4 +9,9 @@ public class DyedWallHangingSignBlock extends GremWallHangingSignBlock implement
     public DyedWallHangingSignBlock(WoodType type, Properties settings, Identifier texture, Identifier guiTexture) {
         super(type, settings, texture, guiTexture);
     }
+
+    @Override
+    public boolean isSprited() {
+        return true;
+    }
 }

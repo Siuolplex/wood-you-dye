@@ -1,6 +1,46 @@
 {
   "values": [
     {
+      "id": "#wood_you_dye:nether_blue_wood_set",
+      "required": false
+    },
+    {
+      "id": "#wood_you_dye:nether_black_wood_set",
+      "required": false
+    },
+    {
+      "id": "#wood_you_dye:nether_gray_wood_set",
+      "required": false
+    },
+    {
+      "id": "#wood_you_dye:nether_pink_wood_set",
+      "required": false
+    },
+    {
+      "id": "#wood_you_dye:nether_purple_wood_set",
+      "required": false
+    },
+    {
+      "id": "#wood_you_dye:nether_light_blue_wood_set",
+      "required": false
+    },
+    {
+      "id": "#wood_you_dye:nether_magenta_wood_set",
+      "required": false
+    },
+    {
+      "id": "#wood_you_dye:nether_red_wood_set",
+      "required": false
+    },
+    {
+      "id": "#wood_you_dye:nether_yellow_wood_set",
+      "required": false
+    },
+    {
+      "id": "#wood_you_dye:nether_lime_wood_set",
+      "required": false
+    },
+    {
       "id": "#wood_you_dye:nether_white_wood_set",
       "required": false
     },
@@ -9,59 +49,19 @@
       "required": false
     },
     {
-      "id": "#wood_you_dye:nether_brown_wood_set",
-      "required": false
-    },
-    {
-      "id": "#wood_you_dye:nether_yellow_wood_set",
-      "required": false
-    },
-    {
-      "id": "#wood_you_dye:nether_magenta_wood_set",
-      "required": false
-    },
-    {
-      "id": "#wood_you_dye:nether_lime_wood_set",
-      "required": false
-    },
-    {
-      "id": "#wood_you_dye:nether_red_wood_set",
-      "required": false
-    },
-    {
-      "id": "#wood_you_dye:nether_purple_wood_set",
-      "required": false
-    },
-    {
-      "id": "#wood_you_dye:nether_blue_wood_set",
-      "required": false
-    },
-    {
-      "id": "#wood_you_dye:nether_gray_wood_set",
-      "required": false
-    },
-    {
-      "id": "#wood_you_dye:nether_black_wood_set",
-      "required": false
-    },
-    {
-      "id": "#wood_you_dye:nether_pink_wood_set",
-      "required": false
-    },
-    {
-      "id": "#wood_you_dye:nether_light_blue_wood_set",
-      "required": false
-    },
-    {
       "id": "#wood_you_dye:nether_orange_wood_set",
       "required": false
     },
     {
-      "id": "#wood_you_dye:nether_light_gray_wood_set",
+      "id": "#wood_you_dye:nether_brown_wood_set",
       "required": false
     },
     {
       "id": "#wood_you_dye:nether_cyan_wood_set",
+      "required": false
+    },
+    {
+      "id": "#wood_you_dye:nether_light_gray_wood_set",
       "required": false
     }
   ]

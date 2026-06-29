@@ -41,6 +41,7 @@ dependencies {
 
     implementation("io.gremstudio:gremlib:${gremlib_version}+common-${minecraft_version}-SNAPSHOT")
     interfaceInjectionData("io.gremstudio:gremlib:${gremlib_version}+common-${minecraft_version}-SNAPSHOT")
+    accessTransformers("io.gremstudio:gremlib:${gremlib_version}+common-${minecraft_version}-SNAPSHOT")
 }
 
 

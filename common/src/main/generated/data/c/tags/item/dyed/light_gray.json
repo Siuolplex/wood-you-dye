@@ -1,11 +1,11 @@
 {
   "values": [
     {
-      "id": "#wood_you_dye:standard_light_gray_wood_set",
+      "id": "#wood_you_dye:bamboo_light_gray_wood_set",
       "required": false
     },
     {
-      "id": "#wood_you_dye:bamboo_light_gray_wood_set",
+      "id": "#wood_you_dye:standard_light_gray_wood_set",
       "required": false
     },
     {

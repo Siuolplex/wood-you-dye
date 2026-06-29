@@ -110,7 +110,9 @@ tasks {
     }
 
 
-   getByName<ProcessResources>("processResources") {
+
+
+    getByName<ProcessResources>("processResources") {
         var expandProps = mutableMapOf(
             "version" to mod_version,
             //"group" to project.group, //Else we target the task's group.
@@ -120,9 +122,7 @@ tasks {
         var jsonExpandProps = mutableMapOf<String, Any>();
 
         expandProps.forEach {
-                entry -> jsonExpandProps += mapOf(entry.key to
-                    (if (entry.value is String) entry.value.replace("\n", "\\\\n") else entry.value) as Any
-                )
+                entry -> jsonExpandProps += mapOf(entry.key to entry.value.replace("\n", "\\\\n"))
         }
 
         filesMatching(listOf("META-INF/neoforge.mods.toml")) {

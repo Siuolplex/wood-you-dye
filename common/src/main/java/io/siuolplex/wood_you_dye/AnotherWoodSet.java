@@ -2,6 +2,7 @@ package io.siuolplex.wood_you_dye;
 
 import io.gremstudio.gremlib.Gremlib;
 import io.gremstudio.gremlib.block.*;
+import io.gremstudio.gremlib.multiloader.item.CreativeTabAPI;
 import io.gremstudio.gremlib.util.WoodSetInfo;
 import io.siuolplex.wood_you_dye.block.DyedCeilingHangingSignBlock;
 import io.siuolplex.wood_you_dye.block.DyedSignBlock;
@@ -284,6 +285,7 @@ public class AnotherWoodSet {
         public static Item register(String id, Function<Item.Properties, Item> func, Item.Properties properties) {
             ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, WoodYouDye.INSTANCE.createId(id));
             Item item = Registry.register(BuiltInRegistries.ITEM, key, func.apply(properties.setId(key)));
+            CreativeTabAPI.insertBefore(CreativeModeTabs.BUILDING_BLOCKS, net.minecraft.world.item.Items.STONE::getDefaultInstance, item::getDefaultInstance);
             WoodYouDyeItems.itemGroupHolder.add(item);
             return item;
         }

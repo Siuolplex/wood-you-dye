@@ -86,12 +86,20 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
 
                 generateSlab(blockModelGenerators, set.BLOCKS.PLANK_SLAB, planksMapping, planksBlock);
                 generateStairs(blockModelGenerators, set.BLOCKS.PLANK_STAIRS, planksMapping);
-                generateFence(blockModelGenerators, set.BLOCKS.PLANK_FENCE, planksMapping);
-                generateFenceGate(blockModelGenerators, set.BLOCKS.PLANK_FENCE_GATE, planksMapping);
+                if (set.getDetail().getName().equals("bamboo")) {
+                    TextureMapping fenceMapping = createFenceMapping(set);
+                    generateCustomFence(blockModelGenerators, set.BLOCKS.PLANK_FENCE, fenceMapping);
+
+                    TextureMapping gateMappings = createFenceGateMapping(set);
+                    generateCustomFenceGate(blockModelGenerators, set.BLOCKS.PLANK_FENCE_GATE, gateMappings);
+                } else {
+                    generateFence(blockModelGenerators, set.BLOCKS.PLANK_FENCE, planksMapping);
+                    generateFenceGate(blockModelGenerators, set.BLOCKS.PLANK_FENCE_GATE, planksMapping);
+                }
                 generatePressurePlate(blockModelGenerators, set.BLOCKS.PLANK_PRESSURE_PLATE, planksMapping);
                 generateButton(blockModelGenerators, set.BLOCKS.PLANK_BUTTON, planksMapping);
-                generateSign(blockModelGenerators, set.BLOCKS.PLANK_SIGN, set.BLOCKS.PLANK_WALL_SIGN, planksBlock);
-                generateSign(blockModelGenerators, set.BLOCKS.PLANK_HANGING_SIGN, set.BLOCKS.PLANK_WALL_HANGING_SIGN, planksBlock);
+                generateSign(blockModelGenerators, set.BLOCKS.PLANK_SIGN, set.BLOCKS.PLANK_WALL_SIGN, createPlanksMaterial(set));
+                generateSign(blockModelGenerators, set.BLOCKS.PLANK_HANGING_SIGN, set.BLOCKS.PLANK_WALL_HANGING_SIGN, createPlanksMaterial(set));
 
                 TextureMapping doorMapping = createDoorMapping(set);
                 generateDoor(blockModelGenerators, set.BLOCKS.PLANK_DOOR, doorMapping);
@@ -161,6 +169,18 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
             Identifier inventory = ModelTemplates.FENCE_INVENTORY.create(fence, mapping, generator.modelOutput);
             generator.registerSimpleItemModel(fence, inventory);
         }
+        
+        public void generateCustomFence(BlockModelGenerators generator, Block fence, TextureMapping mapping) {
+            MultiVariant post = BlockModelGenerators.plainVariant(ModelTemplates.CUSTOM_FENCE_POST.create(fence, mapping, generator.modelOutput));
+            MultiVariant north = BlockModelGenerators.plainVariant(ModelTemplates.CUSTOM_FENCE_SIDE_NORTH.create(fence, mapping, generator.modelOutput));
+            MultiVariant east = BlockModelGenerators.plainVariant(ModelTemplates.CUSTOM_FENCE_SIDE_EAST.create(fence, mapping, generator.modelOutput));
+            MultiVariant south = BlockModelGenerators.plainVariant(ModelTemplates.CUSTOM_FENCE_SIDE_SOUTH.create(fence, mapping, generator.modelOutput));
+            MultiVariant west = BlockModelGenerators.plainVariant(ModelTemplates.CUSTOM_FENCE_SIDE_WEST.create(fence, mapping, generator.modelOutput));
+            generator.blockStateOutput.accept(BlockModelGenerators.createCustomFence(fence, post, north, east, south, west));
+            Identifier inventory = ModelTemplates.CUSTOM_FENCE_INVENTORY.create(fence, mapping, generator.modelOutput);
+            generator.registerSimpleItemModel(fence, inventory);
+
+        }
 
         public void generateFenceGate(BlockModelGenerators generator, Block fenceGate, TextureMapping mapping) {
             MultiVariant open = BlockModelGenerators.plainVariant(ModelTemplates.FENCE_GATE_OPEN.create(fenceGate, mapping, generator.modelOutput));
@@ -168,6 +188,20 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
             MultiVariant openWall = BlockModelGenerators.plainVariant(ModelTemplates.FENCE_GATE_WALL_OPEN.create(fenceGate, mapping, generator.modelOutput));
             MultiVariant closedWall = BlockModelGenerators.plainVariant(ModelTemplates.FENCE_GATE_WALL_CLOSED.create(fenceGate, mapping, generator.modelOutput));
             generator.blockStateOutput.accept(BlockModelGenerators.createFenceGate(fenceGate, open, closed, openWall, closedWall, true));
+        }
+        
+        public void generateCustomFenceGate(BlockModelGenerators generator, Block fenceGate, TextureMapping mapping) {
+            MultiVariant open = BlockModelGenerators.plainVariant(ModelTemplates.CUSTOM_FENCE_GATE_OPEN.create(fenceGate, mapping, generator.modelOutput));
+            MultiVariant closed = BlockModelGenerators.plainVariant(
+                    ModelTemplates.CUSTOM_FENCE_GATE_CLOSED.create(fenceGate, mapping, generator.modelOutput)
+            );
+            MultiVariant openWall = BlockModelGenerators.plainVariant(
+                    ModelTemplates.CUSTOM_FENCE_GATE_WALL_OPEN.create(fenceGate, mapping, generator.modelOutput)
+            );
+            MultiVariant closedWall = BlockModelGenerators.plainVariant(
+                    ModelTemplates.CUSTOM_FENCE_GATE_WALL_CLOSED.create(fenceGate, mapping, generator.modelOutput)
+            );
+            generator.blockStateOutput.accept(BlockModelGenerators.createFenceGate(fenceGate, open, closed, openWall, closedWall, false));
         }
         
         public void generatePressurePlate(BlockModelGenerators generator, Block pressurePlate, TextureMapping mapping) {
@@ -206,8 +240,8 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
             generator.registerSimpleItemModel(trapdoor, bottom);
         }
 
-        public void generateSign(BlockModelGenerators generator, Block sign, Block wallSign, Block sourceBlock) {
-            MultiVariant model = generator.createParticleOnlyBlockModel(sign, sourceBlock);
+        public void generateSign(BlockModelGenerators generator, Block sign, Block wallSign, Material sourceMaterial) {
+            MultiVariant model = BlockModelGenerators.plainVariant(ModelTemplates.PARTICLE_ONLY.create(sign, TextureMapping.particle(sourceMaterial), generator.modelOutput));
             generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(sign, model));
             generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(wallSign, model));
             //generator.registerSimpleFlatItemModel(sign.asItem());
@@ -240,6 +274,14 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
 
         public TextureMapping createPlanksMapping(AnotherWoodSet woodSet) {
             return TextureMapping.cube(createPlanksMaterial(woodSet));
+        }
+
+        public TextureMapping createFenceMapping(AnotherWoodSet woodSet) {
+            return (new TextureMapping()).put(TextureSlot.TEXTURE, createFenceMaterial(woodSet, false)).put(TextureSlot.PARTICLE, createFenceMaterial(woodSet, true));
+        }
+
+        public TextureMapping createFenceGateMapping(AnotherWoodSet woodSet) {
+            return (new TextureMapping()).put(TextureSlot.TEXTURE, createFenceGateMaterial(woodSet, false)).put(TextureSlot.PARTICLE, createFenceMaterial(woodSet, true));
         }
 
         public TextureMapping createMosaicMapping(AnotherWoodSet woodSet) {
@@ -315,6 +357,27 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
             Identifier id = Identifier.fromNamespaceAndPath("wood_you_dye", "dyed_wood/block" + variantName + "/planks_" + permutationName);
             return new Material(id);
         }
+
+        public Material createFenceMaterial(AnotherWoodSet woodSet, boolean particle) {
+            String variantName = woodSet.getVariantName();
+            String permutationName = woodSet.getPermutationName();
+            if (!variantName.isEmpty()) {
+                variantName = "/" + variantName;
+            }
+            Identifier id = Identifier.fromNamespaceAndPath("wood_you_dye", "dyed_wood/block" + variantName + "/plank_fence_" + (particle ? "particle_" : "") + permutationName);
+            return new Material(id);
+        }
+
+        public Material createFenceGateMaterial(AnotherWoodSet woodSet, boolean particle) {
+            String variantName = woodSet.getVariantName();
+            String permutationName = woodSet.getPermutationName();
+            if (!variantName.isEmpty()) {
+                variantName = "/" + variantName;
+            }
+            Identifier id = Identifier.fromNamespaceAndPath("wood_you_dye", "dyed_wood/block" + variantName + "/plank_fence_gate_" + (particle ? "particle_" : "") + permutationName);
+            return new Material(id);
+        }
+        
 
         public Material createMosaicMaterial(AnotherWoodSet woodSet) {
             String variantName = woodSet.getVariantName();
@@ -728,22 +791,22 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
             Map<String, Item> colors = new HashMap<>();
             for (DyeColor value : DyeColor.values()) {
                 switch (value) {
-                    case RED: colors.put(value.getName(), Items.RED_DYE);
-                    case ORANGE: colors.put(value.getName(), Items.ORANGE_DYE);
-                    case YELLOW: colors.put(value.getName(), Items.YELLOW_DYE);
-                    case LIME: colors.put(value.getName(), Items.LIME_DYE);
-                    case GREEN: colors.put(value.getName(), Items.GREEN_DYE);
-                    case CYAN: colors.put(value.getName(), Items.CYAN_DYE);
-                    case LIGHT_BLUE: colors.put(value.getName(), Items.LIGHT_BLUE_DYE);
-                    case BLUE: colors.put(value.getName(), Items.BLUE_DYE);
-                    case PURPLE: colors.put(value.getName(), Items.PURPLE_DYE);
-                    case MAGENTA: colors.put(value.getName(), Items.MAGENTA_DYE);
-                    case PINK: colors.put(value.getName(), Items.PINK_DYE);
-                    case BROWN: colors.put(value.getName(), Items.BROWN_DYE);
-                    case WHITE: colors.put(value.getName(), Items.WHITE_DYE);
-                    case LIGHT_GRAY: colors.put(value.getName(), Items.LIGHT_GRAY_DYE);
-                    case GRAY: colors.put(value.getName(), Items.GRAY_DYE);
-                    case BLACK: colors.put(value.getName(), Items.BLACK_DYE);
+                    case RED -> colors.put(value.getName(), Items.RED_DYE);
+                    case ORANGE -> colors.put(value.getName(), Items.ORANGE_DYE);
+                    case YELLOW -> colors.put(value.getName(), Items.YELLOW_DYE);
+                    case LIME -> colors.put(value.getName(), Items.LIME_DYE);
+                    case GREEN -> colors.put(value.getName(), Items.GREEN_DYE);
+                    case CYAN -> colors.put(value.getName(), Items.CYAN_DYE);
+                    case LIGHT_BLUE -> colors.put(value.getName(), Items.LIGHT_BLUE_DYE);
+                    case BLUE -> colors.put(value.getName(), Items.BLUE_DYE);
+                    case PURPLE -> colors.put(value.getName(), Items.PURPLE_DYE);
+                    case MAGENTA -> colors.put(value.getName(), Items.MAGENTA_DYE);
+                    case PINK -> colors.put(value.getName(), Items.PINK_DYE);
+                    case BROWN -> colors.put(value.getName(), Items.BROWN_DYE);
+                    case WHITE -> colors.put(value.getName(), Items.WHITE_DYE);
+                    case LIGHT_GRAY -> colors.put(value.getName(), Items.LIGHT_GRAY_DYE);
+                    case GRAY -> colors.put(value.getName(), Items.GRAY_DYE);
+                    case BLACK -> colors.put(value.getName(), Items.BLACK_DYE);
                 }
             }
             
@@ -751,17 +814,17 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
                 Item dye = colors.get(set.getPermutationName());
 
                 if (set.getDetail().hasLogs()) {
-                    shapeless(RecipeCategory.BUILDING_BLOCKS, set.ITEMS.LOG).requires(Ingredient.of(provider.getOrThrow(TagKey.create(Registries.ITEM, Gremlib.INSTANCE.createId("wood/" + set.getDetail().getName() + "/log")))), 8).requires(dye).unlockedBy(getHasName(dye), has(dye)).save(output, "wood_you_dye:" + set.getSetName() + "_log_dyed");
+                    shapeless(RecipeCategory.BUILDING_BLOCKS, set.ITEMS.LOG, 8).requires(Ingredient.of(provider.getOrThrow(TagKey.create(Registries.ITEM, Gremlib.INSTANCE.createId("wood/" + set.getDetail().getName() + "/log")))), 8).requires(dye).unlockedBy(getHasName(dye), has(dye)).save(output, "wood_you_dye:" + set.getSetName() + "_log_dyed");
 
                     if (set.getDetail().hasWoods()) {
                         woodFromLogs(set.ITEMS.LOG, set.ITEMS.WOOD);
                         woodFromLogs(set.ITEMS.STRIPPED_LOG, set.ITEMS.STRIPPED_WOOD);
                     }
 
-                    planksFromLog(set.ITEMS.PLANKS, TagKey.create(Registries.ITEM, Gremlib.INSTANCE.createId(set.getVariantName() + "_" + set.getPermutationName() + "_" + set.getDetail().getLogs() + "s")), (set.getDetail().getName().equals("bamboo") ? 2 : 4));
+                    planksFromLog(set.ITEMS.PLANKS, TagKey.create(Registries.ITEM, WoodYouDye.INSTANCE.createId(set.getVariantName() + "_" + set.getPermutationName() + "_" + set.getDetail().getLogs() + "s")), (set.getDetail().getName().equals("bamboo") ? 2 : 4));
                 }
 
-                shapeless(RecipeCategory.BUILDING_BLOCKS, set.ITEMS.PLANKS).requires(Ingredient.of(provider.getOrThrow(TagKey.create(Registries.ITEM, Gremlib.INSTANCE.createId("wood/" + set.getDetail().getName() + "/planks")))), 8).requires(dye).unlockedBy(getHasName(dye), has(dye)).save(output, "wood_you_dye:" + set.getSetName() + "_planks_dyed");
+                shapeless(RecipeCategory.BUILDING_BLOCKS, set.ITEMS.PLANKS, 8).requires(Ingredient.of(provider.getOrThrow(TagKey.create(Registries.ITEM, Gremlib.INSTANCE.createId("wood/" + set.getDetail().getName() + "/planks")))), 8).requires(dye).unlockedBy(getHasName(dye), has(dye)).save(output, "wood_you_dye:" + set.getSetName() + "_planks_dyed");
                 slab(RecipeCategory.BUILDING_BLOCKS, set.ITEMS.PLANK_SLAB, set.ITEMS.PLANKS);
                 stairBuilder(set.ITEMS.PLANK_STAIRS, Ingredient.of(set.ITEMS.PLANKS)).unlockedBy(getHasName(set.ITEMS.PLANKS), has(set.ITEMS.PLANKS)).save(output);
                 fenceBuilder(set.ITEMS.PLANK_FENCE, Ingredient.of(set.ITEMS.PLANKS)).unlockedBy(getHasName(set.ITEMS.PLANKS), has(set.ITEMS.PLANKS)).save(output);

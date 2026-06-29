@@ -10,9 +10,10 @@
     "#gremlib:wood/standard/planks",
     "#gremlib:wood/standard/planks",
     "#gremlib:wood/standard/planks",
-    "minecraft:black_dye"
+    "minecraft:light_blue_dye"
   ],
   "result": {
+    "count": 8,
     "id": "wood_you_dye:light_blue_dyed_planks"
   }
 }

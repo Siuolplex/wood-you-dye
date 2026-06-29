@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:block/fence_inventory",
+  "parent": "minecraft:block/custom_fence_inventory",
   "textures": {
-    "texture": "wood_you_dye:dyed_wood/block/bamboo/planks_gray"
+    "texture": "wood_you_dye:dyed_wood/block/bamboo/plank_fence_gray"
   }
 }
