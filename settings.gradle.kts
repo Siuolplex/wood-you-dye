@@ -50,6 +50,8 @@ plugins {
 
 rootProject.name = "wood-you-dye"
 
+includeBuild("build-logic")
 include("common")
 include("fabric")
 include("neoforge")
+

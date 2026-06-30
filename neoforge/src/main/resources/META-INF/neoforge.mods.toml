@@ -33,5 +33,13 @@ versionRange = "[26.0, 26.2]"
 ordering = "NONE"
 side = "BOTH"
 
+[[dependencies.wood_you_dye]]
+modId = "gremlib"
+mandatory = true
+versionRange = "[0.1, 0.2]"
+ordering = "NONE"
+side = "BOTH"
+
+
 [[mixins]]
 config="wood_you_dye.mixins.json"

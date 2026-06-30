@@ -1,3 +1,2 @@
 # Wood you Dye
-Adding Dyable Wood into Minecraft!
-
+Wood you dye simply adds a selection of dyed wood into Minecraft.

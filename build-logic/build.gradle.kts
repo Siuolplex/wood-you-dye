@@ -3,7 +3,7 @@ plugins {
     `maven-publish`
 }
 
-group = "io.siuolplex"
+group = "io.gremstudio"
 version = "1.0"
 
 repositories {
