@@ -1,8 +1,8 @@
 {
   "values": [
-    "wood_you_dye:stripped_green_dyed_log",
+    "wood_you_dye:green_dyed_log",
     "wood_you_dye:stripped_green_dyed_wood",
-    "wood_you_dye:green_dyed_wood",
-    "wood_you_dye:green_dyed_log"
+    "wood_you_dye:stripped_green_dyed_log",
+    "wood_you_dye:green_dyed_wood"
   ]
 }

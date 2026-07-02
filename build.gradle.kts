@@ -3,7 +3,7 @@ import me.modmuss50.mpp.PublishModTask
 plugins {
     id("java-library")
     // see https://fabricmc.net/develop/ for new versions
-    id("net.fabricmc.fabric-loom") version "1.15-SNAPSHOT" apply false
+    id("net.fabricmc.fabric-loom") version "1.17-SNAPSHOT" apply false
     // see https://projects.neoforged.net/neoforged/moddevgradle for new versions
     id("net.neoforged.moddev") version "2.0.140" apply false
     id("me.modmuss50.mod-publish-plugin") version "2.0.1"

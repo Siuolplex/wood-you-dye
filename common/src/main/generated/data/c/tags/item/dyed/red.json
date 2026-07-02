@@ -5,11 +5,11 @@
       "required": false
     },
     {
-      "id": "#wood_you_dye:bamboo_red_wood_set",
+      "id": "#wood_you_dye:standard_red_wood_set",
       "required": false
     },
     {
-      "id": "#wood_you_dye:standard_red_wood_set",
+      "id": "#wood_you_dye:bamboo_red_wood_set",
       "required": false
     }
   ]

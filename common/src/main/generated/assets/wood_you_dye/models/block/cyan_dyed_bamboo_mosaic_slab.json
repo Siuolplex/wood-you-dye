@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/slab",
   "textures": {
-    "bottom": "wood_you_dye:dyed_wood/block/bamboo/planks_cyan",
-    "side": "wood_you_dye:dyed_wood/block/bamboo/planks_cyan",
-    "top": "wood_you_dye:dyed_wood/block/bamboo/planks_cyan"
+    "bottom": "wood_you_dye:dyed_wood/block/bamboo/mosaic_cyan",
+    "side": "wood_you_dye:dyed_wood/block/bamboo/mosaic_cyan",
+    "top": "wood_you_dye:dyed_wood/block/bamboo/mosaic_cyan"
   }
 }

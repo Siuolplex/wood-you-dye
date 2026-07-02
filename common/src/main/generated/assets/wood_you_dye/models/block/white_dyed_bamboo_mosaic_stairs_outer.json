@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/outer_stairs",
   "textures": {
-    "bottom": "wood_you_dye:dyed_wood/block/bamboo/planks_white",
-    "side": "wood_you_dye:dyed_wood/block/bamboo/planks_white",
-    "top": "wood_you_dye:dyed_wood/block/bamboo/planks_white"
+    "bottom": "wood_you_dye:dyed_wood/block/bamboo/mosaic_white",
+    "side": "wood_you_dye:dyed_wood/block/bamboo/mosaic_white",
+    "top": "wood_you_dye:dyed_wood/block/bamboo/mosaic_white"
   }
 }

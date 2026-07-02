@@ -1,20 +1,20 @@
 {
   "values": [
-    "wood_you_dye:light_gray_dyed_nether_plank_stairs",
-    "wood_you_dye:light_gray_dyed_nether_stem",
     "wood_you_dye:stripped_light_gray_dyed_nether_hyphae",
-    "wood_you_dye:light_gray_dyed_nether_plank_hanging_sign",
-    "wood_you_dye:light_gray_dyed_nether_plank_door",
-    "wood_you_dye:light_gray_dyed_nether_plank_button",
-    "wood_you_dye:light_gray_dyed_nether_plank_trapdoor",
-    "wood_you_dye:light_gray_dyed_nether_plank_fence_gate",
-    "wood_you_dye:stripped_light_gray_dyed_nether_stem",
-    "wood_you_dye:light_gray_dyed_nether_plank_fence",
-    "wood_you_dye:light_gray_dyed_nether_plank_shelf",
     "wood_you_dye:light_gray_dyed_nether_planks",
-    "wood_you_dye:light_gray_dyed_nether_plank_pressure_plate",
-    "wood_you_dye:light_gray_dyed_nether_hyphae",
+    "wood_you_dye:light_gray_dyed_nether_plank_trapdoor",
+    "wood_you_dye:light_gray_dyed_nether_plank_sign",
+    "wood_you_dye:light_gray_dyed_nether_plank_fence_gate",
+    "wood_you_dye:light_gray_dyed_nether_plank_hanging_sign",
     "wood_you_dye:light_gray_dyed_nether_plank_slab",
-    "wood_you_dye:light_gray_dyed_nether_plank_sign"
+    "wood_you_dye:light_gray_dyed_nether_plank_door",
+    "wood_you_dye:light_gray_dyed_nether_plank_shelf",
+    "wood_you_dye:light_gray_dyed_nether_plank_stairs",
+    "wood_you_dye:light_gray_dyed_nether_plank_pressure_plate",
+    "wood_you_dye:light_gray_dyed_nether_stem",
+    "wood_you_dye:light_gray_dyed_nether_plank_button",
+    "wood_you_dye:light_gray_dyed_nether_hyphae",
+    "wood_you_dye:light_gray_dyed_nether_plank_fence",
+    "wood_you_dye:stripped_light_gray_dyed_nether_stem"
   ]
 }

@@ -5,11 +5,11 @@
       "required": false
     },
     {
-      "id": "#wood_you_dye:nether_green_wood_set",
+      "id": "#wood_you_dye:bamboo_green_wood_set",
       "required": false
     },
     {
-      "id": "#wood_you_dye:bamboo_green_wood_set",
+      "id": "#wood_you_dye:nether_green_wood_set",
       "required": false
     }
   ]

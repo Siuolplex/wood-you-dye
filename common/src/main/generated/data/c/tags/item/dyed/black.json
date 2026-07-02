@@ -1,7 +1,7 @@
 {
   "values": [
     {
-      "id": "#wood_you_dye:nether_black_wood_set",
+      "id": "#wood_you_dye:bamboo_black_wood_set",
       "required": false
     },
     {
@@ -9,7 +9,7 @@
       "required": false
     },
     {
-      "id": "#wood_you_dye:bamboo_black_wood_set",
+      "id": "#wood_you_dye:nether_black_wood_set",
       "required": false
     }
   ]

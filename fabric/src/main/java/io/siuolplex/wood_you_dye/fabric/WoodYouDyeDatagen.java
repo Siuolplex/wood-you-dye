@@ -285,7 +285,7 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
         }
 
         public TextureMapping createMosaicMapping(AnotherWoodSet woodSet) {
-            return TextureMapping.cube(createPlanksMaterial(woodSet));
+            return TextureMapping.cube(createMosaicMaterial(woodSet));
         }
 
         public TextureMapping createDoorMapping(AnotherWoodSet woodSet) {

@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/inner_stairs",
   "textures": {
-    "bottom": "wood_you_dye:dyed_wood/block/bamboo/planks_purple",
-    "side": "wood_you_dye:dyed_wood/block/bamboo/planks_purple",
-    "top": "wood_you_dye:dyed_wood/block/bamboo/planks_purple"
+    "bottom": "wood_you_dye:dyed_wood/block/bamboo/mosaic_purple",
+    "side": "wood_you_dye:dyed_wood/block/bamboo/mosaic_purple",
+    "top": "wood_you_dye:dyed_wood/block/bamboo/mosaic_purple"
   }
 }

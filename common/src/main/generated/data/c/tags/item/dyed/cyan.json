@@ -1,11 +1,11 @@
 {
   "values": [
     {
-      "id": "#wood_you_dye:standard_cyan_wood_set",
+      "id": "#wood_you_dye:nether_cyan_wood_set",
       "required": false
     },
     {
-      "id": "#wood_you_dye:nether_cyan_wood_set",
+      "id": "#wood_you_dye:standard_cyan_wood_set",
       "required": false
     },
     {
