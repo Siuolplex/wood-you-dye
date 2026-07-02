@@ -2,13 +2,16 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "#": "wood_you_dye:red_dyed_bamboo_plank_slab"
+    "#": {
+      "item": "wood_you_dye:red_dyed_bamboo_plank_slab"
+    }
   },
   "pattern": [
     "#",
     "#"
   ],
   "result": {
+    "count": 1,
     "id": "wood_you_dye:red_dyed_bamboo_mosaic"
   }
 }

@@ -9,10 +9,11 @@ import io.gremstudio.gremlib.mixin.client.EntityRenderersInvoker;
 import io.gremstudio.gremlib.util.WoodSetInfo;
 import io.siuolplex.wood_you_dye.AnotherWoodSet;
 import io.siuolplex.wood_you_dye.WoodYouDye;
+import net.minecraft.client.model.BoatModel;
+import net.minecraft.client.model.ChestBoatModel;
+import net.minecraft.client.model.ChestRaftModel;
+import net.minecraft.client.model.RaftModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.model.object.boat.BoatModel;
-import net.minecraft.client.model.object.boat.RaftModel;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
@@ -31,25 +32,20 @@ public class ClientWoodSet {
             this.chestBoatLayer = ModelLayersUtil.register(WoodYouDye.INSTANCE.createId(set.getVariantName() + "/" + set.getSetName() + "_chest_" + set.getDetail().getBoat().name));
 
             if (set.getDetail().getBoat().equals(WoodSetInfo.BoatType.BOAT)) {
-                LayerDefinitionRegistry.addLayer(boatLayer, BoatModel.createBoatModel());
-                LayerDefinitionRegistry.addLayer(chestBoatLayer, BoatModel.createChestBoatModel());
+                LayerDefinitionRegistry.addLayer(boatLayer, BoatModel.createBodyModel());
+                LayerDefinitionRegistry.addLayer(chestBoatLayer, ChestBoatModel.createBodyModel());
 
             } else {
-                LayerDefinitionRegistry.addLayer(boatLayer, RaftModel.createRaftModel());
-                LayerDefinitionRegistry.addLayer(chestBoatLayer, RaftModel.createChestRaftModel());
+                LayerDefinitionRegistry.addLayer(boatLayer, RaftModel.createBodyModel());
+                LayerDefinitionRegistry.addLayer(chestBoatLayer, ChestRaftModel.createBodyModel());
             }
         }
     }
 
     public void registerRenderers() {
         if (woodSet.getDetail().hasBoat()) {
-            if (woodSet.getDetail().getBoat().equals(WoodSetInfo.BoatType.BOAT)) {
-                EntityRenderersInvoker.invokeRegister(woodSet.ENTITIES.PLANK_BOAT, context -> new DyedBoatRenderer(context, boatLayer, woodSet, false));
-                EntityRenderersInvoker.invokeRegister(woodSet.ENTITIES.PLANK_CHEST_BOAT, context -> new DyedBoatRenderer(context, chestBoatLayer, woodSet, true));
-            } else {
-                EntityRenderersInvoker.invokeRegister(woodSet.ENTITIES.PLANK_BOAT, context -> new DyedRaftRenderer(context, boatLayer, woodSet, false));
-                EntityRenderersInvoker.invokeRegister(woodSet.ENTITIES.PLANK_CHEST_BOAT, context -> new DyedRaftRenderer(context, chestBoatLayer, woodSet, true));
-            }
+            EntityRenderersInvoker.invokeRegister(woodSet.ENTITIES.PLANK_BOAT, context -> new DyedBoatRenderer(context, woodSet, boatLayer, false));
+            EntityRenderersInvoker.invokeRegister(woodSet.ENTITIES.PLANK_CHEST_BOAT, context -> new DyedBoatRenderer(context, woodSet, chestBoatLayer, true));
         }
 
         SignHelper.addReplacement(woodSet.getWoodType(), (GremSign)woodSet.BLOCKS.PLANK_SIGN, (GremHangingSign)woodSet.BLOCKS.PLANK_HANGING_SIGN);

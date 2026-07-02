@@ -1,8 +1,8 @@
 {
   "values": [
-    "wood_you_dye:stripped_cyan_dyed_nether_hyphae",
     "wood_you_dye:cyan_dyed_nether_stem",
     "wood_you_dye:stripped_cyan_dyed_nether_stem",
-    "wood_you_dye:cyan_dyed_nether_hyphae"
+    "wood_you_dye:cyan_dyed_nether_hyphae",
+    "wood_you_dye:stripped_cyan_dyed_nether_hyphae"
   ]
 }

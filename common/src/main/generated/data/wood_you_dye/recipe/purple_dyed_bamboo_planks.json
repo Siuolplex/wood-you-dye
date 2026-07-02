@@ -3,7 +3,9 @@
   "category": "building",
   "group": "planks",
   "ingredients": [
-    "#wood_you_dye:bamboo_purple_blocks"
+    {
+      "tag": "wood_you_dye:bamboo_purple_blocks"
+    }
   ],
   "result": {
     "count": 2,

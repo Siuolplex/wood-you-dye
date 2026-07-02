@@ -2,12 +2,15 @@
   "type": "minecraft:crafting_shaped",
   "category": "redstone",
   "key": {
-    "#": "wood_you_dye:brown_dyed_nether_planks"
+    "#": {
+      "item": "wood_you_dye:brown_dyed_nether_planks"
+    }
   },
   "pattern": [
     "##"
   ],
   "result": {
+    "count": 1,
     "id": "wood_you_dye:brown_dyed_nether_plank_pressure_plate"
   }
 }

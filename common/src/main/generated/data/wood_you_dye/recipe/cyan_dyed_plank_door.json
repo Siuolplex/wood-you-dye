@@ -2,7 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "redstone",
   "key": {
-    "#": "wood_you_dye:cyan_dyed_planks"
+    "#": {
+      "item": "wood_you_dye:cyan_dyed_planks"
+    }
   },
   "pattern": [
     "##",

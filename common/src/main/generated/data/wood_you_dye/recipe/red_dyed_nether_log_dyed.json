@@ -2,15 +2,33 @@
   "type": "minecraft:crafting_shapeless",
   "category": "building",
   "ingredients": [
-    "#gremlib:wood/nether/log",
-    "#gremlib:wood/nether/log",
-    "#gremlib:wood/nether/log",
-    "#gremlib:wood/nether/log",
-    "#gremlib:wood/nether/log",
-    "#gremlib:wood/nether/log",
-    "#gremlib:wood/nether/log",
-    "#gremlib:wood/nether/log",
-    "minecraft:red_dye"
+    {
+      "tag": "gremlib:wood/nether/log"
+    },
+    {
+      "tag": "gremlib:wood/nether/log"
+    },
+    {
+      "tag": "gremlib:wood/nether/log"
+    },
+    {
+      "tag": "gremlib:wood/nether/log"
+    },
+    {
+      "tag": "gremlib:wood/nether/log"
+    },
+    {
+      "tag": "gremlib:wood/nether/log"
+    },
+    {
+      "tag": "gremlib:wood/nether/log"
+    },
+    {
+      "tag": "gremlib:wood/nether/log"
+    },
+    {
+      "item": "minecraft:red_dye"
+    }
   ],
   "result": {
     "count": 8,

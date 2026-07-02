@@ -2,9 +2,12 @@
   "type": "minecraft:crafting_shapeless",
   "category": "redstone",
   "ingredients": [
-    "wood_you_dye:cyan_dyed_nether_planks"
+    {
+      "item": "wood_you_dye:cyan_dyed_nether_planks"
+    }
   ],
   "result": {
+    "count": 1,
     "id": "wood_you_dye:cyan_dyed_nether_plank_button"
   }
 }

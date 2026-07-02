@@ -2,15 +2,33 @@
   "type": "minecraft:crafting_shapeless",
   "category": "building",
   "ingredients": [
-    "#gremlib:wood/standard/planks",
-    "#gremlib:wood/standard/planks",
-    "#gremlib:wood/standard/planks",
-    "#gremlib:wood/standard/planks",
-    "#gremlib:wood/standard/planks",
-    "#gremlib:wood/standard/planks",
-    "#gremlib:wood/standard/planks",
-    "#gremlib:wood/standard/planks",
-    "minecraft:green_dye"
+    {
+      "tag": "gremlib:wood/standard/planks"
+    },
+    {
+      "tag": "gremlib:wood/standard/planks"
+    },
+    {
+      "tag": "gremlib:wood/standard/planks"
+    },
+    {
+      "tag": "gremlib:wood/standard/planks"
+    },
+    {
+      "tag": "gremlib:wood/standard/planks"
+    },
+    {
+      "tag": "gremlib:wood/standard/planks"
+    },
+    {
+      "tag": "gremlib:wood/standard/planks"
+    },
+    {
+      "tag": "gremlib:wood/standard/planks"
+    },
+    {
+      "item": "minecraft:green_dye"
+    }
   ],
   "result": {
     "count": 8,

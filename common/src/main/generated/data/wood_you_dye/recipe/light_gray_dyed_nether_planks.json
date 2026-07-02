@@ -3,7 +3,9 @@
   "category": "building",
   "group": "planks",
   "ingredients": [
-    "#wood_you_dye:nether_light_gray_stems"
+    {
+      "tag": "wood_you_dye:nether_light_gray_stems"
+    }
   ],
   "result": {
     "count": 4,

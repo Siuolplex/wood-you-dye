@@ -3,13 +3,16 @@
   "category": "misc",
   "group": "boat",
   "key": {
-    "#": "wood_you_dye:green_dyed_bamboo_planks"
+    "#": {
+      "item": "wood_you_dye:green_dyed_bamboo_planks"
+    }
   },
   "pattern": [
     "# #",
     "###"
   ],
   "result": {
+    "count": 1,
     "id": "wood_you_dye:green_dyed_bamboo_raft"
   }
 }

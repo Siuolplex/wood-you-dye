@@ -19,11 +19,12 @@ public class WoodYouDye extends GremMod implements HasRegistration {
     Map<ResourceKey<?>, Consumer<Registry<?>>> registryMap = new HashMap<>();
 
     public WoodYouDye() {
+        super();
+
         if (INSTANCE != null) {
             throw new GremMod.GremModReinitError("Can't run a GremMod twice over!");
         }
 
-        super();
         INSTANCE = this;
     }
 

@@ -123,3 +123,4 @@ run/
 /quilt/runserver/
 /.idea/
 runs/
+/common/src/main/generated/.cache/

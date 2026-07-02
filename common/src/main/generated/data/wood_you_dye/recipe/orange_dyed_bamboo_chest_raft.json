@@ -3,10 +3,15 @@
   "category": "misc",
   "group": "chest_boat",
   "ingredients": [
-    "minecraft:chest",
-    "wood_you_dye:orange_dyed_bamboo_raft"
+    {
+      "item": "minecraft:chest"
+    },
+    {
+      "item": "wood_you_dye:orange_dyed_bamboo_raft"
+    }
   ],
   "result": {
+    "count": 1,
     "id": "wood_you_dye:orange_dyed_bamboo_chest_raft"
   }
 }

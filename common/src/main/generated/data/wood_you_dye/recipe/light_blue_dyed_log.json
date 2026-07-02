@@ -3,7 +3,9 @@
   "category": "building",
   "group": "bark",
   "key": {
-    "#": "wood_you_dye:light_blue_dyed_wood"
+    "#": {
+      "item": "wood_you_dye:light_blue_dyed_wood"
+    }
   },
   "pattern": [
     "##",

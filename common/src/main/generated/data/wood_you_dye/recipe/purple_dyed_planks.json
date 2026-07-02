@@ -3,7 +3,9 @@
   "category": "building",
   "group": "planks",
   "ingredients": [
-    "#wood_you_dye:standard_purple_logs"
+    {
+      "tag": "wood_you_dye:standard_purple_logs"
+    }
   ],
   "result": {
     "count": 4,

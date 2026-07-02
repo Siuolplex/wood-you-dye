@@ -2,15 +2,33 @@
   "type": "minecraft:crafting_shapeless",
   "category": "building",
   "ingredients": [
-    "#gremlib:wood/standard/log",
-    "#gremlib:wood/standard/log",
-    "#gremlib:wood/standard/log",
-    "#gremlib:wood/standard/log",
-    "#gremlib:wood/standard/log",
-    "#gremlib:wood/standard/log",
-    "#gremlib:wood/standard/log",
-    "#gremlib:wood/standard/log",
-    "minecraft:blue_dye"
+    {
+      "tag": "gremlib:wood/standard/log"
+    },
+    {
+      "tag": "gremlib:wood/standard/log"
+    },
+    {
+      "tag": "gremlib:wood/standard/log"
+    },
+    {
+      "tag": "gremlib:wood/standard/log"
+    },
+    {
+      "tag": "gremlib:wood/standard/log"
+    },
+    {
+      "tag": "gremlib:wood/standard/log"
+    },
+    {
+      "tag": "gremlib:wood/standard/log"
+    },
+    {
+      "tag": "gremlib:wood/standard/log"
+    },
+    {
+      "item": "minecraft:blue_dye"
+    }
   ],
   "result": {
     "count": 8,

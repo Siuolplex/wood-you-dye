@@ -2,7 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "#": "wood_you_dye:black_dyed_bamboo_planks"
+    "#": {
+      "item": "wood_you_dye:black_dyed_bamboo_planks"
+    }
   },
   "pattern": [
     "#  ",

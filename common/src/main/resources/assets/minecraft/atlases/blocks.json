@@ -30,7 +30,12 @@
         "wood_you_dye:dyed_wood/block/standard/stripped_log",
         "wood_you_dye:dyed_wood/block/standard/log_top",
         "wood_you_dye:dyed_wood/block/standard/stripped_log_top",
-        "wood_you_dye:dyed_wood/block/standard/shelf"
+        "wood_you_dye:dyed_wood/block/standard/shelf",
+        "wood_you_dye:dyed_wood/item/standard/sign",
+        "wood_you_dye:dyed_wood/item/standard/hanging_sign",
+        "wood_you_dye:dyed_wood/item/standard/door",
+        "wood_you_dye:dyed_wood/item/standard/boat",
+        "wood_you_dye:dyed_wood/item/standard/chest_boat"
       ]
     },
     {
@@ -63,7 +68,10 @@
         "wood_you_dye:dyed_wood/block/nether/stripped_log",
         "wood_you_dye:dyed_wood/block/nether/log_top",
         "wood_you_dye:dyed_wood/block/nether/stripped_log_top",
-        "wood_you_dye:dyed_wood/block/nether/shelf"
+        "wood_you_dye:dyed_wood/block/nether/shelf",
+        "wood_you_dye:dyed_wood/item/nether/sign",
+        "wood_you_dye:dyed_wood/item/nether/hanging_sign",
+        "wood_you_dye:dyed_wood/item/nether/door"
       ]
     },
     {
@@ -100,7 +108,12 @@
         "wood_you_dye:dyed_wood/block/bamboo/mosaic",
         "wood_you_dye:dyed_wood/block/bamboo/plank_fence",
         "wood_you_dye:dyed_wood/block/bamboo/plank_fence_gate",
-        "wood_you_dye:dyed_wood/block/bamboo/plank_fence_particle"
+        "wood_you_dye:dyed_wood/block/bamboo/plank_fence_particle",
+        "wood_you_dye:dyed_wood/item/bamboo/sign",
+        "wood_you_dye:dyed_wood/item/bamboo/hanging_sign",
+        "wood_you_dye:dyed_wood/item/bamboo/door",
+        "wood_you_dye:dyed_wood/item/bamboo/raft",
+        "wood_you_dye:dyed_wood/item/bamboo/chest_raft"
       ]
     }
   ]

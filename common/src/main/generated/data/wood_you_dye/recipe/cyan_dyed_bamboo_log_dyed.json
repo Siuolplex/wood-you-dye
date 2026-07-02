@@ -2,15 +2,33 @@
   "type": "minecraft:crafting_shapeless",
   "category": "building",
   "ingredients": [
-    "#gremlib:wood/bamboo/log",
-    "#gremlib:wood/bamboo/log",
-    "#gremlib:wood/bamboo/log",
-    "#gremlib:wood/bamboo/log",
-    "#gremlib:wood/bamboo/log",
-    "#gremlib:wood/bamboo/log",
-    "#gremlib:wood/bamboo/log",
-    "#gremlib:wood/bamboo/log",
-    "minecraft:cyan_dye"
+    {
+      "tag": "gremlib:wood/bamboo/log"
+    },
+    {
+      "tag": "gremlib:wood/bamboo/log"
+    },
+    {
+      "tag": "gremlib:wood/bamboo/log"
+    },
+    {
+      "tag": "gremlib:wood/bamboo/log"
+    },
+    {
+      "tag": "gremlib:wood/bamboo/log"
+    },
+    {
+      "tag": "gremlib:wood/bamboo/log"
+    },
+    {
+      "tag": "gremlib:wood/bamboo/log"
+    },
+    {
+      "tag": "gremlib:wood/bamboo/log"
+    },
+    {
+      "item": "minecraft:cyan_dye"
+    }
   ],
   "result": {
     "count": 8,

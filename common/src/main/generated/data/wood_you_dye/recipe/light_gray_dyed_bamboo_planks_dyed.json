@@ -2,15 +2,33 @@
   "type": "minecraft:crafting_shapeless",
   "category": "building",
   "ingredients": [
-    "#gremlib:wood/bamboo/planks",
-    "#gremlib:wood/bamboo/planks",
-    "#gremlib:wood/bamboo/planks",
-    "#gremlib:wood/bamboo/planks",
-    "#gremlib:wood/bamboo/planks",
-    "#gremlib:wood/bamboo/planks",
-    "#gremlib:wood/bamboo/planks",
-    "#gremlib:wood/bamboo/planks",
-    "minecraft:light_gray_dye"
+    {
+      "tag": "gremlib:wood/bamboo/planks"
+    },
+    {
+      "tag": "gremlib:wood/bamboo/planks"
+    },
+    {
+      "tag": "gremlib:wood/bamboo/planks"
+    },
+    {
+      "tag": "gremlib:wood/bamboo/planks"
+    },
+    {
+      "tag": "gremlib:wood/bamboo/planks"
+    },
+    {
+      "tag": "gremlib:wood/bamboo/planks"
+    },
+    {
+      "tag": "gremlib:wood/bamboo/planks"
+    },
+    {
+      "tag": "gremlib:wood/bamboo/planks"
+    },
+    {
+      "item": "minecraft:light_gray_dye"
+    }
   ],
   "result": {
     "count": 8,

@@ -2,13 +2,15 @@
   "required": true,
   "minVersion": "0.8",
   "package": "io.siuolplex.wood_you_dye.mixin",
-  "compatibilityLevel": "JAVA_25",
+  "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "BoatItemMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "client": [
+    "client.BoatRendererMixin"
   ],
   "refmap": "wood_you_dye.refmap.json",
   "mixinextras": {

@@ -3,8 +3,12 @@
   "category": "misc",
   "group": "sign",
   "key": {
-    "#": "wood_you_dye:magenta_dyed_nether_planks",
-    "X": "minecraft:stick"
+    "#": {
+      "item": "wood_you_dye:magenta_dyed_nether_planks"
+    },
+    "X": {
+      "item": "minecraft:stick"
+    }
   },
   "pattern": [
     "###",

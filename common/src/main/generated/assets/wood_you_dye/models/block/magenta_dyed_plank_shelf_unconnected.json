@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/template_shelf_unconnected",
-  "textures": {
-    "all": "wood_you_dye:dyed_wood/block/standard/shelf_magenta",
-    "particle": "wood_you_dye:dyed_wood/block/standard/planks_magenta"
-  }
-}

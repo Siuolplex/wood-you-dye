@@ -24,6 +24,9 @@
     "gremlib:common": [
       "io.siuolplex.wood_you_dye.fabric.WoodYouDyeFabric"
     ],
+    "client": [
+      "io.siuolplex.wood_you_dye.fabric.WoodYouDyeFabricClient"
+    ],
     "fabric-datagen": [
       "io.siuolplex.wood_you_dye.fabric.WoodYouDyeDatagen"
     ]

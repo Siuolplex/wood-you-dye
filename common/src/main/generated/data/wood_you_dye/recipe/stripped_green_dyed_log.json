@@ -3,7 +3,9 @@
   "category": "building",
   "group": "bark",
   "key": {
-    "#": "wood_you_dye:stripped_green_dyed_wood"
+    "#": {
+      "item": "wood_you_dye:stripped_green_dyed_wood"
+    }
   },
   "pattern": [
     "##",

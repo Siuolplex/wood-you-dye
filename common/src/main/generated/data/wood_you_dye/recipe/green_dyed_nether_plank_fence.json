@@ -2,8 +2,12 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": "minecraft:stick",
-    "W": "wood_you_dye:green_dyed_nether_planks"
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "W": {
+      "item": "wood_you_dye:green_dyed_nether_planks"
+    }
   },
   "pattern": [
     "W#W",

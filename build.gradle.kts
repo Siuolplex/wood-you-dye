@@ -1,9 +1,7 @@
-import me.modmuss50.mpp.PublishModTask
-
 plugins {
     id("java-library")
     // see https://fabricmc.net/develop/ for new versions
-    id("net.fabricmc.fabric-loom") version "1.17-SNAPSHOT" apply false
+    id("fabric-loom") version "1.17-SNAPSHOT" apply false
     // see https://projects.neoforged.net/neoforged/moddevgradle for new versions
     id("net.neoforged.moddev") version "2.0.140" apply false
     id("me.modmuss50.mod-publish-plugin") version "2.0.1"
@@ -29,14 +27,35 @@ publishMods {
         type.set(STABLE)
 
         this.version = project.version.toString()
-        this.displayName = (project.version.toString()).replace("+", " ").replace("-", " ").replace("fabric", "Fabric")
+        this.displayName =
+            (project.version.toString()).replace("+", " ").replace("-", " ").replace("fabric", "Fabric")
     }
-
 }
 
 tasks.register("uploadMod") {
-    description = "Uploads the mod."
+    description = "Uploads the mod to various platforms."
     group = "mod"
 
-    finalizedBy(tasks["publishMods"], project(":fabric").tasks["publishMods"], project(":neoforge").tasks["publishMods"])
+    var theTasks: MutableList<Any> = mutableListOf()
+
+    var fabric : Project = project(":fabric")
+    var neoforge : Project = project(":neoforge")
+
+    if (project.providers.environmentVariable("PUBLISH_GH").getOrElse("False") == "True") {
+        theTasks.add(rootProject.tasks["publishGHParent"])
+        theTasks.add(fabric.tasks["publishGHFabric"])
+        theTasks.add(neoforge.tasks["publishGHNeoforge"])
+    }
+
+    if (project.providers.environmentVariable("PUBLISH_CF").getOrElse("False") == "True") {
+        theTasks.add(fabric.tasks["publishCurseforgeFabric"])
+        theTasks.add(neoforge.tasks["publishCurseforgeNeoforge"])
+    }
+
+    if (project.providers.environmentVariable("PUBLISH_MR").getOrElse("False") == "True") {
+        theTasks.add(fabric.tasks["publishModrinthFabric"])
+        theTasks.add(neoforge.tasks["publishModrinthNeoforge"])
+    }
+
+    finalizedBy(theTasks)
 }

@@ -1,8 +1,8 @@
 {
   "values": [
-    "wood_you_dye:black_dyed_log",
-    "wood_you_dye:black_dyed_wood",
     "wood_you_dye:stripped_black_dyed_log",
+    "wood_you_dye:black_dyed_wood",
+    "wood_you_dye:black_dyed_log",
     "wood_you_dye:stripped_black_dyed_wood"
   ]
 }

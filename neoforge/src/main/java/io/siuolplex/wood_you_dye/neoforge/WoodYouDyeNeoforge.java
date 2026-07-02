@@ -3,7 +3,7 @@ package io.siuolplex.wood_you_dye.neoforge;
 import io.gremstudio.gremlib.neoforge.initializers.GremModInitalizationEvent;
 import io.siuolplex.wood_you_dye.WoodYouDye;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackSource;
@@ -30,7 +30,7 @@ public class WoodYouDyeNeoforge {
     @SubscribeEvent
     public void addProgArtPack(AddPackFindersEvent event) {
         event.addPackFinders(
-                Identifier.fromNamespaceAndPath("wood_you_dye", "resourcepacks/programmer_art"),
+                ResourceLocation.fromNamespaceAndPath("wood_you_dye", "resourcepacks/programmer_art"),
                 PackType.CLIENT_RESOURCES,
                 Component.literal("Wood You Dye Programmer Art"),
                 PackSource.DEFAULT,

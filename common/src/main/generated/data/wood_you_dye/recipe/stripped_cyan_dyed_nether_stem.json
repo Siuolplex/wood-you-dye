@@ -3,7 +3,9 @@
   "category": "building",
   "group": "bark",
   "key": {
-    "#": "wood_you_dye:stripped_cyan_dyed_nether_hyphae"
+    "#": {
+      "item": "wood_you_dye:stripped_cyan_dyed_nether_hyphae"
+    }
   },
   "pattern": [
     "##",

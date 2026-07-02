@@ -2,15 +2,33 @@
   "type": "minecraft:crafting_shapeless",
   "category": "building",
   "ingredients": [
-    "#gremlib:wood/nether/planks",
-    "#gremlib:wood/nether/planks",
-    "#gremlib:wood/nether/planks",
-    "#gremlib:wood/nether/planks",
-    "#gremlib:wood/nether/planks",
-    "#gremlib:wood/nether/planks",
-    "#gremlib:wood/nether/planks",
-    "#gremlib:wood/nether/planks",
-    "minecraft:light_blue_dye"
+    {
+      "tag": "gremlib:wood/nether/planks"
+    },
+    {
+      "tag": "gremlib:wood/nether/planks"
+    },
+    {
+      "tag": "gremlib:wood/nether/planks"
+    },
+    {
+      "tag": "gremlib:wood/nether/planks"
+    },
+    {
+      "tag": "gremlib:wood/nether/planks"
+    },
+    {
+      "tag": "gremlib:wood/nether/planks"
+    },
+    {
+      "tag": "gremlib:wood/nether/planks"
+    },
+    {
+      "tag": "gremlib:wood/nether/planks"
+    },
+    {
+      "item": "minecraft:light_blue_dye"
+    }
   ],
   "result": {
     "count": 8,

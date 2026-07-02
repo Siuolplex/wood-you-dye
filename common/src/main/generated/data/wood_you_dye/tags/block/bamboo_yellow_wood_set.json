@@ -1,22 +1,21 @@
 {
   "values": [
+    "wood_you_dye:yellow_dyed_bamboo_plank_wall_hanging_sign",
+    "wood_you_dye:yellow_dyed_bamboo_plank_trapdoor",
     "wood_you_dye:yellow_dyed_bamboo_plank_wall_sign",
     "wood_you_dye:yellow_dyed_bamboo_block",
-    "wood_you_dye:yellow_dyed_bamboo_plank_button",
-    "wood_you_dye:yellow_dyed_bamboo_plank_shelf",
-    "wood_you_dye:yellow_dyed_bamboo_plank_hanging_sign",
     "wood_you_dye:yellow_dyed_bamboo_plank_fence_gate",
-    "wood_you_dye:yellow_dyed_bamboo_plank_sign",
-    "wood_you_dye:yellow_dyed_bamboo_plank_door",
-    "wood_you_dye:yellow_dyed_bamboo_mosaic_slab",
+    "wood_you_dye:yellow_dyed_bamboo_plank_hanging_sign",
     "wood_you_dye:yellow_dyed_bamboo_plank_pressure_plate",
-    "wood_you_dye:yellow_dyed_bamboo_plank_wall_hanging_sign",
-    "wood_you_dye:yellow_dyed_bamboo_planks",
-    "wood_you_dye:yellow_dyed_bamboo_plank_slab",
-    "wood_you_dye:yellow_dyed_bamboo_plank_stairs",
     "wood_you_dye:stripped_yellow_dyed_bamboo_block",
-    "wood_you_dye:yellow_dyed_bamboo_mosaic_stairs",
     "wood_you_dye:yellow_dyed_bamboo_plank_fence",
-    "wood_you_dye:yellow_dyed_bamboo_plank_trapdoor"
+    "wood_you_dye:yellow_dyed_bamboo_plank_door",
+    "wood_you_dye:yellow_dyed_bamboo_plank_stairs",
+    "wood_you_dye:yellow_dyed_bamboo_mosaic_stairs",
+    "wood_you_dye:yellow_dyed_bamboo_planks",
+    "wood_you_dye:yellow_dyed_bamboo_plank_button",
+    "wood_you_dye:yellow_dyed_bamboo_plank_sign",
+    "wood_you_dye:yellow_dyed_bamboo_plank_slab",
+    "wood_you_dye:yellow_dyed_bamboo_mosaic_slab"
   ]
 }

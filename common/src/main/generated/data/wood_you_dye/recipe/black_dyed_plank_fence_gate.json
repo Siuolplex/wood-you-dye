@@ -2,14 +2,19 @@
   "type": "minecraft:crafting_shaped",
   "category": "redstone",
   "key": {
-    "#": "minecraft:stick",
-    "W": "wood_you_dye:black_dyed_planks"
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "W": {
+      "item": "wood_you_dye:black_dyed_planks"
+    }
   },
   "pattern": [
     "#W#",
     "#W#"
   ],
   "result": {
+    "count": 1,
     "id": "wood_you_dye:black_dyed_plank_fence_gate"
   }
 }

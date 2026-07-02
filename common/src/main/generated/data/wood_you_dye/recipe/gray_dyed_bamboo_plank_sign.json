@@ -3,8 +3,12 @@
   "category": "misc",
   "group": "sign",
   "key": {
-    "#": "wood_you_dye:gray_dyed_bamboo_planks",
-    "X": "minecraft:stick"
+    "#": {
+      "item": "wood_you_dye:gray_dyed_bamboo_planks"
+    },
+    "X": {
+      "item": "minecraft:stick"
+    }
   },
   "pattern": [
     "###",

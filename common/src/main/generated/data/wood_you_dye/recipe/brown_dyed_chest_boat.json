@@ -3,10 +3,15 @@
   "category": "misc",
   "group": "chest_boat",
   "ingredients": [
-    "minecraft:chest",
-    "wood_you_dye:brown_dyed_boat"
+    {
+      "item": "minecraft:chest"
+    },
+    {
+      "item": "wood_you_dye:brown_dyed_boat"
+    }
   ],
   "result": {
+    "count": 1,
     "id": "wood_you_dye:brown_dyed_chest_boat"
   }
 }

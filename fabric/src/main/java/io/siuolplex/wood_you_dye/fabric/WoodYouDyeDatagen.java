@@ -6,29 +6,25 @@ import io.siuolplex.wood_you_dye.AnotherWoodSet;
 import io.siuolplex.wood_you_dye.WoodYouDye;
 import io.siuolplex.wood_you_dye.registry.WoodYouDyeItems;
 import io.siuolplex.wood_you_dye.registry.WoodYouDyeWoodSets;
-import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
-import net.minecraft.client.data.models.BlockModelGenerators;
-import net.minecraft.client.data.models.ItemModelGenerators;
-import net.minecraft.client.data.models.MultiVariant;
-import net.minecraft.client.data.models.blockstates.MultiPartGenerator;
-import net.minecraft.client.data.models.model.*;
-import net.minecraft.client.resources.model.sprite.Material;
+
+
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.*;
+import net.minecraft.client.renderer.block.model.MultiVariant;
+import net.minecraft.client.resources.model.Material;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.models.BlockModelGenerators;
+import net.minecraft.data.models.ItemModelGenerators;
+import net.minecraft.data.models.model.*;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.data.tags.TagAppender;
-import net.minecraft.resources.Identifier;
+import net.minecraft.data.tags.TagsProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.DyeColor;
@@ -38,12 +34,16 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.SlabBlock;
-import net.minecraft.world.level.block.state.properties.SideChainPart;
-import org.jspecify.annotations.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Function;
+
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+
+import static net.minecraft.data.recipes.ShapelessRecipeBuilder.shapeless;
 
 public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
     @Override
@@ -52,18 +52,18 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
         pack.addProvider(WYDModelProvider::new);
         pack.addProvider(WYDItemTagProvider::new);
         pack.addProvider(WYDBlockTagProvider::new);
-        pack.addProvider(WYDRecipeProvider.WYDRecipeWrapper::new);
+        pack.addProvider(WYDRecipeProvider::new);
         pack.addProvider(WYDBlockLootTableProvider::new);
         pack.addProvider(WYDEnglishLangProvider::new);
     }
 
     private static class WYDModelProvider extends FabricModelProvider {
-        private WYDModelProvider(FabricPackOutput generator) {
+        private WYDModelProvider(FabricDataOutput generator) {
             super(generator);
         }
 
         @Override
-        public void generateBlockStateModels(@NonNull BlockModelGenerators blockModelGenerators) {
+        public void generateBlockStateModels(@NotNull BlockModelGenerators blockModelGenerators) {
             for (AnotherWoodSet set : WoodYouDyeWoodSets.WOODSETS) {
                 WoodSetInfo setInfo = set.getDetail();
                 if (setInfo.hasLogs()) {
@@ -82,7 +82,7 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
                 Block planksBlock = set.BLOCKS.PLANKS;
                 TextureMapping planksMapping = createPlanksMapping(set);
 
-                blockModelGenerators.createTrivialBlock(planksBlock, _ -> TexturedModel.createAllSame(createPlanksMaterial(set)));
+                blockModelGenerators.createTrivialBlock(planksBlock, nice -> TexturedModel.createAllSame(createPlanksMaterial(set)));
 
                 generateSlab(blockModelGenerators, set.BLOCKS.PLANK_SLAB, planksMapping, planksBlock);
                 generateStairs(blockModelGenerators, set.BLOCKS.PLANK_STAIRS, planksMapping);
@@ -107,13 +107,11 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
                 TextureMapping trapdoorMapping = createTrapdoorMapping(set);
                 generateTrapdoor(blockModelGenerators, set.BLOCKS.PLANK_TRAPDOOR, trapdoorMapping);
 
-                TextureMapping shelfMapping = createShelfMapping(set);
-                generateShelf(blockModelGenerators, set.BLOCKS.PLANK_SHELF, shelfMapping);
                 
                 if (setInfo.canDoMosaic()) {
                     TextureMapping mosaicMapping = createMosaicMapping(set);
 
-                    blockModelGenerators.createTrivialBlock(set.BLOCKS.MOSAIC, _ -> TexturedModel.createAllSame(createMosaicMaterial(set)));
+                    blockModelGenerators.createTrivialBlock(set.BLOCKS.MOSAIC, a -> TexturedModel.createAllSame(createMosaicMaterial(set)));
 
                     generateSlab(blockModelGenerators, set.BLOCKS.MOSAIC_SLAB,  mosaicMapping, set.BLOCKS.MOSAIC);
                     generateStairs(blockModelGenerators, set.BLOCKS.MOSAIC_STAIRS, mosaicMapping);
@@ -123,7 +121,7 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
         }
 
         @Override
-        public void generateItemModels(@NonNull ItemModelGenerators generators) {
+        public void generateItemModels(@NotNull ItemModelGenerators generators) {
             for (AnotherWoodSet set : WoodYouDyeWoodSets.WOODSETS) {
                 flatItemCreator(generators, set, "door", set.ITEMS.PLANK_DOOR);
 
@@ -141,135 +139,116 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
         }
 
         void flatItemCreator(ItemModelGenerators generators, AnotherWoodSet set, String itemName, Item item) {
-            generators.itemModelOutput.accept(item, ItemModelUtils.plainModel(
-                    ModelTemplates.FLAT_ITEM.create(item, createItemMapping(set, itemName), generators.modelOutput)
-            ));
+            ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(item), createItemMapping(set, itemName), generators.output);
         }
 
         public void generateSlab(BlockModelGenerators generator, Block slab, TextureMapping mapping, Block sourceBlock) {
-            Identifier bottom = ModelTemplates.SLAB_BOTTOM.create(slab, mapping, generator.modelOutput);
-            Identifier top = ModelTemplates.SLAB_TOP.create(slab, mapping, generator.modelOutput);
-            MultiVariant source = BlockModelGenerators.plainVariant(ModelTemplates.CUBE.getDefaultModelLocation(sourceBlock));
-            generator.blockStateOutput.accept(BlockModelGenerators.createSlab(slab, BlockModelGenerators.plainVariant(bottom), BlockModelGenerators.plainVariant(top), source));
-            generator.registerSimpleItemModel(slab, bottom);
+            ResourceLocation bottom = ModelTemplates.SLAB_BOTTOM.create(slab, mapping, generator.modelOutput);
+            ResourceLocation top = ModelTemplates.SLAB_TOP.create(slab, mapping, generator.modelOutput);
+            ResourceLocation source = ModelTemplates.CUBE.getDefaultModelLocation(sourceBlock);
+            generator.blockStateOutput.accept(BlockModelGenerators.createSlab(slab, bottom, top, source));
+            generator.delegateItemModel(slab, bottom);
         }
 
         public void generateStairs(BlockModelGenerators generator, Block stairs, TextureMapping mapping) {
-            MultiVariant inner = BlockModelGenerators.plainVariant(ModelTemplates.STAIRS_INNER.create(stairs, mapping, generator.modelOutput));
-            Identifier straight = ModelTemplates.STAIRS_STRAIGHT.create(stairs, mapping, generator.modelOutput);
-            MultiVariant outer = BlockModelGenerators.plainVariant(ModelTemplates.STAIRS_OUTER.create(stairs, mapping, generator.modelOutput));
-            generator.blockStateOutput.accept(BlockModelGenerators.createStairs(stairs, inner, BlockModelGenerators.plainVariant(straight), outer));
-            generator.registerSimpleItemModel(stairs, straight);
+            ResourceLocation inner = ModelTemplates.STAIRS_INNER.create(stairs, mapping, generator.modelOutput);
+            ResourceLocation straight = ModelTemplates.STAIRS_STRAIGHT.create(stairs, mapping, generator.modelOutput);
+            ResourceLocation outer = ModelTemplates.STAIRS_OUTER.create(stairs, mapping, generator.modelOutput);
+            generator.blockStateOutput.accept(BlockModelGenerators.createStairs(stairs, inner, straight, outer));
+            generator.delegateItemModel(stairs, straight);
         }
 
         public void generateFence(BlockModelGenerators generator, Block fence, TextureMapping mapping) {
-            MultiVariant post = BlockModelGenerators.plainVariant(ModelTemplates.FENCE_POST.create(fence, mapping, generator.modelOutput));
-            MultiVariant side = BlockModelGenerators.plainVariant(ModelTemplates.FENCE_SIDE.create(fence, mapping, generator.modelOutput));
+            ResourceLocation post = ModelTemplates.FENCE_POST.create(fence, mapping, generator.modelOutput);
+            ResourceLocation side = ModelTemplates.FENCE_SIDE.create(fence, mapping, generator.modelOutput);
             generator.blockStateOutput.accept(BlockModelGenerators.createFence(fence, post, side));
-            Identifier inventory = ModelTemplates.FENCE_INVENTORY.create(fence, mapping, generator.modelOutput);
-            generator.registerSimpleItemModel(fence, inventory);
+            ResourceLocation inventory = ModelTemplates.FENCE_INVENTORY.create(fence, mapping, generator.modelOutput);
+            generator.delegateItemModel(fence, inventory);
         }
         
         public void generateCustomFence(BlockModelGenerators generator, Block fence, TextureMapping mapping) {
-            MultiVariant post = BlockModelGenerators.plainVariant(ModelTemplates.CUSTOM_FENCE_POST.create(fence, mapping, generator.modelOutput));
-            MultiVariant north = BlockModelGenerators.plainVariant(ModelTemplates.CUSTOM_FENCE_SIDE_NORTH.create(fence, mapping, generator.modelOutput));
-            MultiVariant east = BlockModelGenerators.plainVariant(ModelTemplates.CUSTOM_FENCE_SIDE_EAST.create(fence, mapping, generator.modelOutput));
-            MultiVariant south = BlockModelGenerators.plainVariant(ModelTemplates.CUSTOM_FENCE_SIDE_SOUTH.create(fence, mapping, generator.modelOutput));
-            MultiVariant west = BlockModelGenerators.plainVariant(ModelTemplates.CUSTOM_FENCE_SIDE_WEST.create(fence, mapping, generator.modelOutput));
+            ResourceLocation post = ModelTemplates.CUSTOM_FENCE_POST.create(fence, mapping, generator.modelOutput);
+            ResourceLocation north = ModelTemplates.CUSTOM_FENCE_SIDE_NORTH.create(fence, mapping, generator.modelOutput);
+            ResourceLocation east = ModelTemplates.CUSTOM_FENCE_SIDE_EAST.create(fence, mapping, generator.modelOutput);
+            ResourceLocation south = ModelTemplates.CUSTOM_FENCE_SIDE_SOUTH.create(fence, mapping, generator.modelOutput);
+            ResourceLocation west = ModelTemplates.CUSTOM_FENCE_SIDE_WEST.create(fence, mapping, generator.modelOutput);
             generator.blockStateOutput.accept(BlockModelGenerators.createCustomFence(fence, post, north, east, south, west));
-            Identifier inventory = ModelTemplates.CUSTOM_FENCE_INVENTORY.create(fence, mapping, generator.modelOutput);
-            generator.registerSimpleItemModel(fence, inventory);
+            ResourceLocation inventory = ModelTemplates.CUSTOM_FENCE_INVENTORY.create(fence, mapping, generator.modelOutput);
+            generator.delegateItemModel(fence, inventory);
 
         }
 
         public void generateFenceGate(BlockModelGenerators generator, Block fenceGate, TextureMapping mapping) {
-            MultiVariant open = BlockModelGenerators.plainVariant(ModelTemplates.FENCE_GATE_OPEN.create(fenceGate, mapping, generator.modelOutput));
-            MultiVariant closed = BlockModelGenerators.plainVariant(ModelTemplates.FENCE_GATE_CLOSED.create(fenceGate, mapping, generator.modelOutput));
-            MultiVariant openWall = BlockModelGenerators.plainVariant(ModelTemplates.FENCE_GATE_WALL_OPEN.create(fenceGate, mapping, generator.modelOutput));
-            MultiVariant closedWall = BlockModelGenerators.plainVariant(ModelTemplates.FENCE_GATE_WALL_CLOSED.create(fenceGate, mapping, generator.modelOutput));
+            ResourceLocation open = ModelTemplates.FENCE_GATE_OPEN.create(fenceGate, mapping, generator.modelOutput);
+            ResourceLocation closed = ModelTemplates.FENCE_GATE_CLOSED.create(fenceGate, mapping, generator.modelOutput);
+            ResourceLocation openWall = ModelTemplates.FENCE_GATE_WALL_OPEN.create(fenceGate, mapping, generator.modelOutput);
+            ResourceLocation closedWall = ModelTemplates.FENCE_GATE_WALL_CLOSED.create(fenceGate, mapping, generator.modelOutput);
             generator.blockStateOutput.accept(BlockModelGenerators.createFenceGate(fenceGate, open, closed, openWall, closedWall, true));
         }
         
         public void generateCustomFenceGate(BlockModelGenerators generator, Block fenceGate, TextureMapping mapping) {
-            MultiVariant open = BlockModelGenerators.plainVariant(ModelTemplates.CUSTOM_FENCE_GATE_OPEN.create(fenceGate, mapping, generator.modelOutput));
-            MultiVariant closed = BlockModelGenerators.plainVariant(
-                    ModelTemplates.CUSTOM_FENCE_GATE_CLOSED.create(fenceGate, mapping, generator.modelOutput)
-            );
-            MultiVariant openWall = BlockModelGenerators.plainVariant(
-                    ModelTemplates.CUSTOM_FENCE_GATE_WALL_OPEN.create(fenceGate, mapping, generator.modelOutput)
-            );
-            MultiVariant closedWall = BlockModelGenerators.plainVariant(
-                    ModelTemplates.CUSTOM_FENCE_GATE_WALL_CLOSED.create(fenceGate, mapping, generator.modelOutput)
-            );
+            ResourceLocation open = ModelTemplates.CUSTOM_FENCE_GATE_OPEN.create(fenceGate, mapping, generator.modelOutput);
+            ResourceLocation closed = ModelTemplates.CUSTOM_FENCE_GATE_CLOSED.create(fenceGate, mapping, generator.modelOutput);
+            ResourceLocation openWall = ModelTemplates.CUSTOM_FENCE_GATE_WALL_OPEN.create(fenceGate, mapping, generator.modelOutput);
+            ResourceLocation closedWall =
+                    ModelTemplates.CUSTOM_FENCE_GATE_WALL_CLOSED.create(fenceGate, mapping, generator.modelOutput);
             generator.blockStateOutput.accept(BlockModelGenerators.createFenceGate(fenceGate, open, closed, openWall, closedWall, false));
         }
         
         public void generatePressurePlate(BlockModelGenerators generator, Block pressurePlate, TextureMapping mapping) {
-            MultiVariant off = BlockModelGenerators.plainVariant(ModelTemplates.PRESSURE_PLATE_UP.create(pressurePlate, mapping, generator.modelOutput));
-            MultiVariant on = BlockModelGenerators.plainVariant(ModelTemplates.PRESSURE_PLATE_DOWN.create(pressurePlate, mapping, generator.modelOutput));
+            ResourceLocation off = ModelTemplates.PRESSURE_PLATE_UP.create(pressurePlate, mapping, generator.modelOutput);
+            ResourceLocation on = ModelTemplates.PRESSURE_PLATE_DOWN.create(pressurePlate, mapping, generator.modelOutput);
             generator.blockStateOutput.accept(BlockModelGenerators.createPressurePlate(pressurePlate, off, on));
         }
 
         public void generateButton(BlockModelGenerators generator, Block button, TextureMapping mapping) {
-            MultiVariant normal = BlockModelGenerators.plainVariant(ModelTemplates.BUTTON.create(button, mapping, generator.modelOutput));
-            MultiVariant pressed = BlockModelGenerators.plainVariant(ModelTemplates.BUTTON_PRESSED.create(button, mapping, generator.modelOutput));
+            ResourceLocation normal = ModelTemplates.BUTTON.create(button, mapping, generator.modelOutput);
+            ResourceLocation pressed = ModelTemplates.BUTTON_PRESSED.create(button, mapping, generator.modelOutput);
             generator.blockStateOutput.accept(BlockModelGenerators.createButton(button, normal, pressed));
-            generator.registerSimpleItemModel(button, ModelTemplates.BUTTON_INVENTORY.create(button, mapping, generator.modelOutput));
+            generator.delegateItemModel(button, ModelTemplates.BUTTON_INVENTORY.create(button, mapping, generator.modelOutput));
         }
 
         // Holy fuck thats a lot of models
         public void generateDoor(BlockModelGenerators generator, Block door, TextureMapping mapping) {
-            MultiVariant doorBottomLeft = BlockModelGenerators.plainVariant(ModelTemplates.DOOR_BOTTOM_LEFT.create(door, mapping, generator.modelOutput));
-            MultiVariant doorBottomLeftOpen = BlockModelGenerators.plainVariant(ModelTemplates.DOOR_BOTTOM_LEFT_OPEN.create(door, mapping, generator.modelOutput));
-            MultiVariant doorBottomRight = BlockModelGenerators.plainVariant(ModelTemplates.DOOR_BOTTOM_RIGHT.create(door, mapping, generator.modelOutput));
-            MultiVariant doorBottomRightOpen = BlockModelGenerators.plainVariant(ModelTemplates.DOOR_BOTTOM_RIGHT_OPEN.create(door, mapping, generator.modelOutput));
-            MultiVariant doorTopLeft = BlockModelGenerators.plainVariant(ModelTemplates.DOOR_TOP_LEFT.create(door, mapping, generator.modelOutput));
-            MultiVariant doorTopLeftOpen = BlockModelGenerators.plainVariant(ModelTemplates.DOOR_TOP_LEFT_OPEN.create(door, mapping, generator.modelOutput));
-            MultiVariant doorTopRight = BlockModelGenerators.plainVariant(ModelTemplates.DOOR_TOP_RIGHT.create(door, mapping, generator.modelOutput));
-            MultiVariant doorTopRightOpen = BlockModelGenerators.plainVariant(ModelTemplates.DOOR_TOP_RIGHT_OPEN.create(door, mapping, generator.modelOutput));
+            ResourceLocation doorBottomLeft = ModelTemplates.DOOR_BOTTOM_LEFT.create(door, mapping, generator.modelOutput);
+            ResourceLocation doorBottomLeftOpen = ModelTemplates.DOOR_BOTTOM_LEFT_OPEN.create(door, mapping, generator.modelOutput);
+            ResourceLocation doorBottomRight = ModelTemplates.DOOR_BOTTOM_RIGHT.create(door, mapping, generator.modelOutput);
+            ResourceLocation doorBottomRightOpen = ModelTemplates.DOOR_BOTTOM_RIGHT_OPEN.create(door, mapping, generator.modelOutput);
+            ResourceLocation doorTopLeft = ModelTemplates.DOOR_TOP_LEFT.create(door, mapping, generator.modelOutput);
+            ResourceLocation doorTopLeftOpen = ModelTemplates.DOOR_TOP_LEFT_OPEN.create(door, mapping, generator.modelOutput);
+            ResourceLocation doorTopRight = ModelTemplates.DOOR_TOP_RIGHT.create(door, mapping, generator.modelOutput);
+            ResourceLocation doorTopRightOpen = ModelTemplates.DOOR_TOP_RIGHT_OPEN.create(door, mapping, generator.modelOutput);
             //generator.registerSimpleFlatItemModel(door.asItem());
             generator.blockStateOutput.accept(BlockModelGenerators.createDoor(door, doorBottomLeft, doorBottomLeftOpen, doorBottomRight, doorBottomRightOpen, doorTopLeft, doorTopLeftOpen, doorTopRight, doorTopRightOpen));
         }
 
         // Orientable, does it REALLY matter if we use orientable or not?
         public void generateTrapdoor(BlockModelGenerators generator, Block trapdoor, TextureMapping mapping) {
-            MultiVariant top = BlockModelGenerators.plainVariant(ModelTemplates.ORIENTABLE_TRAPDOOR_TOP.create(trapdoor, mapping, generator.modelOutput));
-            Identifier bottom = ModelTemplates.ORIENTABLE_TRAPDOOR_BOTTOM.create(trapdoor, mapping, generator.modelOutput);
-            MultiVariant open = BlockModelGenerators.plainVariant(ModelTemplates.ORIENTABLE_TRAPDOOR_OPEN.create(trapdoor, mapping, generator.modelOutput));
-            generator.blockStateOutput.accept(BlockModelGenerators.createOrientableTrapdoor(trapdoor, top, BlockModelGenerators.plainVariant(bottom), open));
-            generator.registerSimpleItemModel(trapdoor, bottom);
+            ResourceLocation top = ModelTemplates.ORIENTABLE_TRAPDOOR_TOP.create(trapdoor, mapping, generator.modelOutput);
+            ResourceLocation bottom = ModelTemplates.ORIENTABLE_TRAPDOOR_BOTTOM.create(trapdoor, mapping, generator.modelOutput);
+            ResourceLocation open = ModelTemplates.ORIENTABLE_TRAPDOOR_OPEN.create(trapdoor, mapping, generator.modelOutput);
+            generator.blockStateOutput.accept(BlockModelGenerators.createOrientableTrapdoor(trapdoor, top, bottom, open));
+            generator.delegateItemModel(trapdoor, bottom);
         }
 
-        public void generateSign(BlockModelGenerators generator, Block sign, Block wallSign, Material sourceMaterial) {
-            MultiVariant model = BlockModelGenerators.plainVariant(ModelTemplates.PARTICLE_ONLY.create(sign, TextureMapping.particle(sourceMaterial), generator.modelOutput));
+        public void generateSign(BlockModelGenerators generator, Block sign, Block wallSign, ResourceLocation sourceMaterial) {
+            ResourceLocation model = ModelTemplates.PARTICLE_ONLY.create(sign, TextureMapping.particle(sourceMaterial), generator.modelOutput);
             generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(sign, model));
             generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(wallSign, model));
             //generator.registerSimpleFlatItemModel(sign.asItem());
         }
 
         public void generateLog(BlockModelGenerators generator, Block log, TextureMapping mapping) {
-            Identifier model = ModelTemplates.CUBE_COLUMN.create(log, mapping, generator.modelOutput);
-            generator.blockStateOutput.accept(BlockModelGenerators.createAxisAlignedPillarBlock(log, BlockModelGenerators.plainVariant(model)));
-            generator.registerSimpleItemModel(log, model);
+            ResourceLocation model = ModelTemplates.CUBE_COLUMN.create(log, mapping, generator.modelOutput);
+            generator.blockStateOutput.accept(BlockModelGenerators.createAxisAlignedPillarBlock(log, model));
+            generator.delegateItemModel(log, model);
         }
 
         public void generateWood(BlockModelGenerators generator, Block log, TextureMapping mapping) {
             TextureMapping woodMapping = mapping.copyAndUpdate(TextureSlot.END, mapping.get(TextureSlot.SIDE));
-            Identifier model = ModelTemplates.CUBE_COLUMN.create(log, woodMapping, generator.modelOutput);
-            generator.blockStateOutput.accept(BlockModelGenerators.createAxisAlignedPillarBlock(log, BlockModelGenerators.plainVariant(model)));
-            generator.registerSimpleItemModel(log, model);
-        }
-
-        public void generateShelf(BlockModelGenerators generators, Block shelf, TextureMapping mapping) {
-            MultiPartGenerator generator = MultiPartGenerator.multiPart(shelf);
-            generators.addShelfPart(shelf, mapping, generator, ModelTemplates.SHELF_BODY, null, null);
-            generators.addShelfPart(shelf, mapping, generator, ModelTemplates.SHELF_UNPOWERED, false, null);
-            generators.addShelfPart(shelf, mapping, generator, ModelTemplates.SHELF_UNCONNECTED, true, SideChainPart.UNCONNECTED);
-            generators.addShelfPart(shelf, mapping, generator, ModelTemplates.SHELF_LEFT, true, SideChainPart.LEFT);
-            generators.addShelfPart(shelf, mapping, generator, ModelTemplates.SHELF_CENTER, true, SideChainPart.CENTER);
-            generators.addShelfPart(shelf, mapping, generator, ModelTemplates.SHELF_RIGHT, true, SideChainPart.RIGHT);
-            generators.blockStateOutput.accept(generator);
-            generators.registerSimpleItemModel(shelf, ModelTemplates.SHELF_INVENTORY.create(shelf, mapping, generators.modelOutput));
+            ResourceLocation model = ModelTemplates.CUBE_COLUMN.create(log, woodMapping, generator.modelOutput);
+            generator.blockStateOutput.accept(BlockModelGenerators.createAxisAlignedPillarBlock(log, model));
+            generator.delegateItemModel(log, model);
         }
 
         public TextureMapping createPlanksMapping(AnotherWoodSet woodSet) {
@@ -294,9 +273,9 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
             if (!variantName.isEmpty()) {
                 variantName = "/" + variantName;
             }
-            Identifier doorTopID = Identifier.fromNamespaceAndPath("wood_you_dye", "dyed_wood/block" + variantName + "/door_top_" + permutationName);
-            Identifier doorBottomID = Identifier.fromNamespaceAndPath("wood_you_dye", "dyed_wood/block" + variantName + "/door_bottom_" + permutationName);
-            return TextureMapping.door(new Material(doorTopID), new Material(doorBottomID));
+            ResourceLocation doorTopID = ResourceLocation.fromNamespaceAndPath("wood_you_dye", "dyed_wood/block" + variantName + "/door_top_" + permutationName);
+            ResourceLocation doorBottomID = ResourceLocation.fromNamespaceAndPath("wood_you_dye", "dyed_wood/block" + variantName + "/door_bottom_" + permutationName);
+            return TextureMapping.door(doorTopID, doorBottomID);
         }
 
         public TextureMapping createLogMapping(AnotherWoodSet woodSet, boolean isStripped) {
@@ -308,12 +287,12 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
 
             String stripped = (isStripped) ? "stripped_" : "";
 
-            Identifier logID = Identifier.fromNamespaceAndPath("wood_you_dye", "dyed_wood/block" + variantName + "/" + stripped + "log_" + permutationName);
-            Identifier logTopID = Identifier.fromNamespaceAndPath("wood_you_dye", "dyed_wood/block" + variantName + "/" + stripped + "log_top_" + permutationName);
+            ResourceLocation logID = ResourceLocation.fromNamespaceAndPath("wood_you_dye", "dyed_wood/block" + variantName + "/" + stripped + "log_" + permutationName);
+            ResourceLocation logTopID = ResourceLocation.fromNamespaceAndPath("wood_you_dye", "dyed_wood/block" + variantName + "/" + stripped + "log_top_" + permutationName);
             return new TextureMapping()
-                    .put(TextureSlot.SIDE, new Material(logID))
-                    .put(TextureSlot.END, new Material(logTopID))
-                    .put(TextureSlot.PARTICLE, new Material(logID));
+                    .put(TextureSlot.SIDE, logID)
+                    .put(TextureSlot.END, logTopID)
+                    .put(TextureSlot.PARTICLE, logID);
         }
 
         public TextureMapping createTrapdoorMapping(AnotherWoodSet woodSet) {
@@ -322,20 +301,8 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
             if (!variantName.isEmpty()) {
                 variantName = "/" + variantName;
             }
-            Identifier trapdoorId = Identifier.fromNamespaceAndPath("wood_you_dye", "dyed_wood/block" + variantName + "/trapdoor_" + permutationName);
-            return TextureMapping.defaultTexture(new Material(trapdoorId));
-        }
-
-        public TextureMapping createShelfMapping(AnotherWoodSet woodSet) {
-            String variantName = woodSet.getVariantName();
-            String permutationName = woodSet.getPermutationName();
-            if (!variantName.isEmpty()) {
-                variantName = "/" + variantName;
-            }
-            Identifier shelfID = Identifier.fromNamespaceAndPath("wood_you_dye", "dyed_wood/block" + variantName + "/shelf_" + permutationName);
-
-            return new TextureMapping().put(TextureSlot.ALL, new Material(shelfID))
-                    .put(TextureSlot.PARTICLE, createPlanksMaterial(woodSet));
+            ResourceLocation trapdoorId = ResourceLocation.fromNamespaceAndPath("wood_you_dye", "dyed_wood/block" + variantName + "/trapdoor_" + permutationName);
+            return TextureMapping.defaultTexture(trapdoorId);
         }
 
         public TextureMapping createItemMapping(AnotherWoodSet woodSet, String itemName) {
@@ -344,68 +311,65 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
             if (!variantName.isEmpty()) {
                 variantName = "/" + variantName;
             }
-            Identifier itemID = Identifier.fromNamespaceAndPath("wood_you_dye", "dyed_wood/item" + variantName + "/" + itemName + "_" + permutationName);
-            return TextureMapping.layer0(new Material(itemID));
+            ResourceLocation itemID = ResourceLocation.fromNamespaceAndPath("wood_you_dye", "dyed_wood/item" + variantName + "/" + itemName + "_" + permutationName);
+            return TextureMapping.layer0(itemID);
         }
 
-        public Material createPlanksMaterial(AnotherWoodSet woodSet) {
+        public ResourceLocation createPlanksMaterial(AnotherWoodSet woodSet) {
             String variantName = woodSet.getVariantName();
             String permutationName = woodSet.getPermutationName();
             if (!variantName.isEmpty()) {
                 variantName = "/" + variantName;
             }
-            Identifier id = Identifier.fromNamespaceAndPath("wood_you_dye", "dyed_wood/block" + variantName + "/planks_" + permutationName);
-            return new Material(id);
+            return ResourceLocation.fromNamespaceAndPath("wood_you_dye", "dyed_wood/block" + variantName + "/planks_" + permutationName);
         }
 
-        public Material createFenceMaterial(AnotherWoodSet woodSet, boolean particle) {
+        public ResourceLocation createFenceMaterial(AnotherWoodSet woodSet, boolean particle) {
             String variantName = woodSet.getVariantName();
             String permutationName = woodSet.getPermutationName();
             if (!variantName.isEmpty()) {
                 variantName = "/" + variantName;
             }
-            Identifier id = Identifier.fromNamespaceAndPath("wood_you_dye", "dyed_wood/block" + variantName + "/plank_fence_" + (particle ? "particle_" : "") + permutationName);
-            return new Material(id);
+            return ResourceLocation.fromNamespaceAndPath("wood_you_dye", "dyed_wood/block" + variantName + "/plank_fence_" + (particle ? "particle_" : "") + permutationName);
         }
 
-        public Material createFenceGateMaterial(AnotherWoodSet woodSet, boolean particle) {
+        public ResourceLocation createFenceGateMaterial(AnotherWoodSet woodSet, boolean particle) {
             String variantName = woodSet.getVariantName();
             String permutationName = woodSet.getPermutationName();
             if (!variantName.isEmpty()) {
                 variantName = "/" + variantName;
             }
-            Identifier id = Identifier.fromNamespaceAndPath("wood_you_dye", "dyed_wood/block" + variantName + "/plank_fence_gate_" + (particle ? "particle_" : "") + permutationName);
-            return new Material(id);
+            return ResourceLocation.fromNamespaceAndPath("wood_you_dye", "dyed_wood/block" + variantName + "/plank_fence_gate_" + (particle ? "particle_" : "") + permutationName);
         }
         
 
-        public Material createMosaicMaterial(AnotherWoodSet woodSet) {
+        public ResourceLocation createMosaicMaterial(AnotherWoodSet woodSet) {
             String variantName = woodSet.getVariantName();
             String permutationName = woodSet.getPermutationName();
             if (!variantName.isEmpty()) {
                 variantName = "/" + variantName;
             }
-            Identifier id = Identifier.fromNamespaceAndPath("wood_you_dye", "dyed_wood/block" + variantName + "/mosaic_" + permutationName);
-            return new Material(id);
+            return ResourceLocation.fromNamespaceAndPath("wood_you_dye", "dyed_wood/block" + variantName + "/mosaic_" + permutationName);
         }
         
         
         public Material generateMaterial(AnotherWoodSet woodSet) {
-            return new Material(Identifier.fromNamespaceAndPath("wood_you_dye", "dyed_wood/block/" + woodSet.getPermutationName() + "/planks_" + woodSet.getSetName().replace("dyed_", "")));
+            ResourceLocation id = ResourceLocation.fromNamespaceAndPath("wood_you_dye", "dyed_wood/block/" + woodSet.getPermutationName() + "/planks_" + woodSet.getSetName().replace("dyed_", ""));
+            return new Material(ResourceLocation.withDefaultNamespace("textures/atlas/blocks.png"), id);
         }
     }
 
-    public static class WYDItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
+    public static class WYDItemTagProvider extends FabricTagProvider.ItemTagProvider {
         List<WrappedTagBuilder<Item>> allTheTags = new ArrayList<>();
 
-        public WYDItemTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookupFuture) {
+        public WYDItemTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookupFuture) {
             super(output, registryLookupFuture);
         }
 
         @Override
         protected void addTags(HolderLookup.Provider registries) {
             
-            WrappedTagBuilder<Item> nonFlammableWood = makeBuilder(quickKey(Identifier.withDefaultNamespace("non_flammable_wood")));
+            WrappedTagBuilder<Item> nonFlammableWood = makeBuilder(quickKey(ResourceLocation.withDefaultNamespace("non_flammable_wood")));
             WrappedTagBuilder<Item> planksThatBurn = makeBuilder(quickKey("c", "planks_that_burn"));
 
             WrappedTagBuilder<Item> logs = makeBuilder(quickKey("c", "logs")); // Specifically just logs.
@@ -413,18 +377,17 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
             WrappedTagBuilder<Item> woods = makeBuilder(quickKey("c", "woods"));
             WrappedTagBuilder<Item> strippedWoods = makeBuilder(quickKey("c", "stripped_woods"));
 
-            WrappedTagBuilder<Item> planks = makeBuilder(quickKey(Identifier.withDefaultNamespace("planks")));
-            WrappedTagBuilder<Item> slabs = makeBuilder(quickKey(Identifier.withDefaultNamespace("wooden_slabs")));
-            WrappedTagBuilder<Item> stairs = makeBuilder(quickKey(Identifier.withDefaultNamespace("wooden_stairs")));
-            WrappedTagBuilder<Item> fences = makeBuilder(quickKey(Identifier.withDefaultNamespace("wooden_fences"))); // You know it is broken in vanilla? It shouldnt be adding burn time for nether fences.
-            WrappedTagBuilder<Item> fenceGates = makeBuilder(quickKey(Identifier.withDefaultNamespace("fence_gates")));
-            WrappedTagBuilder<Item> doors = makeBuilder(quickKey(Identifier.withDefaultNamespace("wooden_doors")));
-            WrappedTagBuilder<Item> trapdoors = makeBuilder(quickKey(Identifier.withDefaultNamespace("wooden_trapdoors")));
-            WrappedTagBuilder<Item> buttons = makeBuilder(quickKey(Identifier.withDefaultNamespace("wooden_buttons")));
-            WrappedTagBuilder<Item> pressurePlates = makeBuilder(quickKey(Identifier.withDefaultNamespace("wooden_pressure_plates")));
-            WrappedTagBuilder<Item> signs = makeBuilder(quickKey(Identifier.withDefaultNamespace("signs")));
-            WrappedTagBuilder<Item> hangingSigns = makeBuilder(quickKey(Identifier.withDefaultNamespace("hanging_signs")));
-            WrappedTagBuilder<Item> shelves = makeBuilder(quickKey(Identifier.withDefaultNamespace("wooden_shelves")));
+            WrappedTagBuilder<Item> planks = makeBuilder(quickKey(ResourceLocation.withDefaultNamespace("planks")));
+            WrappedTagBuilder<Item> slabs = makeBuilder(quickKey(ResourceLocation.withDefaultNamespace("wooden_slabs")));
+            WrappedTagBuilder<Item> stairs = makeBuilder(quickKey(ResourceLocation.withDefaultNamespace("wooden_stairs")));
+            WrappedTagBuilder<Item> fences = makeBuilder(quickKey(ResourceLocation.withDefaultNamespace("wooden_fences"))); // You know it is broken in vanilla? It shouldnt be adding burn time for nether fences.
+            WrappedTagBuilder<Item> fenceGates = makeBuilder(quickKey(ResourceLocation.withDefaultNamespace("fence_gates")));
+            WrappedTagBuilder<Item> doors = makeBuilder(quickKey(ResourceLocation.withDefaultNamespace("wooden_doors")));
+            WrappedTagBuilder<Item> trapdoors = makeBuilder(quickKey(ResourceLocation.withDefaultNamespace("wooden_trapdoors")));
+            WrappedTagBuilder<Item> buttons = makeBuilder(quickKey(ResourceLocation.withDefaultNamespace("wooden_buttons")));
+            WrappedTagBuilder<Item> pressurePlates = makeBuilder(quickKey(ResourceLocation.withDefaultNamespace("wooden_pressure_plates")));
+            WrappedTagBuilder<Item> signs = makeBuilder(quickKey(ResourceLocation.withDefaultNamespace("signs")));
+            WrappedTagBuilder<Item> hangingSigns = makeBuilder(quickKey(ResourceLocation.withDefaultNamespace("hanging_signs")));
 
             List<Item> mosaicSlabs = new ArrayList<>();
             List<Item> mosaicStairs = new ArrayList<>();
@@ -432,7 +395,7 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
             List<Item> boats = new ArrayList<>();
 
             Map<String, WrappedTagBuilder<Item>> dyeds = new HashMap<>();
-            for (DyeColor color : DyeColor.VALUES) {
+            for (DyeColor color : DyeColor.values()) {
                 dyeds.put(color.getName(), makeBuilder(quickKey("c", "dyed/" + color.getName())));
             }
 
@@ -498,10 +461,6 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
                 hangingSigns.add(set.ITEMS.PLANK_HANGING_SIGN);
                 allSetItems.add(set.ITEMS.PLANK_HANGING_SIGN);
 
-                shelves.add(set.ITEMS.PLANK_SHELF);
-                allSetItems.add(set.ITEMS.PLANK_SHELF);
-
-
                 if (set.getDetail().canDoMosaic()) {
 
                     if (set.getDetail().canBurn()) {
@@ -531,15 +490,15 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
                 }
             }
 
-            allTheTags.forEach(tag -> tag.build(this::valueLookupBuilder));
+            allTheTags.forEach(tag -> tag.build(this::getOrCreateTagBuilder));
         }
 
-        public TagKey<Item> quickKey(Identifier id) {
+        public TagKey<Item> quickKey(ResourceLocation id) {
             return TagKey.create(Registries.ITEM, id);
         }
 
         public TagKey<Item> quickKey(String namespace, String path) {
-            return quickKey(Identifier.fromNamespaceAndPath(namespace, path));
+            return quickKey(ResourceLocation.fromNamespaceAndPath(namespace, path));
         }
         
         public WrappedTagBuilder<Item> makeBuilder(TagKey<Item> key) {
@@ -549,16 +508,16 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
         }
     }
 
-    public static class WYDBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
+    public static class WYDBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         List<WrappedTagBuilder<Block>> allTheTags = new ArrayList<>();
 
-        public WYDBlockTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookupFuture) {
+        public WYDBlockTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookupFuture) {
             super(output, registryLookupFuture);
         }
 
         @Override
         protected void addTags(HolderLookup.Provider registries) {
-            WrappedTagBuilder<Block> nonFlammableWood = makeBuilder(quickKey(Identifier.withDefaultNamespace("non_flammable_wood")));
+            WrappedTagBuilder<Block> nonFlammableWood = makeBuilder(quickKey(ResourceLocation.withDefaultNamespace("non_flammable_wood")));
             WrappedTagBuilder<Block> planksThatBurn = makeBuilder(quickKey("c", "planks_that_burn"));
 
             WrappedTagBuilder<Block> logs = makeBuilder(quickKey("c", "logs")); // Specifically just logs.
@@ -566,20 +525,19 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
             WrappedTagBuilder<Block> woods = makeBuilder(quickKey("c", "woods"));
             WrappedTagBuilder<Block> strippedWoods = makeBuilder(quickKey("c", "stripped_woods"));
 
-            WrappedTagBuilder<Block> planks = makeBuilder(quickKey(Identifier.withDefaultNamespace("planks")));
-            WrappedTagBuilder<Block> slabs = makeBuilder(quickKey(Identifier.withDefaultNamespace("wooden_slabs")));
-            WrappedTagBuilder<Block> stairs = makeBuilder(quickKey(Identifier.withDefaultNamespace("wooden_stairs")));
-            WrappedTagBuilder<Block> fences = makeBuilder(quickKey(Identifier.withDefaultNamespace("wooden_fences"))); // You know it is broken in vanilla? It shouldnt be adding burn time for nether fences.
-            WrappedTagBuilder<Block> fenceGates = makeBuilder(quickKey(Identifier.withDefaultNamespace("fence_gates")));
-            WrappedTagBuilder<Block> doors = makeBuilder(quickKey(Identifier.withDefaultNamespace("wooden_doors")));
-            WrappedTagBuilder<Block> trapdoors = makeBuilder(quickKey(Identifier.withDefaultNamespace("wooden_trapdoors")));
-            WrappedTagBuilder<Block> buttons = makeBuilder(quickKey(Identifier.withDefaultNamespace("wooden_buttons")));
-            WrappedTagBuilder<Block> pressurePlates = makeBuilder(quickKey(Identifier.withDefaultNamespace("wooden_pressure_plates")));
-            WrappedTagBuilder<Block> signs = makeBuilder(quickKey(Identifier.withDefaultNamespace("standing_signs")));
-            WrappedTagBuilder<Block> wallSigns = makeBuilder(quickKey(Identifier.withDefaultNamespace("wall_signs")));
-            WrappedTagBuilder<Block> wallHangingSigns = makeBuilder(quickKey(Identifier.withDefaultNamespace("wall_hanging_signs")));
-            WrappedTagBuilder<Block> ceilingHangingSigns = makeBuilder(quickKey(Identifier.withDefaultNamespace("ceiling_hanging_signs")));
-            WrappedTagBuilder<Block> shelves = makeBuilder(quickKey(Identifier.withDefaultNamespace("wooden_shelves")));
+            WrappedTagBuilder<Block> planks = makeBuilder(quickKey(ResourceLocation.withDefaultNamespace("planks")));
+            WrappedTagBuilder<Block> slabs = makeBuilder(quickKey(ResourceLocation.withDefaultNamespace("wooden_slabs")));
+            WrappedTagBuilder<Block> stairs = makeBuilder(quickKey(ResourceLocation.withDefaultNamespace("wooden_stairs")));
+            WrappedTagBuilder<Block> fences = makeBuilder(quickKey(ResourceLocation.withDefaultNamespace("wooden_fences"))); // You know it is broken in vanilla? It shouldnt be adding burn time for nether fences.
+            WrappedTagBuilder<Block> fenceGates = makeBuilder(quickKey(ResourceLocation.withDefaultNamespace("fence_gates")));
+            WrappedTagBuilder<Block> doors = makeBuilder(quickKey(ResourceLocation.withDefaultNamespace("wooden_doors")));
+            WrappedTagBuilder<Block> trapdoors = makeBuilder(quickKey(ResourceLocation.withDefaultNamespace("wooden_trapdoors")));
+            WrappedTagBuilder<Block> buttons = makeBuilder(quickKey(ResourceLocation.withDefaultNamespace("wooden_buttons")));
+            WrappedTagBuilder<Block> pressurePlates = makeBuilder(quickKey(ResourceLocation.withDefaultNamespace("wooden_pressure_plates")));
+            WrappedTagBuilder<Block> signs = makeBuilder(quickKey(ResourceLocation.withDefaultNamespace("standing_signs")));
+            WrappedTagBuilder<Block> wallSigns = makeBuilder(quickKey(ResourceLocation.withDefaultNamespace("wall_signs")));
+            WrappedTagBuilder<Block> wallHangingSigns = makeBuilder(quickKey(ResourceLocation.withDefaultNamespace("wall_hanging_signs")));
+            WrappedTagBuilder<Block> ceilingHangingSigns = makeBuilder(quickKey(ResourceLocation.withDefaultNamespace("ceiling_hanging_signs")));
 
             List<Block> mosaicSlabs = new ArrayList<>();
             List<Block> mosaicStairs = new ArrayList<>();
@@ -587,7 +545,7 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
             List<Block> boats = new ArrayList<>();
 
             Map<String, WrappedTagBuilder<Block>> dyeds = new HashMap<>();
-            for (DyeColor color : DyeColor.VALUES) {
+            for (DyeColor color : DyeColor.values()) {
                 dyeds.put(color.getName(), makeBuilder(quickKey("c", "dyed/" + color.getName())));
             }
 
@@ -658,9 +616,6 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
                 wallHangingSigns.add(set.BLOCKS.PLANK_WALL_HANGING_SIGN);
                 allSetBlocks.add(set.BLOCKS.PLANK_WALL_HANGING_SIGN);
 
-                shelves.add(set.BLOCKS.PLANK_SHELF);
-                allSetBlocks.add(set.BLOCKS.PLANK_SHELF);
-
 
                 if (set.getDetail().canDoMosaic()) {
 
@@ -682,15 +637,15 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
                 }
             }
 
-            allTheTags.forEach(tag -> tag.build(this::valueLookupBuilder));
+            allTheTags.forEach(tag -> tag.build(this::getOrCreateTagBuilder));
         }
 
-        public TagKey<Block> quickKey(Identifier id) {
+        public TagKey<Block> quickKey(ResourceLocation id) {
             return TagKey.create(Registries.BLOCK, id);
         }
 
         public TagKey<Block> quickKey(String namespace, String path) {
-            return quickKey(Identifier.fromNamespaceAndPath(namespace, path));
+            return quickKey(ResourceLocation.fromNamespaceAndPath(namespace, path));
         }
 
         public WrappedTagBuilder<Block> makeBuilder(TagKey<Block> key) {
@@ -711,12 +666,12 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
             this.tagKey = key;
         }
 
-        public WrappedTagBuilder(ResourceKey<? extends Registry<T>> registry, Identifier id) {
+        public WrappedTagBuilder(ResourceKey<? extends Registry<T>> registry, ResourceLocation id) {
             this(TagKey.create(registry, id));
         }
 
         public WrappedTagBuilder(ResourceKey<? extends Registry<T>> registry, String namespace, String location) {
-            this(registry, Identifier.fromNamespaceAndPath(namespace, location));
+            this(registry, ResourceLocation.fromNamespaceAndPath(namespace, location));
         }
 
         public void add(T member) {
@@ -745,8 +700,8 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
             additionalTags.addAll(tag.additionalTags);
         }
 
-        public void build(Function<TagKey<T>, TagAppender<T, T>> tagBuild) {
-            TagAppender<T, T> builder = tagBuild.apply(tagKey);
+        public void build(Function<TagKey<T>, FabricTagProvider<T>.FabricTagBuilder> tagBuild) {
+            FabricTagProvider<T>.FabricTagBuilder builder = tagBuild.apply(tagKey);
 
             if (!(tagMembers.isEmpty() && additionalTags.isEmpty())) {
                 for (T member : tagMembers) {
@@ -762,32 +717,20 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
         }
     }
 
-    public static class WYDRecipeProvider extends RecipeProvider {
-        public static class WYDRecipeWrapper extends FabricRecipeProvider {
-            public WYDRecipeWrapper(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
-                super(output, registriesFuture);
+    public static class WYDRecipeProvider extends FabricRecipeProvider {
+        public WYDRecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+            super(output, registriesFuture);
+            try {
+                this.provider = registriesFuture.get();
+            } catch (InterruptedException | ExecutionException e) {
+                throw new RuntimeException(e);
             }
-
-            @Override
-            protected RecipeProvider createRecipeProvider(HolderLookup.Provider registries, RecipeOutput output) {
-                return new WYDRecipeProvider(registries, output);
-            }
-
-            @Override
-            public String getName() {
-                return "WYDRecipes";
-            }
-        }
-
-        public WYDRecipeProvider(HolderLookup.Provider registries, RecipeOutput output) {
-            super(registries, output);
-            this.provider = registries;
         }
 
         HolderLookup.Provider provider;
 
         @Override
-        public void buildRecipes() {
+        public void buildRecipes(RecipeOutput recipeOutput) {
             Map<String, Item> colors = new HashMap<>();
             for (DyeColor value : DyeColor.values()) {
                 switch (value) {
@@ -814,51 +757,49 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
                 Item dye = colors.get(set.getPermutationName());
 
                 if (set.getDetail().hasLogs()) {
-                    shapeless(RecipeCategory.BUILDING_BLOCKS, set.ITEMS.LOG, 8).requires(Ingredient.of(provider.getOrThrow(TagKey.create(Registries.ITEM, Gremlib.INSTANCE.createId("wood/" + set.getDetail().getName() + "/log")))), 8).requires(dye).unlockedBy(getHasName(dye), has(dye)).save(output, "wood_you_dye:" + set.getSetName() + "_log_dyed");
+                    shapeless(RecipeCategory.BUILDING_BLOCKS, set.ITEMS.LOG, 8).requires(Ingredient.of(TagKey.create(Registries.ITEM, Gremlib.INSTANCE.createId("wood/" + set.getDetail().getName() + "/log"))), 8).requires(dye).unlockedBy(getHasName(dye), has(dye)).save(recipeOutput, "wood_you_dye:" + set.getSetName() + "_log_dyed");
 
                     if (set.getDetail().hasWoods()) {
-                        woodFromLogs(set.ITEMS.LOG, set.ITEMS.WOOD);
-                        woodFromLogs(set.ITEMS.STRIPPED_LOG, set.ITEMS.STRIPPED_WOOD);
+                        woodFromLogs(recipeOutput, set.ITEMS.LOG, set.ITEMS.WOOD);
+                        woodFromLogs(recipeOutput, set.ITEMS.STRIPPED_LOG, set.ITEMS.STRIPPED_WOOD);
                     }
 
-                    planksFromLog(set.ITEMS.PLANKS, TagKey.create(Registries.ITEM, WoodYouDye.INSTANCE.createId(set.getVariantName() + "_" + set.getPermutationName() + "_" + set.getDetail().getLogs() + "s")), (set.getDetail().getName().equals("bamboo") ? 2 : 4));
+                    planksFromLog(recipeOutput, set.ITEMS.PLANKS, TagKey.create(Registries.ITEM, WoodYouDye.INSTANCE.createId(set.getVariantName() + "_" + set.getPermutationName() + "_" + set.getDetail().getLogs() + "s")), (set.getDetail().getName().equals("bamboo") ? 2 : 4));
                 }
 
-                shapeless(RecipeCategory.BUILDING_BLOCKS, set.ITEMS.PLANKS, 8).requires(Ingredient.of(provider.getOrThrow(TagKey.create(Registries.ITEM, Gremlib.INSTANCE.createId("wood/" + set.getDetail().getName() + "/planks")))), 8).requires(dye).unlockedBy(getHasName(dye), has(dye)).save(output, "wood_you_dye:" + set.getSetName() + "_planks_dyed");
-                slab(RecipeCategory.BUILDING_BLOCKS, set.ITEMS.PLANK_SLAB, set.ITEMS.PLANKS);
-                stairBuilder(set.ITEMS.PLANK_STAIRS, Ingredient.of(set.ITEMS.PLANKS)).unlockedBy(getHasName(set.ITEMS.PLANKS), has(set.ITEMS.PLANKS)).save(output);
-                fenceBuilder(set.ITEMS.PLANK_FENCE, Ingredient.of(set.ITEMS.PLANKS)).unlockedBy(getHasName(set.ITEMS.PLANKS), has(set.ITEMS.PLANKS)).save(output);
-                fenceGateBuilder(set.ITEMS.PLANK_FENCE_GATE, Ingredient.of(set.ITEMS.PLANKS)).unlockedBy(getHasName(set.ITEMS.PLANKS), has(set.ITEMS.PLANKS)).save(output);
-                doorBuilder(set.ITEMS.PLANK_DOOR, Ingredient.of(set.ITEMS.PLANKS)).unlockedBy(getHasName(set.ITEMS.PLANKS), has(set.ITEMS.PLANKS)).save(output);
-                trapdoorBuilder(set.ITEMS.PLANK_TRAPDOOR, Ingredient.of(set.ITEMS.PLANKS)).unlockedBy(getHasName(set.ITEMS.PLANKS), has(set.ITEMS.PLANKS)).save(output);
-                buttonBuilder(set.ITEMS.PLANK_BUTTON, Ingredient.of(set.ITEMS.PLANKS)).unlockedBy(getHasName(set.ITEMS.PLANKS), has(set.ITEMS.PLANKS)).save(output);
-                pressurePlate(set.ITEMS.PLANK_PRESSURE_PLATE, set.ITEMS.PLANKS);
-                signBuilder(set.ITEMS.PLANK_SIGN, Ingredient.of(set.ITEMS.PLANKS)).unlockedBy(getHasName(set.ITEMS.PLANKS), has(set.ITEMS.PLANKS)).save(output);
+                shapeless(RecipeCategory.BUILDING_BLOCKS, set.ITEMS.PLANKS, 8).requires(Ingredient.of(TagKey.create(Registries.ITEM, Gremlib.INSTANCE.createId("wood/" + set.getDetail().getName() + "/planks"))), 8).requires(dye).unlockedBy(getHasName(dye), has(dye)).save(recipeOutput, "wood_you_dye:" + set.getSetName() + "_planks_dyed");
+                slab(recipeOutput, RecipeCategory.BUILDING_BLOCKS, set.ITEMS.PLANK_SLAB, set.ITEMS.PLANKS);
+                stairBuilder(set.ITEMS.PLANK_STAIRS, Ingredient.of(set.ITEMS.PLANKS)).unlockedBy(getHasName(set.ITEMS.PLANKS), has(set.ITEMS.PLANKS)).save(recipeOutput);
+                fenceBuilder(set.ITEMS.PLANK_FENCE, Ingredient.of(set.ITEMS.PLANKS)).unlockedBy(getHasName(set.ITEMS.PLANKS), has(set.ITEMS.PLANKS)).save(recipeOutput);
+                fenceGateBuilder(set.ITEMS.PLANK_FENCE_GATE, Ingredient.of(set.ITEMS.PLANKS)).unlockedBy(getHasName(set.ITEMS.PLANKS), has(set.ITEMS.PLANKS)).save(recipeOutput);
+                doorBuilder(set.ITEMS.PLANK_DOOR, Ingredient.of(set.ITEMS.PLANKS)).unlockedBy(getHasName(set.ITEMS.PLANKS), has(set.ITEMS.PLANKS)).save(recipeOutput);
+                trapdoorBuilder(set.ITEMS.PLANK_TRAPDOOR, Ingredient.of(set.ITEMS.PLANKS)).unlockedBy(getHasName(set.ITEMS.PLANKS), has(set.ITEMS.PLANKS)).save(recipeOutput);
+                buttonBuilder(set.ITEMS.PLANK_BUTTON, Ingredient.of(set.ITEMS.PLANKS)).unlockedBy(getHasName(set.ITEMS.PLANKS), has(set.ITEMS.PLANKS)).save(recipeOutput);
+                pressurePlate(recipeOutput, set.ITEMS.PLANK_PRESSURE_PLATE, set.ITEMS.PLANKS);
+                signBuilder(set.ITEMS.PLANK_SIGN, Ingredient.of(set.ITEMS.PLANKS)).unlockedBy(getHasName(set.ITEMS.PLANKS), has(set.ITEMS.PLANKS)).save(recipeOutput);
                 if (set.getDetail().hasLogs()) {
-                    hangingSign(set.ITEMS.PLANK_HANGING_SIGN, set.ITEMS.STRIPPED_LOG);
-                    shelf(set.ITEMS.PLANK_SHELF, set.ITEMS.STRIPPED_LOG);
+                    hangingSign(recipeOutput, set.ITEMS.PLANK_HANGING_SIGN, set.ITEMS.STRIPPED_LOG);
                 } else {
-                    hangingSign(set.ITEMS.PLANK_HANGING_SIGN, set.ITEMS.PLANKS);
-                    shelf(set.ITEMS.PLANK_SHELF, set.ITEMS.PLANKS);
+                    hangingSign(recipeOutput, set.ITEMS.PLANK_HANGING_SIGN, set.ITEMS.PLANKS);
                 }
 
 
                 if (set.getDetail().canDoMosaic()) {
-                    mosaicBuilder(RecipeCategory.BUILDING_BLOCKS, set.ITEMS.MOSAIC, set.ITEMS.PLANK_SLAB);
-                    slab(RecipeCategory.BUILDING_BLOCKS, set.ITEMS.MOSAIC_SLAB, set.ITEMS.MOSAIC);
-                    stairBuilder(set.ITEMS.MOSAIC_STAIRS, Ingredient.of(set.ITEMS.MOSAIC)).unlockedBy(getHasName(set.ITEMS.PLANKS), has(set.ITEMS.PLANKS)).save(output);
+                    mosaicBuilder(recipeOutput, RecipeCategory.BUILDING_BLOCKS, set.ITEMS.MOSAIC, set.ITEMS.PLANK_SLAB);
+                    slab(recipeOutput, RecipeCategory.BUILDING_BLOCKS, set.ITEMS.MOSAIC_SLAB, set.ITEMS.MOSAIC);
+                    stairBuilder(set.ITEMS.MOSAIC_STAIRS, Ingredient.of(set.ITEMS.MOSAIC)).unlockedBy(getHasName(set.ITEMS.PLANKS), has(set.ITEMS.PLANKS)).save(recipeOutput);
                 }
 
                 if (set.getDetail().hasBoat()) {
-                    woodenBoat(set.ITEMS.PLANK_BOAT, set.ITEMS.PLANKS);
-                    chestBoat(set.ITEMS.PLANK_CHEST_BOAT, set.ITEMS.PLANK_BOAT);
+                    woodenBoat(recipeOutput, set.ITEMS.PLANK_BOAT, set.ITEMS.PLANKS);
+                    chestBoat(recipeOutput, set.ITEMS.PLANK_CHEST_BOAT, set.ITEMS.PLANK_BOAT);
                 }
             }
         }
     }
 
-    private static class WYDBlockLootTableProvider extends FabricBlockLootSubProvider {
-        protected WYDBlockLootTableProvider(FabricPackOutput packOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
+    private static class WYDBlockLootTableProvider extends FabricBlockLootTableProvider {
+        protected WYDBlockLootTableProvider(FabricDataOutput packOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
             super(packOutput, registryLookup);
         }
 
@@ -877,7 +818,7 @@ public class WoodYouDyeDatagen implements DataGeneratorEntrypoint {
     }
 
     private static class WYDEnglishLangProvider extends FabricLanguageProvider {
-        protected WYDEnglishLangProvider(FabricPackOutput packOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
+        protected WYDEnglishLangProvider(FabricDataOutput packOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
             super(packOutput, "en_us", registryLookup);
         }
 

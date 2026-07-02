@@ -45,7 +45,8 @@
     },
     "facing=south,half=top,open=true": {
       "model": "wood_you_dye:block/red_dyed_bamboo_plank_trapdoor_open",
-      "x": 180
+      "x": 180,
+      "y": 0
     },
     "facing=west,half=bottom,open=false": {
       "model": "wood_you_dye:block/red_dyed_bamboo_plank_trapdoor_bottom",

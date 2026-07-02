@@ -56,7 +56,7 @@ neoForge {
             gameDirectory = project.file("run/client")
         }
         register("data") {
-            clientData()
+            data()
             gameDirectory = project.file("run/client")
             // DataGen can be run by - "./gradlew :neoforge:runData" in Terminal.
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
@@ -97,19 +97,21 @@ publishMods {
         from(publishes)
 
         accessToken.set(
-            providers.environmentVariable("CURSEFORGE_TOKEN").orNull ?: project.findProperty("curseforgeToken")?.toString()
+            providers.environmentVariable("CURSEFORGE_TOKEN").orNull ?: project.findProperty("curseforgeToken")
+                ?.toString()
         )
         projectId.set(curseforge_id)
         minecraftVersions.add(minecraft_version)
 
         changelogType.set("markdown")
 
-        javaVersions.add(JavaVersion.VERSION_25)
+        javaVersions.add(JavaVersion.current())
 
         client.set(true)
         server.set(true)
 
     }
+
 
     modrinth("modrinthNeo") {
         from(publishes)
@@ -120,6 +122,7 @@ publishMods {
         projectId.set(modrinth_id)
         minecraftVersions.add(minecraft_version)
     }
+
 
 
     github("ghNeo") {

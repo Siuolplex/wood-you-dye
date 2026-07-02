@@ -2,7 +2,7 @@ import me.modmuss50.mpp.PublishOptions
 
 plugins {
     id("gremdle-loader")
-    id("net.fabricmc.fabric-loom")
+    id("fabric-loom")
     id("me.modmuss50.mod-publish-plugin") version "2.0.1"
 }
 
@@ -23,9 +23,10 @@ val gremlib_version : String by project
 
 dependencies {
     minecraft("com.mojang:minecraft:${minecraft_version}")
-    implementation ("net.fabricmc:fabric-loader:${fabric_loader_version}")
-    implementation ("net.fabricmc.fabric-api:fabric-api:${fabric_api_version}+${minecraft_version}")
-    implementation("io.gremstudio:gremlib:${gremlib_version}+fabric-${minecraft_version}-SNAPSHOT")
+    modImplementation ("net.fabricmc:fabric-loader:${fabric_loader_version}")
+    modImplementation ("net.fabricmc.fabric-api:fabric-api:${fabric_api_version}+${minecraft_version}")
+    mappings (loom.officialMojangMappings())
+    modImplementation("io.gremstudio:gremlib:${gremlib_version}+fabric-${minecraft_version}-SNAPSHOT")
     include("io.gremstudio:gremlib:${gremlib_version}+fabric-${minecraft_version}-SNAPSHOT")
 }
 
@@ -79,20 +80,22 @@ publishMods {
         from(publishes)
 
         accessToken.set(
-            providers.environmentVariable("CURSEFORGE_TOKEN").orNull ?: project.findProperty("curseforgeToken")?.toString()
+            providers.environmentVariable("CURSEFORGE_TOKEN").orNull ?: project.findProperty("curseforgeToken")
+                ?.toString()
         )
         projectId.set(curseforge_id)
         minecraftVersions.add(minecraft_version)
 
         changelogType.set("markdown")
 
-        javaVersions.add(JavaVersion.VERSION_25)
+        javaVersions.add(JavaVersion.current())
 
         client.set(true)
         server.set(true)
 
         requires("fabric-api")
     }
+
 
     modrinth("modrinthFabric") {
         from(publishes)
@@ -115,4 +118,5 @@ publishMods {
         file = (project.tasks.named<Jar>("jar").get().archiveFile)
         this.parent(project(":").tasks.named("publishGithubParent"))
     }
+
 }

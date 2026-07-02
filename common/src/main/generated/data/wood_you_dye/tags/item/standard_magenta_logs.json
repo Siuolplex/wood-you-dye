@@ -1,8 +1,8 @@
 {
   "values": [
-    "wood_you_dye:magenta_dyed_log",
+    "wood_you_dye:stripped_magenta_dyed_log",
     "wood_you_dye:magenta_dyed_wood",
     "wood_you_dye:stripped_magenta_dyed_wood",
-    "wood_you_dye:stripped_magenta_dyed_log"
+    "wood_you_dye:magenta_dyed_log"
   ]
 }
